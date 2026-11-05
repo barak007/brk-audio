@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Independent audio plugins by BRK Audio. Sub Lattice, Autoloop, Feedline, Good Kick, Rampa, Zero Clip.">
+  <meta name="theme-color" content="#f1efe6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)">
+  <script>try { const theme = localStorage.getItem("theme"); if (theme) document.documentElement.dataset.theme = theme; } catch {}</script>
+  <title>BRK Audio - Made for my music, tuned for yours</title>
+  <link rel="stylesheet" href="assets/vendor/fonts/fonts.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="assets/vendor/gsap/gsap.min.js" defer></script>
+  <script src="site.js" defer></script>
+  <script data-goatcounter="https://brk-audio.goatcounter.com/count" src="assets/vendor/goatcounter/count.js" async></script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="wordmark" href="./" aria-label="BRK Audio home"><span><span class="kamatz">B</span><span class="kamatz">R</span><span class="hirik">K</span></span><span>AUDIO</span></a>
+    <nav class="site-nav" aria-label="Main navigation"><a href="#plugins">Plugins</a></nav>
+    <button class="theme-toggle" type="button">Theme</button>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <canvas class="hero-waves" data-colors="signal #6c5ce7 #14a38b #4c8dff #eeae49 #e8508f #e86c60" aria-hidden="true"></canvas>
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Boutique audio software</p>
+        <h1 id="hero-title">Made for my music.<br><em>Tuned for yours.</em></h1>
+        <p class="hero-intro">Instruments and effects, tuned by ear.</p>
+        <a class="text-link" href="#plugins">Browse the plugins <span aria-hidden="true">-&gt;</span></a>
+      </div>
+    </section>
+    <section id="plugins" class="catalog section-shell" aria-label="Plugins">
+      <div class="plugin-grid">
+      <article class="plugin-card reveal" style="--accent: #6c5ce7">
+        <a class="plugin-card-link" href="plugins/sub-lattice/" aria-label="View Sub Lattice">
+          <div class="plugin-shot"><img src="assets/screenshots/sub-lattice.png" width="980" height="954" alt="Sub Lattice plugin interface" loading="lazy"></div>
+          <div class="card-meta"><span>01 / Synthesizer</span><span>Free download</span></div>
+          <h3>Sub Lattice</h3>
+          <p>A polyphonic subtractive synth with band-limited oscillators, eight filter models and a 16-slot modulation matrix.</p>
+          <div class="card-action"><span>Free</span><span aria-hidden="true">View plugin -&gt;</span></div>
+        </a>
+      </article>
+      <article class="plugin-card reveal" style="--accent: #14a38b">
+        <a class="plugin-card-link" href="plugins/autoloop/" aria-label="View Autoloop">
+          <div class="plugin-shot"><img src="assets/screenshots/autoloop.png" width="1320" height="800" alt="Autoloop plugin interface" loading="lazy"></div>
+          <div class="card-meta"><span>02 / Drum machine</span><span>Free download</span></div>
+          <h3>Autoloop</h3>
+          <p>Each row plays random samples from a folder, and every sound control has a lane for happy accidents that replay every time.</p>
+          <div class="card-action"><span>Free</span><span aria-hidden="true">View plugin -&gt;</span></div>
+        </a>
+      </article>
+      <article class="plugin-card reveal" style="--accent: #4c8dff">
+        <a class="plugin-card-link" href="plugins/feedline/" aria-label="View Feedline">
+          <div class="plugin-shot"><img src="assets/screenshots/feedline.png" width="1240" height="694" alt="Feedline plugin interface" loading="lazy"></div>
+          <div class="card-meta"><span>03 / Delay</span><span>Free download</span></div>
+          <h3>Feedline</h3>
+          <p>A stereo delay with up to ten modules inside the loop, a limiter that lets the repeats run past unity, and markers for where the return leaves and where you listen.</p>
+          <div class="card-action"><span>Free</span><span aria-hidden="true">View plugin -&gt;</span></div>
+        </a>
+      </article>
+      <article class="plugin-card reveal" style="--accent: #eeae49">
+        <a class="plugin-card-link" href="plugins/good-kick/" aria-label="View Good Kick">
+          <div class="plugin-shot"><img src="assets/screenshots/good-kick.png" width="1180" height="720" alt="Good Kick plugin interface" loading="lazy"></div>
+          <div class="card-meta"><span>04 / Kick synth</span><span>Free download</span></div>
+          <h3>Good Kick</h3>
+          <p>An alias-free oscillator morphs from a sine into eleven shaped waves under drawn envelopes, with a noise layer for the click. The tail's phase stays put whatever the pitch does, and every time reads as a note value and a pitch.</p>
+          <div class="card-action"><span>Free</span><span aria-hidden="true">View plugin -&gt;</span></div>
+        </a>
+      </article>
+      <article class="plugin-card reveal" style="--accent: #e8508f">
+        <a class="plugin-card-link" href="plugins/rampa/" aria-label="View Rampa">
+          <div class="plugin-shot"><img src="assets/screenshots/rampa.png" width="1180" height="720" alt="Rampa plugin interface" loading="lazy"></div>
+          <div class="card-meta"><span>05 / FX generator</span><span>Free download</span></div>
+          <h3>Rampa</h3>
+          <p>A mono generator of risers, downlifters, transitions and impacts. A note plays a Rise, a Transition and a Fall locked to the host's tempo; nine sources and a reorderable effects chain make the sound, and any control can follow ramps, LFOs and random modulators. Drag the result out as a WAV.</p>
+          <div class="card-action"><span>Free</span><span aria-hidden="true">View plugin -&gt;</span></div>
+        </a>
+      </article>
+      <article class="plugin-card reveal" style="--accent: #e86c60">
+        <a class="plugin-card-link" href="plugins/zero-clip/" aria-label="View Zero Clip">
+          <div class="plugin-shot"><img src="assets/screenshots/zero-clip.png" width="1200" height="760" alt="Zero Clip plugin interface" loading="lazy"></div>
+          <div class="card-meta"><span>06 / Clipper</span><span>Free download</span></div>
+          <h3>Zero Clip</h3>
+          <p>A two-band clipper whose gain changes only where the waveform crosses zero, so it never cuts an edge into the wave. Each half or whole cycle is measured in a 70 ms lookahead and turned down as one; Transient keeps the attacks, Knee and Glide smooth the gain, and oversampling up to 8x, a linear-phase crossover and loudness and true-peak meters come with it.</p>
+          <div class="card-action"><span>Free</span><span aria-hidden="true">View plugin -&gt;</span></div>
+        </a>
+      </article>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><a class="wordmark wordmark-footer" href="./"><span><span class="kamatz">B</span><span class="kamatz">R</span><span class="hirik">K</span></span><span>AUDIO</span></a><p class="footer-meta">VST3 / AU / CLAP<br>macOS universal</p><a class="footer-link" href="https://github.com/barak007/brk-audio" data-goatcounter-click="github-footer"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.37A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>GitHub</a></footer>
+</body>
+</html>

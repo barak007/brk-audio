@@ -1,0 +1,699 @@
+:root {
+  color-scheme: light;
+  --bg: #f1efe6;
+  --surface: #e5e1d4;
+  --text: #121211;
+  --muted: #6e6c64;
+  --line: rgba(18, 18, 17, 0.22);
+  --rule: #121211;
+  --sheen: rgba(255, 255, 255, 0.62);
+  --stripe: rgba(18, 18, 17, 0.035);
+  --noise: 0.055;
+  --signal: #ff5b35;
+  --editor: #121417;
+  --shot-border: #121417;
+  --lift: 0 28px 60px -28px rgba(18, 18, 17, 0.45), 0 2px 6px rgba(18, 18, 17, 0.12);
+  --waves: ink;
+  --max-width: 1440px;
+  --gutter: clamp(18px, 3.2vw, 52px);
+}
+/* Dark follows the system unless the header toggle chose light; the toggle can also force dark. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0a0b0d;
+    --surface: #16181b;
+    --text: #edeae2;
+    --muted: #8f8c84;
+    --line: rgba(237, 234, 226, 0.14);
+    --rule: rgba(237, 234, 226, 0.3);
+    --sheen: rgba(255, 255, 255, 0.035);
+    --stripe: rgba(255, 255, 255, 0.025);
+    --noise: 0.035;
+    --shot-border: rgba(237, 234, 226, 0.1);
+    --lift: 0 30px 70px -30px rgba(0, 0, 0, 0.85), 0 2px 6px rgba(0, 0, 0, 0.4);
+    --waves: neon;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0a0b0d;
+  --surface: #16181b;
+  --text: #edeae2;
+  --muted: #8f8c84;
+  --line: rgba(237, 234, 226, 0.14);
+  --rule: rgba(237, 234, 226, 0.3);
+  --sheen: rgba(255, 255, 255, 0.035);
+  --stripe: rgba(255, 255, 255, 0.025);
+  --noise: 0.035;
+  --shot-border: rgba(237, 234, 226, 0.1);
+  --lift: 0 30px 70px -30px rgba(0, 0, 0, 0.85), 0 2px 6px rgba(0, 0, 0, 0.4);
+  --waves: neon;
+}
+
+* {
+  box-sizing: border-box;
+}
+/* Elements site.js reveals (format toggles, copy buttons, version picker) stay hidden even where a rule sets display. */
+[hidden] {
+  display: none !important;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  color: var(--text);
+  background: var(--bg);
+  font-family: "Manrope", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(115deg, var(--sheen), transparent 36%),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent calc(25vw - 1px),
+      var(--stripe) 25vw
+    );
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  color: inherit;
+  font: inherit;
+}
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  opacity: var(--noise);
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+}
+.site-header {
+  width: min(100%, var(--max-width));
+  min-height: 88px;
+  margin: 0 auto;
+  padding: 18px var(--gutter);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+.wordmark {
+  width: max-content;
+  display: flex;
+  gap: 1px;
+  font:
+    500 14px/1 "DM Mono",
+    monospace;
+  letter-spacing: 0;
+}
+.wordmark > span:last-child {
+  color: var(--signal);
+}
+/* Hebrew vowel marks just under the baseline, which sits 1em down the inline box of DM Mono: the kamatz (a T under
+   the letter) is its bar (::before) and stem (::after), the hirik a single dot. */
+.kamatz,
+.hirik {
+  position: relative;
+}
+.kamatz::before,
+.kamatz::after,
+.hirik::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  translate: -50% 0;
+  background: currentColor;
+}
+.kamatz::before {
+  top: calc(1em + 2px);
+  width: 6px;
+  height: 1.5px;
+}
+.kamatz::after {
+  top: calc(1em + 3.5px);
+  width: 1.5px;
+  height: 2.5px;
+}
+.hirik::after {
+  top: calc(1em + 2px);
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+}
+.site-nav {
+  display: flex;
+  gap: 32px;
+  font:
+    400 12px/1 "DM Mono",
+    monospace;
+  text-transform: uppercase;
+}
+.site-nav a,
+.text-link,
+.site-footer a {
+  transition: opacity 0.2s ease;
+}
+.site-nav a:hover,
+.text-link:hover,
+.site-footer a:hover {
+  opacity: 0.56;
+}
+.theme-toggle {
+  justify-self: end;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  color: var(--muted);
+  font:
+    500 12px/1 "DM Mono",
+    monospace;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+.theme-toggle:hover {
+  color: var(--text);
+}
+/* The hero spans the window so the waves run edge to edge; the padding keeps the copy aligned with the header. */
+.hero {
+  position: relative;
+  min-height: clamp(520px, 74vh, 780px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: clamp(64px, 9vh, 118px) max(var(--gutter), calc((100% - var(--max-width)) / 2 + var(--gutter)));
+}
+.hero-copy {
+  position: relative;
+  z-index: 1;
+}
+.hero-waves {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 30%, #000 72%);
+  mask-image: linear-gradient(90deg, transparent 30%, #000 72%);
+}
+.eyebrow {
+  margin: 0 0 24px;
+  color: var(--muted);
+  font:
+    400 11px/1.2 "DM Mono",
+    monospace;
+  text-transform: uppercase;
+}
+.hero h1,
+.product-title {
+  margin: 0;
+  font-weight: 500;
+  line-height: 0.96;
+  letter-spacing: 0;
+}
+.hero h1 {
+  max-width: 1100px;
+  font-size: clamp(48px, 5.8vw, 96px);
+  text-wrap: balance;
+}
+.hero h1 em {
+  color: var(--signal);
+  font-style: normal;
+}
+.hero-intro {
+  max-width: 520px;
+  margin: 34px 0 28px;
+  font-size: clamp(16px, 1.35vw, 20px);
+  line-height: 1.6;
+}
+.text-link {
+  display: inline-flex;
+  gap: 20px;
+  align-items: center;
+  padding-bottom: 5px;
+  border-bottom: 1px solid currentColor;
+  font:
+    500 12px/1 "DM Mono",
+    monospace;
+  text-transform: uppercase;
+}
+.shot-label {
+  font:
+    400 9px/1 "DM Mono",
+    monospace;
+  text-transform: uppercase;
+}
+.section-shell {
+  width: min(100%, var(--max-width));
+  margin: 0 auto;
+  padding: clamp(90px, 11vw, 170px) var(--gutter);
+}
+.catalog {
+  padding-top: 24px;
+}
+.plugin-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--rule);
+  border-left: 1px solid var(--rule);
+}
+.plugin-card {
+  min-width: 0;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.plugin-card-link {
+  min-height: 100%;
+  padding: clamp(18px, 2.6vw, 38px);
+  display: flex;
+  flex-direction: column;
+}
+.plugin-shot {
+  position: relative;
+  aspect-ratio: 1.62;
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+.plugin-shot:has(img) {
+  background: var(--editor);
+  border-color: var(--shot-border);
+  border-radius: 4px;
+}
+.plugin-shot img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.shot-label {
+  position: absolute;
+  z-index: 2;
+  right: 12px;
+  bottom: 10px;
+  left: 12px;
+  color: var(--muted);
+}
+.plugin-card-link:hover .plugin-shot img {
+  transform: scale(1.018);
+}
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0 32px;
+  color: var(--muted);
+  font:
+    400 9px/1 "DM Mono",
+    monospace;
+  text-transform: uppercase;
+}
+.plugin-card h3 {
+  margin: auto 0 10px;
+  font-size: clamp(27px, 3vw, 44px);
+  font-weight: 500;
+  line-height: 1.04;
+}
+.plugin-card p {
+  max-width: 540px;
+  margin: 0 0 28px;
+  color: var(--muted);
+}
+.card-action {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font:
+    500 10px/1 "DM Mono",
+    monospace;
+  text-transform: uppercase;
+}
+.card-action span:first-child {
+  color: var(--accent);
+}
+.button {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 22px;
+  border: 1px solid var(--text);
+  background: var(--text);
+  color: var(--bg);
+  font:
+    500 11px/1 "DM Mono",
+    monospace;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.button[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+.site-footer {
+  width: min(100%, var(--max-width));
+  margin: 0 auto;
+  padding: 42px var(--gutter) 54px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 30px;
+  align-items: end;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+}
+.site-footer p {
+  margin: 0;
+  color: var(--muted);
+}
+.wordmark-footer > span:last-child {
+  color: var(--signal);
+}
+.footer-meta {
+  font:
+    400 10px/1.7 "DM Mono",
+    monospace;
+  text-transform: uppercase;
+}
+.footer-link {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font:
+    400 12px/1 "DM Mono",
+    monospace;
+  text-transform: uppercase;
+}
+
+/* Full width like the home hero, so its waves run edge to edge; the padding keeps the content in the page column. */
+.product-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: calc(100svh - 88px);
+  padding: 56px max(var(--gutter), calc((100% - var(--max-width)) / 2 + var(--gutter))) 72px;
+  display: grid;
+  grid-template-columns: 0.88fr 1.12fr;
+  gap: 7vw;
+  align-items: center;
+}
+.breadcrumbs {
+  margin-bottom: 54px;
+  color: var(--muted);
+  font:
+    400 10px/1 "DM Mono",
+    monospace;
+  text-transform: uppercase;
+}
+.product-title {
+  max-width: 720px;
+  font-size: clamp(50px, 7vw, 106px);
+}
+.product-tagline {
+  margin: 25px 0 18px;
+  color: var(--accent);
+  font-size: clamp(20px, 2vw, 29px);
+  font-weight: 500;
+}
+.product-description {
+  max-width: 600px;
+  margin: 0 0 34px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.7;
+}
+.product-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+/* Sits beside the download button at the same height; the label reads like the other mono captions. */
+.version-picker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 0 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--muted);
+  font:
+    500 10px/1 "DM Mono",
+    monospace;
+  text-transform: uppercase;
+}
+.version-picker select {
+  align-self: stretch;
+  padding: 0 40px 0 0;
+  border: 0;
+  background: none;
+  appearance: none;
+  -webkit-appearance: none;
+  color: var(--text);
+  cursor: pointer;
+  font:
+    500 11px/1 "DM Mono",
+    monospace;
+}
+/* The select's own arrow is hidden (it sat against the edge); a thin chevron in the caption colour replaces it. */
+.version-picker::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 17px;
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid var(--muted);
+  border-bottom: 1.5px solid var(--muted);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+.version-picker:hover::after {
+  border-color: var(--text);
+}
+.version-picker:focus-within {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+}
+.version-picker select:focus {
+  outline: none;
+}
+.install {
+  max-width: 600px;
+  margin-top: 26px;
+}
+.install-label {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font:
+    400 9px/1.5 "DM Mono",
+    monospace;
+  text-transform: uppercase;
+}
+/* One click selects the whole command for copying. */
+.install-command {
+  display: block;
+  overflow-x: auto;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  font:
+    400 12px/1.5 "DM Mono",
+    monospace;
+  white-space: nowrap;
+  scrollbar-width: thin;
+  user-select: all;
+  -webkit-user-select: all;
+}
+/* Format toggles: the checkbox is hidden behind its label, which reads as a chip and is outlined when chosen. */
+.install-formats {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.install-format input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.install-format span {
+  display: inline-block;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  color: var(--muted);
+  cursor: pointer;
+  font:
+    500 10px/1 "DM Mono",
+    monospace;
+  text-transform: uppercase;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+.install-format input:checked + span {
+  border-color: var(--text);
+  color: var(--text);
+}
+.install-format input:focus-visible + span {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+}
+.install-row {
+  display: flex;
+  gap: 6px;
+}
+.install-row .install-command {
+  flex: 1;
+  min-width: 0;
+}
+.install-copy {
+  flex: none;
+  min-width: 72px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font:
+    500 10px/1 "DM Mono",
+    monospace;
+  text-transform: uppercase;
+}
+.install-copy:hover {
+  border-color: var(--text);
+}
+.install-details {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.install-details summary {
+  width: fit-content;
+  cursor: pointer;
+  font:
+    400 9px/1.5 "DM Mono",
+    monospace;
+  text-transform: uppercase;
+}
+.install-details summary:hover {
+  color: var(--text);
+}
+.install-details p {
+  margin: 10px 0;
+}
+.install-details a {
+  color: var(--text);
+}
+.product-availability {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font:
+    400 9px/1.5 "DM Mono",
+    monospace;
+  text-transform: uppercase;
+}
+.product-copy,
+.product-visual {
+  position: relative;
+  z-index: 1;
+}
+.product-visual .plugin-shot {
+  aspect-ratio: var(--editor-ratio, 1.45);
+  box-shadow: var(--lift);
+}
+
+@media (max-width: 900px) {
+  .site-header {
+    grid-template-columns: 1fr auto auto;
+    gap: 24px;
+    min-height: 72px;
+  }
+  .hero {
+    min-height: 640px;
+    align-items: flex-start;
+    padding-top: 68px;
+  }
+  .product-hero .hero-waves {
+    display: none;
+  }
+  .hero-waves {
+    -webkit-mask-image: linear-gradient(180deg, transparent 52%, #000 72%);
+    mask-image: linear-gradient(180deg, transparent 52%, #000 72%);
+  }
+  .hero h1 {
+    font-size: clamp(52px, 14vw, 88px);
+  }
+  .product-hero {
+    grid-template-columns: 1fr;
+  }
+  .plugin-grid {
+    grid-template-columns: 1fr;
+  }
+  .product-hero {
+    padding-top: 44px;
+  }
+  .product-visual {
+    order: -1;
+  }
+  .site-footer {
+    grid-template-columns: 1fr 1fr;
+  }
+  .footer-link {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero h1 {
+    font-size: 14vw;
+  }
+  .plugin-card-link {
+    padding: 16px;
+  }
+  .plugin-card h3 {
+    font-size: 29px;
+  }
+  .site-footer {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  .product-title {
+    font-size: 13vw;
+  }
+  .product-hero {
+    padding-bottom: 58px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

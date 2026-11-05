@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Each row plays random samples from a folder, and every sound control has a lane for happy accidents that replay every time.">
+  <meta name="theme-color" content="#f1efe6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)">
+  <script>try { const theme = localStorage.getItem("theme"); if (theme) document.documentElement.dataset.theme = theme; } catch {}</script>
+  <title>Autoloop - BRK Audio</title>
+  <link rel="stylesheet" href="../../assets/vendor/fonts/fonts.css">
+  <link rel="stylesheet" href="../../styles.css">
+  <script src="../../assets/vendor/gsap/gsap.min.js" defer></script>
+  <script src="../../site.js" defer></script>
+  <script data-goatcounter="https://brk-audio.goatcounter.com/count" src="../../assets/vendor/goatcounter/count.js" async></script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="wordmark" href="../../" aria-label="BRK Audio home"><span><span class="kamatz">B</span><span class="kamatz">R</span><span class="hirik">K</span></span><span>AUDIO</span></a>
+    <nav class="site-nav" aria-label="Main navigation"><a href="../../#plugins">Plugins</a></nav>
+    <button class="theme-toggle" type="button">Theme</button>
+  </header>
+  <main class="product-main" style="--accent: #14a38b">
+    <section class="product-hero">
+      <canvas class="hero-waves" data-colors="#14a38b signal" aria-hidden="true"></canvas>
+      <div class="product-copy reveal">
+        <p class="breadcrumbs"><a href="../../#plugins">Collection</a> / 02</p>
+        <p class="eyebrow">Drum machine / Free download</p>
+        <h1 class="product-title">Autoloop</h1>
+        <p class="product-tagline">Phase-locked controlled chaos.</p>
+        <p class="product-description">Each row plays random samples from a folder, and every sound control has a lane for happy accidents that replay every time.</p>
+        <div class="product-actions"><a class="button" data-release="download" href="https://github.com/barak007/brk-audio/releases/download/autoloop-v1.1.0/autoloop-1.1.0-macos-universal.zip" data-goatcounter-click="download-autoloop">Download for macOS</a>
+          <label class="version-picker" hidden><span>Version</span><select><option data-version="1.1.0" data-download="https://github.com/barak007/brk-audio/releases/download/autoloop-v1.1.0/autoloop-1.1.0-macos-universal.zip" data-install="https://github.com/barak007/brk-audio/releases/download/autoloop-v1.1.0/install.sh" data-page="https://github.com/barak007/brk-audio/releases/tag/autoloop-v1.1.0" selected>1.1.0 (latest)</option><option data-version="1.0.0" data-download="https://github.com/barak007/brk-audio/releases/download/autoloop-v1.0.0/autoloop-1.0.0-macos-universal.zip" data-install="https://github.com/barak007/brk-audio/releases/download/autoloop-v1.0.0/install.sh" data-page="https://github.com/barak007/brk-audio/releases/tag/autoloop-v1.0.0">1.0.0 (2026-10-31)</option></select></label></div>
+        <div class="install" data-install="https://github.com/barak007/brk-audio/releases/download/autoloop-v1.1.0/install.sh">
+          <p class="install-label">Or install from Terminal</p>
+          <div class="install-formats" role="group" aria-label="Formats to install" hidden><label class="install-format"><input type="checkbox" value="au" checked><span>AU</span></label><label class="install-format"><input type="checkbox" value="vst3" checked><span>VST3</span></label><label class="install-format"><input type="checkbox" value="clap" checked><span>CLAP</span></label></div>
+          <div class="install-row">
+            <code class="install-command" data-command="run">curl -fsSL https://github.com/barak007/brk-audio/releases/download/autoloop-v1.1.0/install.sh | bash</code><button class="install-copy" type="button" data-goatcounter-click="copy-install-autoloop" hidden>Copy</button>
+          </div>
+          <details class="install-details">
+            <summary>What this does</summary>
+            <p>Downloads the release archive from GitHub, checks it against the checksum fixed at release time and copies the chosen formats into ~/Library/Audio/Plug-Ins. No sudo, nothing else on your Mac changes, and an installed version is only replaced once the new one is fully copied.</p>
+            <p>To read the script first, download it and open it in TextEdit (this runs nothing):</p>
+            <div class="install-row">
+              <code class="install-command" data-command="read">curl -fsSL https://github.com/barak007/brk-audio/releases/download/autoloop-v1.1.0/install.sh -o install.sh && open -e install.sh</code><button class="install-copy" type="button" data-goatcounter-click="copy-read-autoloop" hidden>Copy</button>
+            </div>
+            <p><a data-release="install" href="https://github.com/barak007/brk-audio/releases/download/autoloop-v1.1.0/install.sh" data-goatcounter-click="install-sh-autoloop">Download install.sh</a> / <a data-release="page" href="https://github.com/barak007/brk-audio/releases/tag/autoloop-v1.1.0">Release on GitHub</a></p>
+          </details>
+        </div>
+        <p class="product-availability">Version <span data-release="version">1.1.0</span> / macOS universal / VST3, AU, CLAP / Free early access</p>
+      </div>
+      <div class="product-visual reveal" style="--editor-ratio: 1320 / 800"><div class="plugin-shot"><img src="../../assets/screenshots/autoloop.png" width="1320" height="800" alt="Autoloop plugin interface"></div></div>
+    </section>
+  </main>
+  <footer class="site-footer"><a class="wordmark wordmark-footer" href="../../"><span><span class="kamatz">B</span><span class="kamatz">R</span><span class="hirik">K</span></span><span>AUDIO</span></a><p class="footer-meta">VST3 / AU / CLAP<br>macOS universal</p><a class="footer-link" href="https://github.com/barak007/brk-audio" data-goatcounter-click="github-footer"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.37A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>GitHub</a></footer>
+</body>
+</html>
