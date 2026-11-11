@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Let a simple echo grow into something stranger. Add filters, colour and movement to the repeats, choose how they feed back into each other, and cut the whole loop when you're ready.">
+  <meta name="theme-color" content="#f1efe6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)">
+  <script>try { const theme = localStorage.getItem("theme"); if (theme) document.documentElement.dataset.theme = theme; } catch {}</script>
+  <title>BRK - Feedline - BRK Audio</title>
+  <link rel="stylesheet" href="../../assets/vendor/fonts/fonts.css">
+  <link rel="stylesheet" href="../../styles.css">
+  <script src="../../assets/vendor/gsap/gsap.min.js" defer></script>
+  <script src="../../site.js" defer></script>
+  <script data-goatcounter="https://brk-audio.goatcounter.com/count" src="../../assets/vendor/goatcounter/count.js" async></script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="wordmark" href="../../" aria-label="BRK Audio home"><span><span class="kamatz">B</span><span class="kamatz">R</span><span class="hirik">K</span></span><span>AUDIO</span></a>
+    <nav class="site-nav" aria-label="Main navigation"><a href="../../#gear">Gear</a><a href="../../#plugins">Plugins</a><a href="../../#downloads">Downloads</a></nav>
+    <button class="theme-toggle" type="button">Theme</button>
+  </header>
+  <main class="product-main" style="--accent: #4c8dff">
+    <section class="product-hero">
+      <canvas class="hero-waves" data-colors="#4c8dff signal" aria-hidden="true"></canvas>
+      <div class="product-copy reveal">
+        <p class="breadcrumbs"><a href="../../#plugins">Collection</a> / 03</p>
+        <p class="eyebrow">Delay / Free download</p>
+        <h1 class="product-title">BRK - Feedline</h1>
+        <p class="product-tagline">Give every echo somewhere new to go.</p>
+        <p class="product-description">Let a simple echo grow into something stranger. Add filters, colour and movement to the repeats, choose how they feed back into each other, and cut the whole loop when you're ready.</p>
+        <div class="product-actions"><a class="button" data-release="download" href="https://github.com/barak007/brk-audio/releases/download/feedline-v1.3.1/feedline-1.3.1-macos-universal.zip" data-goatcounter-click="download-feedline">Download for macOS</a>
+          <label class="version-picker" hidden><span>Version</span><select><option data-version="1.3.1" data-download="https://github.com/barak007/brk-audio/releases/download/feedline-v1.3.1/feedline-1.3.1-macos-universal.zip" data-install="https://github.com/barak007/brk-audio/releases/download/feedline-v1.3.1/install.sh" data-page="https://github.com/barak007/brk-audio/releases/tag/feedline-v1.3.1" selected>1.3.1 (latest)</option><option data-version="1.3.0" data-download="https://github.com/barak007/brk-audio/releases/download/feedline-v1.3.0/feedline-1.3.0-macos-universal.zip" data-install="https://github.com/barak007/brk-audio/releases/download/feedline-v1.3.0/install.sh" data-page="https://github.com/barak007/brk-audio/releases/tag/feedline-v1.3.0">1.3.0 (2026-11-10)</option><option data-version="1.2.0" data-download="https://github.com/barak007/brk-audio/releases/download/feedline-v1.2.0/feedline-1.2.0-macos-universal.zip" data-install="https://github.com/barak007/brk-audio/releases/download/feedline-v1.2.0/install.sh" data-page="https://github.com/barak007/brk-audio/releases/tag/feedline-v1.2.0">1.2.0 (2026-11-05)</option><option data-version="1.1.0" data-download="https://github.com/barak007/brk-audio/releases/download/feedline-v1.1.0/feedline-1.1.0-macos-universal.zip" data-install="https://github.com/barak007/brk-audio/releases/download/feedline-v1.1.0/install.sh" data-page="https://github.com/barak007/brk-audio/releases/tag/feedline-v1.1.0">1.1.0 (2026-11-01)</option><option data-version="1.0.0" data-download="https://github.com/barak007/brk-audio/releases/download/feedline-v1.0.0/feedline-1.0.0-macos-universal.zip" data-install="https://github.com/barak007/brk-audio/releases/download/feedline-v1.0.0/install.sh" data-page="https://github.com/barak007/brk-audio/releases/tag/feedline-v1.0.0">1.0.0 (2026-11-01)</option></select></label></div>
+        <div class="install" data-install="https://github.com/barak007/brk-audio/releases/download/feedline-v1.3.1/install.sh">
+          <p class="install-label">Or install from Terminal</p>
+          <div class="install-formats" role="group" aria-label="Formats to install" hidden><label class="install-format"><input type="checkbox" value="au" checked><span>AU</span></label><label class="install-format"><input type="checkbox" value="vst3" checked><span>VST3</span></label><label class="install-format"><input type="checkbox" value="clap" checked><span>CLAP</span></label></div>
+          <div class="install-row">
+            <code class="install-command" data-command="run">curl -fsSL https://github.com/barak007/brk-audio/releases/download/feedline-v1.3.1/install.sh | bash</code><button class="install-copy" type="button" data-goatcounter-click="copy-install-feedline" hidden>Copy</button>
+          </div>
+          <details class="install-details">
+            <summary>What this does</summary>
+            <p>Downloads the release archive from GitHub, checks it against the checksum fixed at release time and copies the chosen formats into ~/Library/Audio/Plug-Ins. Installs in your own plugin folders without sudo, refreshes the Audio Unit list when AU is selected, and replaces each installed format only once its new bundle is fully copied.</p>
+            <p>To read the script first, download it and open it in TextEdit (this runs nothing):</p>
+            <div class="install-row">
+              <code class="install-command" data-command="read">curl -fsSL https://github.com/barak007/brk-audio/releases/download/feedline-v1.3.1/install.sh -o install.sh && open -e install.sh</code><button class="install-copy" type="button" data-goatcounter-click="copy-read-feedline" hidden>Copy</button>
+            </div>
+            <p><a data-release="install" href="https://github.com/barak007/brk-audio/releases/download/feedline-v1.3.1/install.sh" data-goatcounter-click="install-sh-feedline">Download install.sh</a> / <a data-release="page" href="https://github.com/barak007/brk-audio/releases/tag/feedline-v1.3.1">Release on GitHub</a></p>
+          </details>
+        </div>
+        <p class="product-availability">Version <span data-release="version">1.3.1</span> / macOS universal / VST3, AU, CLAP / Free early access</p>
+        <details class="product-access">
+          <summary><span class="access-badge">Accessible</span></summary>
+          <ul><li>Works with VoiceOver and the keyboard since 1.3.0</li><li>Its knobs, choices and buttons are named and read</li><li>Tab reaches them, the arrows move them, Return presses them</li><li class="access-limit">The loop graph needs a mouse</li><li class="access-limit">The EQ and modulator views need a mouse</li></ul>
+        </details><p class="manual-links"><a href="../../manuals/feedline/">Help and parameter manual</a> <span aria-hidden="true">/</span> <a href="../../assets/manuals/feedline.pdf" download>PDF manual</a></p>
+      </div>
+      <div class="product-visual reveal" style="--editor-ratio: 1240 / 689"><div class="plugin-shot"><a class="screenshot-enlarge" href="../../assets/screenshots/feedline.png" target="_blank" rel="noopener" aria-label="Enlarge BRK - Feedline interface"><img src="../../assets/screenshots/feedline.png" width="1240" height="689" alt="BRK - Feedline plugin interface"></a></div></div>
+    </section>
+    <section id="changelog" class="changelog section-shell" aria-labelledby="changelog-title">
+      <h2 id="changelog-title" class="eyebrow reveal">Changelog</h2>
+      <div class="changelog-list reveal">
+        <details class="changelog-entry" open>
+          <summary><span class="changelog-version">1.3.1</span><span class="changelog-date">2026-11-11</span><span class="changelog-latest">Latest</span></summary>
+          <div class="changelog-notes"><ul><li>Remove the help panel’s X button; press HELP again to close it.</li><li>Keep hovered control help visible across timer refreshes; unchanged keyboard focus no longer replaces it.</li><li>Seal AU, VST3 and CLAP bundles with complete ad-hoc signatures during packaging.</li><li>Rename the plugin to BRK - Feedline in hosts and installed bundles; keep plugin IDs, saved host sessions and the existing preset folder.</li><li>Unify the header: 16 px title, presets beside it, right-aligned version/build details, shared neutral colours and square controls.</li><li>Apply typed numeric values with Enter; Escape, focus loss and clicks outside cancel entry.</li></ul></div>
+        </details>
+        <details class="changelog-entry">
+          <summary><span class="changelog-version">1.3.0</span><span class="changelog-date">2026-11-10</span></summary>
+          <div class="changelog-notes"><ul><li>Added toggleable contextual HELP and a website/PDF parameter manual.</li><li>VoiceOver names and reads the knobs, the segmented choices, the on/off chips, Kill and the preset bar, and presses them; Tab reaches them, the arrow keys move a focused knob as the wheel does (Shift finer) and Return presses a focused choice or chip. The mouse works as before; the loop graph and the EQ and modulator views are still mouse-only.</li><li>Adding, removing or moving a module, routing a modulator, and changing a modulator's kind or name mark the project changed, so VST3 and CLAP hosts offer to save it; before, closing the project after only those edits lost them without asking. A new module's reset values reach the host as gestures, so touch and latch automation take them.</li></ul></div>
+        </details>
+        <details class="changelog-entry">
+          <summary><span class="changelog-version">1.2.0</span><span class="changelog-date">2026-11-05</span></summary>
+          <div class="changelog-notes"><ul><li>Presets and sessions save each choice (Mode, First side, When Time moves, Kill style) and each modulator's kind by a stable ID beside its position, and read the ID first, so they keep their settings when a list changes in a later version. Files saved before load as they did.</li><li>Mode, First side, When Time moves and Kill style can no longer be automated by the host (a host stores a choice as its place in the list, which moves when the list changes). Automation already recorded on them is dropped; the switches (Sync, the heads, Kill, Kill on stop, Feedback to 200% and Invert, Bypass) stay automatable.</li></ul></div>
+        </details>
+        <details class="changelog-entry">
+          <summary><span class="changelog-version">1.1.0</span><span class="changelog-date">2026-11-01</span></summary>
+          <div class="changelog-notes"><ul><li>Transient module: a transient shaper for the chain, with Attack and Sustain (each with its time) and Link. In the loop it reshapes every repeat, so the echoes can turn to clicks or stay sharp.</li><li>Presets: a preset bar in the header saves and loads the whole patch (parameters, chain and modulators), with your own presets in <code>~/Library/Audio/Presets/Barakigal Audio/Feedline</code> and folders in it (submenus in the list; type <code>Folder/Name</code> when saving). Rename is in the preset menu, saving over another preset asks first, a preset file dropped on the bar loads, and a preset made with a newer version is marked <code>newer</code>.</li></ul></div>
+        </details>
+        <details class="changelog-entry">
+          <summary><span class="changelog-version">1.0.0</span><span class="changelog-date">2026-11-01</span></summary>
+          <div class="changelog-notes"><ul><li>First release: a stereo delay with up to ten modules inside its feedback loop, a loop limiter that lets the repeats run past unity, and markers for where the return leaves and where you listen.</li></ul></div>
+        </details>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><a class="wordmark wordmark-footer" href="../../"><span><span class="kamatz">B</span><span class="kamatz">R</span><span class="hirik">K</span></span><span>AUDIO</span></a><p class="footer-meta">VST3 / AU / CLAP<br>macOS universal<br>VoiceOver and keyboard</p><a class="footer-link" href="https://github.com/barak007/brk-audio" data-goatcounter-click="github-footer"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.37A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>GitHub</a></footer>
+</body>
+</html>

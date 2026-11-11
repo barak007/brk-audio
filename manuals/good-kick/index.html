@@ -1,0 +1,259 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="BRK - Good Kick user manual and parameter reference"><title>BRK - Good Kick manual — BRK Audio</title><link rel="stylesheet" href="../../assets/vendor/fonts/fonts.css"><link rel="stylesheet" href="../../manuals.css"></head><body>
+<header><a href="../../">BRK AUDIO</a><a href="../../plugins/good-kick/">BRK - Good Kick</a><a class="pdf-download" href="../../assets/manuals/good-kick.pdf" download>Download PDF</a></header>
+<main><h1>BRK - Good Kick</h1><p class="subtitle">User manual and parameter reference · 1.3.1</p><p>A kick instrument with drawn pitch, shape, amplitude and noise envelopes, plus WAV export.</p>
+<nav aria-label="Manual contents"><a href="#quick-start">Quick start</a><a href="#operation">Operation</a><a href="#parameters">Every parameter</a><a href="#files">Presets and files</a><a href="#installation">Installation and help</a></nav>
+<section id="quick-start"><h2>Quick start</h2><ol><li>Play any MIDI note or click Play.</li><li>Draw the pitch drop and adjust Length; use the amplitude and shape tabs to refine the hit.</li><li>Choose a preset, save your variation, or drag the WAV cell into the DAW.</li></ol></section>
+<section id="window"><h2>Editor window</h2><p>1180 × 720 minimum; resizable. Dimensions are logical editor pixels, before host window chrome. HELP adds 92 pixels of height (Gear adds a one-pixel divider too). Allow enough usable screen space at your display scale. Press HELP again to close the help area.</p></section>
+<section id="operation"><h2>Operation</h2><p>The four envelope views describe one rendered hit. Drag a point to move it, drag between points to bend a segment, double-click to add/remove a point and right-click a point to type a precise value. Shift provides fine movement; Alt reverses pitch snapping while dragging.</p><p>Wheel/pinch zooms time, dragging the time axis pans, Fit or a double-click on the axis shows the whole kick, and the short-time view buttons help inspect the transient. The spectrum panel has its own show/hide control, Kick/Live mode and zoom/pan gestures.</p><p>HELP is a toggleable footer. Presets preserve your Output trim; use the manual for the full drawing-gesture reference.</p><h2>How it works</h2>
+<ul>
+<li>
+<p><strong>One oscillator, alias-free.</strong> The oscillator is a sum of harmonics, each with its true amplitude and phase, so it
+never aliases at any pitch and needs no oversampling. Harmonics fade out over the top of the band (from 85 % of
+min(Nyquist, 22 kHz) up to it) instead of switching off, so none pop in or out while the pitch sweeps.</p>
+</li>
+<li>
+<p><strong>Shape is a morph, not a waveshaper.</strong> The Shape envelope morphs the sine into the chosen family’s shape: 0 % is
+an exact sine in every family. The families are measured once from real shaper curves applied to a sine (129 steps
+from 0 to 100 %, 2048 harmonics each, DC removed, peak normalised) and the oscillator blends neighbouring steps:</p>
+<ul>
+<li><code>Soft</code>: tanh drive, up to almost square.</li>
+<li><code>Hard</code>: hard clipping, up to a band-limited square.</li>
+<li><code>Fold</code>: triangle wavefolding, up to eight times over the edge.</li>
+<li><code>Asymmetric</code>: biased tanh, so even harmonics too.</li>
+<li><code>Classic</code>: sine, then triangle, square and saw, all in sine phase.</li>
+<li><code>Sine fold</code>: the wave run through a sine, folding smoothly back on itself.</li>
+<li><code>FM</code>: the sine modulating its own phase, index up to 4.</li>
+<li><code>Feedback FM</code>: phase modulation fed back (y = sin (θ + b·y)), leaning into a saw.</li>
+<li><code>Sync</code>: a sine at 1 to 8 times the pitch, restarted every period (hard sync). It is written out as an exact
+spectrum, because sampling its reset would alias.</li>
+<li><code>Phase warp</code>: Casio-style phase distortion, the first half-cycle squeezed to the start of the period.</li>
+<li><code>Rectify</code>: sine, half-wave at 50 %, full-wave at 100 % (an octave up).</li>
+</ul>
+<p>Eight families have a setting of their own, first on the strip under the tabs while the Shape envelope is in front.
+It sets what the morph reaches at 100 %, and each family keeps its own (they are separate, automatable
+parameters):</p>
+<ul>
+<li><code>Soft</code> and <code>Hard</code>: <strong>Drive</strong>, 2 to 60 (30).</li>
+<li><code>Fold</code>: <strong>Folds</strong>, 1.5 to 16 times over the edge (8).</li>
+<li><code>Asymmetric</code>: <strong>Bias</strong>, 0.05 to 1 (0.6).</li>
+<li><code>Sine fold</code>: <strong>Folds</strong>, 0.5 to 8 half-turns (4).</li>
+<li><code>FM</code>: <strong>Ratio</strong>, the modulator at 1 to 8 times the pitch (1).</li>
+<li><code>Sync</code>: <strong>Max ratio</strong>, 2 to 16 (8).</li>
+<li><code>Phase warp</code>: <strong>Squeeze</strong>, 10 to 98 % (90).</li>
+</ul>
+<p><code>Classic</code>, <code>Feedback FM</code> and <code>Rectify</code> have none. A new setting builds that family’s tables in the background
+(25 to 180 ms) before the kick re-renders; the last few are kept.</p>
+<p>The <code>Shape</code> tab is also the family picker. Its arrow, or a second click on the tab, opens a menu showing every
+family at 0, 25, 50, 75 and 100 % with its current setting. While the Shape envelope is in front, its axis shows the current family’s wave
+at each of those amounts.</p>
+<p>A shape keeps its peak at 1, so more shape is louder (RMS) as well as brighter.</p>
+<p>After the family’s setting, the Shape strip has three settings every family goes through (automatable parameters,
+saved in presets; at their defaults the kick is as it was before them, and older sessions and presets load them
+there):</p>
+<ul>
+<li><strong>Depth</strong>, 0 to 100 % (100): scales the Shape envelope, so the whole morph can be pulled back without moving a
+point. At 0 the oscillator is a sine.</li>
+<li><strong>Mix</strong>, 0 to 100 % (100): the plain sine mixed back under the shaped wave, both at the same phase, so blending
+never cancels the body (parallel drive). Lower keeps the fundamental’s weight under full harmonics.</li>
+<li><strong>Top</strong>, 100 Hz to 22 kHz (22 kHz, shown as <code>open</code>): the highest frequency the oscillator plays. Overtones fade
+out below it with the same raised-cosine fade the oscillator uses at the top of the band, so nothing aliases and
+the cut follows the pitch; the fundamental always plays. A lower Top also renders faster.</li>
+</ul>
+</li>
+<li>
+<p><strong>Noise</strong> is a layer mixed under the <code>Noise</code> envelope, for a click on the attack or texture in the tail. Its
+settings sit on a strip under the tabs while the Noise envelope is in front. All are parameters; Type, Filter and
+Mix are choices hosts cannot automate (see Presets), the rest are automatable.</p>
+<ul>
+<li><strong>Type:</strong>
+<ul>
+<li><code>White</code>: flat.</li>
+<li><code>Pink</code>: 3 dB softer per octave.</li>
+<li><code>Brown</code>: 6 dB softer per octave above 20 Hz, a rumble.</li>
+<li><code>Velvet</code>: one impulse of random sign at a random place in every period, a clean hiss that is mostly silence.</li>
+<li><code>Crackle</code>: impulses at random times with random sizes, mostly small, with an occasional loud pop.</li>
+</ul>
+</li>
+<li><strong>Density</strong> (Velvet and Crackle only): impulses per second, 20 to 20000 (2000).</li>
+<li><strong>Filter:</strong> <code>Off</code>, <code>Low-pass</code>, <code>Band-pass</code> or <code>High-pass</code> (the default), 12 dB per octave. The filter is a
+trapezoidal state-variable filter, stable however fast its cutoff moves.
+<ul>
+<li><strong>Cutoff</strong> (20 Hz to 20 kHz, 3 kHz) is where it starts. It reads and types as a note or Hz.</li>
+<li><strong>Q</strong> runs from 0.5 to 12. At 0.71 the response is flat; higher values ring at the cutoff.</li>
+<li><strong>Track</strong> (0 to 100 %) makes the cutoff follow the Pitch envelope from its first point. At 100 % it moves
+exactly with the pitch, so the noise sweeps down with the body. Cutoff, Q and Track are hidden while the filter
+is off.</li>
+</ul>
+</li>
+<li><strong>Mix:</strong>
+<ul>
+<li><code>Add</code>: the noise is added to the oscillator.</li>
+<li><code>Ring</code>: the noise is multiplied by the oscillator’s wave (before the Level envelope). It rides the body’s cycles
+and follows its pitch.</li>
+</ul>
+</li>
+<li><strong>Seed</strong> (1 to 100) picks another take. The noise is generated the same way on every machine. Every hit plays
+the same take, because the kick is one rendering.</li>
+<li><strong>Level:</strong> whatever the type and filter, the noise is scaled so that at 0 dB on the envelope its RMS is about
+-9 dBFS or its peaks reach full scale, whichever comes first. The RMS is measured where the envelope is up. The
+type and filter change the noise’s colour, not its loudness.</li>
+<li><strong>Default:</strong> a 6 ms high-passed click at -9 dB.</li>
+<li><strong>Cost:</strong> while the Noise envelope is at zero throughout, no noise is generated.</li>
+</ul>
+</li>
+<li>
+<p><strong>The end phase is fixed; the start follows.</strong> The phase is worked out backwards from <code>End phase</code> at the last
+sample, so changing the pitch envelope leaves the tail where it was and moves the start instead. Only the phase runs
+backwards; everything else runs forwards.</p>
+</li>
+<li>
+<p><strong>Length</strong> is the whole kick. There is no release from note-off: a note plays the kick to its end.</p>
+</li>
+<li>
+<p><strong>Playback:</strong> velocity scales the level (<code>Velocity</code> is how much, 0 to 100 %). <code>Attack</code> fades the start in and
+<code>Release</code> fades the last part of the kick out; both are linear and applied while the kick plays, so they never
+re-render. A new note fades a kick still sounding out over 3 ms.</p>
+</li>
+<li>
+<p><strong>When a change is heard:</strong> a change re-renders in the background and applies from the next hit. The oscillator
+is summed in blocks on every core, each sample exactly as it would be on one, so the output does not depend on
+the core count. The slowest case is a 2 s kick with a fully shaped 30 Hz tail at 96 kHz. It takes about 30 ms on a
+14-core Mac, against 270 ms on one core. A shape’s tables
+are built the first time its family and setting are rendered (25 to 40 ms, Feedback FM about 180 ms) and shared by
+every instance, so the first kick after loading takes about 70 ms. The menu and axis previews are drawn straight
+from the shapes and need no tables. A host rendering offline
+renders in the audio callback, so automation lands on the very next hit.</p>
+</li>
+</ul>
+<h2>Presets</h2>
+<p>The bar under the name holds the presets:</p>
+<ul>
+<li><strong>Arrows:</strong> step through the factory presets, then your own, folder by folder.</li>
+<li><strong>Name:</strong> opens the list, with your folders as submenus, <code>Init patch</code>, <code>Save as...</code>, <code>Rename</code>, <code>Delete</code> and the
+presets folder. A star after the name means something has changed since the preset loaded; <code>newer</code> means the
+preset was made with a newer version of Good Kick, and the settings this version does not have were skipped.</li>
+<li><strong>Save:</strong> turns the name into a text box. Type a name and press Enter; <code>Folder/Name</code> saves into a folder (made if
+needed), and saving over another preset asks first.</li>
+</ul>
+<p>Dropping a <code>.goodkick</code> file on the bar loads it.</p>
+<p>A preset holds every parameter except <code>Output</code>, plus the four envelopes. <code>Output</code> is left alone, so loading a
+preset never jumps your level. The view settings (pitch axis range, <code>Snap to notes</code>, the spectrum panel) stay as
+they are too.</p>
+<p>Loading a preset sets every preset parameter once, to the file’s value or, where the file has none, its default. A
+preset saved before a parameter existed therefore loads with that parameter at rest. A missing envelope loads as its default.</p>
+<p>Presets and sessions store each choice (<code>Shape</code> family, <code>Curves</code>, noise <code>Type</code>, <code>Filter</code> and <code>Mix</code>) by a stable ID
+beside its position (<code>&lt;PARAM id=&quot;family&quot; value=&quot;7&quot; choice=&quot;feedbackfm&quot;/&gt;</code>) and read it by the ID, so a list can grow
+without an older file meaning another entry; a file without IDs (1.1.0 and before) is read by position. An ID this
+version does not know loads the default and marks the preset <code>newer</code>. Hosts cannot automate the choices, since they
+store a choice as its place in the list.</p>
+<p>Your presets are <code>.goodkick</code> files (XML) in <code>~/Library/Audio/Presets/Barakigal Audio/Good Kick/</code>, and folders in
+it. The session remembers which preset it came from (by its path in that folder) and whether anything has changed
+since.</p>
+<p>The factory presets live in <code>good-kick/presets/</code> and are built into the plugin. Their file names are numbered to
+set the list order, and the name inside each file is the one shown. All twelve peak at or under 0 dBFS before
+<code>Output</code>:</p>
+<ul>
+<li>Clean Sub, Punchy Club, 808 Boom, Short Techno, Hard Distorted, Velvet Click;</li>
+<li>Deep House, Rumble, Lo-fi Crackle, FM Thud, Sync Zap, Long 808 Glide.</li>
+</ul>
+<h2>Window and help</h2>
+<p>The plugin opens at its smallest size, 1180 × 720, and can be resized larger. The <code>?</code> at the top right toggles a contextual help footer
+listing every mouse gesture, by area.</p>
+<h2>Export</h2>
+<p>Drag the <code>Drag out</code> box (next to <code>Play</code>) into the DAW or onto a Finder folder to drop the kick as a WAV. Click it
+instead to save the WAV somewhere with a file dialog.</p>
+<ul>
+<li><strong>What the file holds:</strong> one full-velocity hit as it plays, with the Attack and Release fades and the output gain.
+It is 24-bit mono at the current sample rate, and renders first if a change is still pending.</li>
+<li><strong>Where it goes:</strong> a drag writes the file to <code>~/Music/Good Kick/</code> and keeps it there, because a DAW may play a
+dropped file from where it lies rather than copy it. The name says what the kick is and when it was made, e.g.
+<code>Kick Soft F#1 450ms 143207.wav</code> (family, the note the pitch envelope ends on, length, time).</li>
+</ul>
+<h2>Envelopes</h2>
+<p>The main area shows the rendered kick behind the four envelopes; the tabs pick which one is in front.</p>
+<ul>
+<li><code>Pitch</code>: Hz, drawn and interpolated in octaves, 10 Hz to 16 kHz. <code>Low</code> and <code>High</code> set the bottom and top of the axis
+(C0 to C8 by default, at least an octave apart). Drag them by semitones (Shift for cents), scroll, or double-click
+and type a note or Hz. Zoomed in, every semitone gets a line, then its name, then its Hz. With <code>Snap to notes</code> on,
+dragged and added pitch points land on the nearest note; Alt flips the snap for that drag. Typed values are never
+snapped. These are view settings saved with the session, not automatable parameters.</li>
+<li><code>Level</code>: gain 0 to 1, labelled in dB.</li>
+<li><code>Shape</code>: 0 to 100 % of the morph.</li>
+<li><code>Noise</code>: the noise layer’s gain, 0 to 1, labelled in dB. The plot moves down to make room for the noise strip.</li>
+</ul>
+<p><strong>Editing:</strong></p>
+<ul>
+<li>Drag a point to move it. Hold Shift for fine moves.</li>
+<li>Drag anywhere between two points to bend that segment. Dragging up bows it upwards; at full bend it is sharply
+exponential.</li>
+<li><code>Curves</code> (right of the tab row) picks how the points of every envelope become a line. <code>Exponential</code> makes each
+segment its own curve, so the line can turn a corner at a point. <code>Smooth</code> draws one line through the points that
+bends the same way on both sides of every point and never overshoots a point; the segments’ bends then set how hard
+the line hugs its corners, and the first and last segments’ bends tilt the line’s start and end. It is a
+parameter, saved in presets; sessions and presets from before it have <code>Exponential</code>.</li>
+<li>Double-click empty space to add a point, and double-click a point to remove it. The first point stays at 0 ms.</li>
+<li>Right-click a point to type its time or value, straighten its segment or delete it.</li>
+<li>After <code>Curves</code>, the tab row reads the visible time range and how many times the whole kick it is magnified (<code>×1</code>
+for the whole kick). <code>3 ms</code>
+zooms to the first 3 ms (the transient), where the waveform is drawn sample by sample. <code>30 ms</code> zooms to the first
+30 ms (the pitch drop and the punch), and <code>Fit</code> shows the whole kick again.</li>
+<li>Wheel or pinch zooms time around the mouse. To pan, drag the time axis (the cursor turns into a hand while zoomed
+in), scroll sideways, or hold Shift and scroll. Double-click the time axis to see the whole kick again.</li>
+<li>The dashed line is the end of the kick: drag it to change <code>Length</code>. Points past it are kept but not played.</li>
+</ul>
+<h2>Spectrum</h2>
+<p>The bottom panel has two modes, switched by <code>Kick</code> and <code>Live</code>. The arrow by its name hides it down to its title row
+(the envelopes take the room) and shows it again; whether it is open is saved with the session.</p>
+<p><strong>Live</strong> analyses what the plugin is actually playing. The audio thread copies its output into a lock-free buffer
+that the editor drains and transforms 60 times a second through a Hann window. Levels are in dBFS, where a full-scale
+sine reads 0 dB, and fall back at 60 dB a second.</p>
+<ul>
+<li><strong>Window:</strong> by default it covers the last 170 ms, zero-padded 4x so the curve stays smooth. The loudest frequency is
+refined between bins, so a single low tone (a kick’s tail) reads to a fraction of a Hz.</li>
+<li><strong>Fine:</strong> covers the last 0.7 s instead, with bins under 1 Hz, so two low tones a few Hz apart separate. A hit then
+takes that long to show.</li>
+<li><strong>Repeated hits:</strong> while two or more hits are inside the window, they interfere. They cut evenly spaced notches
+into the spectrum, 1 / (time between hits) apart: 2 Hz for quarter notes at 120 BPM. That is the true spectrum of
+the repeating pattern, not a fault. The 170 ms window holds one hit at a time unless hits come faster than that.</li>
+</ul>
+<p><strong>Kick</strong> shows the spectrum of the rendered kick, before the Attack and Release fades and the output gain.
+A kick is a one-shot that starts and ends inside its buffer, so the whole buffer is transformed with no window, and it
+is zero-padded to a bin every 0.2 Hz or closer. A pixel narrower than a bin (the low end, zoomed in) is interpolated
+between bins; a pixel spanning many bins (the top end) shows their loudest, so no peak is lost. Levels are in dB
+below the loudest bin.</p>
+<ul>
+<li><strong>Frequency axis:</strong> log scale with the same note grid as the pitch axis. Every C is labelled; closer in, every
+semitone gets a line, then its name, then its Hz.</li>
+<li><strong>Markers:</strong> the title row reads the loudest frequency as a pitch (refined between bins in Kick mode, with its
+level in Live mode) and the end pitch, where the pitch envelope ends. That end is also the dashed line, so you can see whether the energy sits where the tail is tuned.</li>
+<li><strong>Mouse:</strong> a line, a dot on the curve, and the note, Hz and level at the mouse.</li>
+<li><strong>Navigation:</strong> the same in both modes. Wheel or pinch zooms around the mouse (down to a quarter octave across the panel), dragging or
+sideways scroll pans, and a double-click goes back to 10 Hz to 20 kHz.</li>
+</ul>
+<p>The spectrum is worked out on the render thread after each render, once the new kick is already playable.</p>
+<h2>Readouts</h2>
+<p><strong>Pitches</strong> read as note, cents and Hz (<code>D♯1 +49¢  40.0 Hz</code>), in scientific pitch (A4 = 440 Hz, C4 = MIDI 60).
+You can type a note (<code>E1</code>, <code>D#1 -20</code>) or Hz (<code>43.6</code>, <code>1.2k</code>).</p>
+<p><strong>Times</strong> read in milliseconds next to two more values:</p>
+<ul>
+<li><strong>The nearest note value at the host tempo, named as a DAW names it, from a closed list.</strong> The list holds every
+straight value from four bars down to 1/512, and its dotted (<code>D</code>, ×3/2) and triplet (<code>T</code>, ×2/3) versions; a bar is a
+whole note. Around a sixteenth it reads 1/32, 1/16 T, 1/32 D, 1/16, 1/8 T, 1/16 D, 1/8, so as a time grows its note
+value steps through neighbours in order. The nearest entry (on a log scale) is shown with its error unless it is
+exact, e.g. <code>≈ 1/32 D (-6.3%)</code>.</li>
+<li><strong>The pitch whose period that time is.</strong> 25 ms is 40 Hz, D♯1 +49¢.</li>
+</ul>
+<p>Times also accept a note value when typed (<code>1/16</code>, <code>1/16 D</code>, <code>1/16 T</code>, <code>1 bar</code>) or any fraction of a whole note
+(<code>3/64</code>).</p>
+<p>Where the readouts appear:</p>
+<ul>
+<li>Envelope points show a label while hovered or selected, with a tooltip holding the full line.</li>
+<li>The time axis shows the fraction under each tick.</li>
+<li>The mouse position is tagged on both axes.</li>
+<li>The time boxes in the strip under the title bar (<code>Length</code>, <code>Attack</code>, <code>Release</code>) show the fraction and pitch under their value.</li>
+</ul>
+</section>
+<section id="parameters"><h2>Every parameter</h2><p>Values and defaults are taken from the plugin. A control's effect can depend on the selected mode; see the operation notes above. Choices keep their saved identity between versions. Knobs and switches can be automated unless marked otherwise.</p><table><thead><tr><th>Parameter</th><th>What it does</th><th>Values and default</th></tr></thead><tbody><tr data-parameter="length"><th scope="row">Length</th><td>450.0 ms   ≈ 1/4 (+11.1%)   2.22 Hz</td><td>20.0000000 to 4000.0000000 ms<br><small>Default: 450.0000000</small></td></tr><tr data-parameter="endPhase"><th scope="row">End Phase</th><td>The oscillator's phase at the last sample: 0.0 degrees. The start phase follows from the pitch envelope.</td><td>0.0000000 to 360.0000000 deg<br><small>Default: 0.0000000</small></td></tr><tr data-parameter="family"><th scope="row">Shape</th><td>Chooses or changes the source waveform or curve. Shape changes harmonic content; curve controls change how a segment progresses.</td><td>Soft, Hard, Fold, Asymmetric, Classic, Sine fold, FM, Feedback FM, Sync, Phase warp, Rectify<br><small>Default: Soft</small><br><small>Not host automatable</small></td></tr><tr data-parameter="curveMode"><th scope="row">Curves</th><td>How the points become a line, in every envelope. Exponential: each segment is its own curve, so segments meet at corners. Smooth: one line that bends the same way on both sides of every point</td><td>Exponential, Smooth<br><small>Default: Exponential</small><br><small>Not host automatable</small></td></tr><tr data-parameter="softDrive"><th scope="row">Soft Drive</th><td>Sets the Soft family curve used to generate the Shape morph, from sine toward a rounded square.</td><td>2.0000000 to 60.0000000<br><small>Default: 30.0000000</small></td></tr><tr data-parameter="hardDrive"><th scope="row">Hard Drive</th><td>Sets the Hard family curve used to generate the Shape morph toward a clipped waveform.</td><td>2.0000000 to 60.0000000<br><small>Default: 30.0000000</small></td></tr><tr data-parameter="foldGain"><th scope="row">Fold Folds</th><td>Sets how strongly the Fold family folds the waveform.</td><td>1.5000000 to 16.0000000 x<br><small>Default: 8.0000000</small></td></tr><tr data-parameter="asymBias"><th scope="row">Asymmetric Bias</th><td>Offsets the Asymmetric family curve to introduce even harmonics.</td><td>0.0500000 to 1.0000000<br><small>Default: 0.6000000</small></td></tr><tr data-parameter="sineFoldGain"><th scope="row">Sine fold Folds</th><td>Sets how strongly the Sine fold family folds the waveform through a sine curve.</td><td>0.5000000 to 8.0000000 pi<br><small>Default: 4.0000000</small></td></tr><tr data-parameter="fmRatio"><th scope="row">FM Ratio</th><td>Controls oscillator modulation. These modes change harmonic content; consult the oscillator modulation notes before combining large amounts.</td><td>1 to 8 :1<br><small>Default: 1</small></td></tr><tr data-parameter="syncRatio"><th scope="row">Sync Max ratio</th><td>Sets tempo or source synchronization for this section. The related time/rate control then follows the selected synchronization mode.</td><td>2.0000000 to 16.0000000 x<br><small>Default: 8.0000000</small></td></tr><tr data-parameter="warpSqueeze"><th scope="row">Phase warp Squeeze</th><td>Sets the phase or phase behavior described in the source and synchronization notes.</td><td>10.0000000 to 98.0000000 %<br><small>Default: 90.0000000</small></td></tr><tr data-parameter="shapeDepth"><th scope="row">Shape Depth</th><td>Chooses or changes the source waveform or curve. Shape changes harmonic content; curve controls change how a segment progresses.</td><td>0.0000000 to 100.0000000 %<br><small>Default: 100.0000000</small></td></tr><tr data-parameter="shapeMix"><th scope="row">Shape Mix</th><td>Chooses or changes the source waveform or curve. Shape changes harmonic content; curve controls change how a segment progresses.</td><td>0.0000000 to 100.0000000 %<br><small>Default: 100.0000000</small></td></tr><tr data-parameter="shapeTop"><th scope="row">Shape Top</th><td>Chooses or changes the source waveform or curve. Shape changes harmonic content; curve controls change how a segment progresses.</td><td>100.0000000 to 22000.0000000 Hz<br><small>Default: 22000.0000000</small></td></tr><tr data-parameter="noiseType"><th scope="row">Noise Type</th><td>Selects White, Pink, Brown, Velvet or Crackle noise.</td><td>White, Pink, Brown, Velvet, Crackle<br><small>Default: White</small><br><small>Not host automatable</small></td></tr><tr data-parameter="noiseFilter"><th scope="row">Noise Filter</th><td>Selects Off, Low-pass, Band-pass or High-pass for the noise layer.</td><td>Off, Low-pass, Band-pass, High-pass<br><small>Default: High-pass</small><br><small>Not host automatable</small></td></tr><tr data-parameter="noiseCutoff"><th scope="row">Noise Cutoff</th><td>Sets the frequency boundary of this filter or band. Its mode and slope determine which frequencies it changes.</td><td>20.0000000 to 20000.0000000 Hz<br><small>Default: 2999.9997559</small></td></tr><tr data-parameter="noiseQ"><th scope="row">Noise Q</th><td>Sets noise-filter resonance; higher settings ring more strongly around cutoff.</td><td>0.5000000 to 12.0000000<br><small>Default: 0.7070000</small></td></tr><tr data-parameter="noiseTrack"><th scope="row">Noise Track</th><td>Makes noise cutoff follow the pitch envelope from its first point.</td><td>0.0000000 to 100.0000000 %<br><small>Default: 0.0000000</small></td></tr><tr data-parameter="noiseMix"><th scope="row">Noise Mix</th><td>Blends the processed and dry signals. The signal-flow notes specify whether Output changes the wet signal alone or the complete blend.</td><td>Add, Ring<br><small>Default: Add</small><br><small>Not host automatable</small></td></tr><tr data-parameter="noiseDensity"><th scope="row">Noise Density</th><td>Sets impulses per second in Velvet and Crackle modes.</td><td>20.0000000 to 20000.0000000 /s<br><small>Default: 2000.0002441</small></td></tr><tr data-parameter="noiseSeed"><th scope="row">Noise Seed</th><td>Controls repeatable modulation or its timing. The saved seed makes random movement repeat; phase and synchronization decide where it starts.</td><td>1 to 100<br><small>Default: 1</small></td></tr><tr data-parameter="attack"><th scope="row">Attack</th><td>off</td><td>0.0000000 to 50.0000000 ms<br><small>Default: 0.0000000</small></td></tr><tr data-parameter="release"><th scope="row">Release</th><td>5.00 ms   ≈ 1/256 T (+4.2%)   G3 +35¢  200 Hz</td><td>0.0000000 to 1000.0000000 ms<br><small>Default: 5.0000000</small></td></tr><tr data-parameter="velocity"><th scope="row">Velocity</th><td>How much MIDI velocity changes the level: 100 %</td><td>0.0000000 to 100.0000000 %<br><small>Default: 100.0000000</small></td></tr><tr data-parameter="output"><th scope="row">Output</th><td>Sets the signal level at this stage. Output is the final listening trim unless the signal-flow notes describe a wet-only output control.</td><td>-48.0000000 to 12.0000000 dB<br><small>Default: -3.0000000</small></td></tr></tbody></table></section>
+<section id="files"><h2>Presets and files</h2><p>Presets are browsed with the arrows or the preset-name menu. A star marks an edited patch. Save supports folders, Rename, Delete and opening the user preset folder; dropping a compatible preset file onto the bar loads it. A newer-file indication means this version could not apply every setting.</p><p>The host session stores the complete patch. A product preset can deliberately leave listening trim, audition or display controls unchanged; the product-specific rules below describe those exceptions.</p><p>Good Kick presets use .goodkick in ~/Library/Audio/Presets/Barakigal Audio/Good Kick and include the four drawn envelopes. Output and view settings stay with the instance. Export/drag writes a 24-bit mono WAV of the full-velocity hit.</p></section>
+<section id="installation"><h2>Installation and help</h2><p>Download the macOS archive from the product page and quit your audio host. Place the AU .component in ~/Library/Audio/Plug-Ins/Components, VST3 in ~/Library/Audio/Plug-Ins/VST3, or CLAP in ~/Library/Audio/Plug-Ins/CLAP. The product page also offers an installer with format selection. Restart or rescan the host. To uninstall, quit the host and remove that product's bundles from those folders; saved sessions and user presets are separate.</p><p>For questions or a problem report, use <a href="https://github.com/barak007/brk-audio/issues">BRK Audio support on GitHub</a>. Include the plugin version, macOS version, host and format, sample rate and a short description of how to reproduce it.</p></section>
+</main><footer>BRK AUDIO · BRK - Good Kick manual</footer></body></html>

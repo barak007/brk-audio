@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Bring a little warmth to a sound, or lean into the grit. Try four tube characters, feel how they respond as you push them, and blend in just enough to give the part the colour you want.">
+  <meta name="theme-color" content="#f1efe6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)">
+  <script>try { const theme = localStorage.getItem("theme"); if (theme) document.documentElement.dataset.theme = theme; } catch {}</script>
+  <title>Gear Tube - BRK Audio</title>
+  <link rel="stylesheet" href="../../assets/vendor/fonts/fonts.css">
+  <link rel="stylesheet" href="../../styles.css">
+  <script src="../../assets/vendor/gsap/gsap.min.js" defer></script>
+  <script src="../../site.js" defer></script>
+  <script data-goatcounter="https://brk-audio.goatcounter.com/count" src="../../assets/vendor/goatcounter/count.js" async></script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="wordmark" href="../../" aria-label="BRK Audio home"><span><span class="kamatz">B</span><span class="kamatz">R</span><span class="hirik">K</span></span><span>AUDIO</span></a>
+    <nav class="site-nav" aria-label="Main navigation"><a href="../../#gear">Gear</a><a href="../../#plugins">Plugins</a><a href="../../#downloads">Downloads</a></nav>
+    <button class="theme-toggle" type="button">Theme</button>
+  </header>
+  <main class="gear-main" style="--accent: #ff9d3c">
+    <section class="gear-hero">
+      <div class="gear-hero-copy reveal">
+        <p class="breadcrumbs"><a href="../../#gear">Gear</a> / Gear Tube</p>
+        <p class="eyebrow">Tube saturator / Preview</p>
+        <h1 class="product-title">Gear Tube</h1>
+        <p class="product-tagline">A little warmth, or a reason to turn it up.</p>
+      </div>
+      <figure class="gear-hero-stage reveal" style="--editor-ratio: 1200 / 785">
+        <div class="plugin-shot"><a class="screenshot-enlarge" href="../../assets/screenshots/gear-tube.png" target="_blank" rel="noopener" aria-label="Enlarge Gear Tube interface"><img src="../../assets/screenshots/gear-tube.png" width="1200" height="785" alt="Gear Tube plugin interface"></a></div>
+        <figcaption>Open the image to take a closer look at the controls.</figcaption>
+      </figure>
+    </section>
+    <section class="gear-detail" aria-label="About Gear Tube">
+      <div class="gear-detail-copy reveal">
+        <p class="product-description">Bring a little warmth to a sound, or lean into the grit. Try four tube characters, feel how they respond as you push them, and blend in just enough to give the part the colour you want.</p>
+        <p class="gear-look">An amp-style panel with glass tubes, familiar knobs and a needle meter.</p>
+        <p class="manual-links"><a href="../../manuals/gear-tube/">Help and parameter manual</a> <span aria-hidden="true">/</span> <a href="../../assets/manuals/gear-tube.pdf" download>PDF manual</a></p>
+        <div class="product-actions"><a class="button" data-release="download" href="https://github.com/barak007/brk-audio/releases/download/gear-tube-v0.1.1/gear-tube-0.1.1-macos-universal.zip" data-goatcounter-click="download-gear-tube">Download for macOS</a>
+          <label class="version-picker" hidden><span>Version</span><select><option data-version="0.1.1" data-download="https://github.com/barak007/brk-audio/releases/download/gear-tube-v0.1.1/gear-tube-0.1.1-macos-universal.zip" data-install="https://github.com/barak007/brk-audio/releases/download/gear-tube-v0.1.1/install.sh" data-page="https://github.com/barak007/brk-audio/releases/tag/gear-tube-v0.1.1" selected>0.1.1 (latest)</option><option data-version="0.1.0" data-download="https://github.com/barak007/brk-audio/releases/download/gear-tube-v0.1.0/gear-tube-0.1.0-macos-universal.zip" data-install="https://github.com/barak007/brk-audio/releases/download/gear-tube-v0.1.0/install.sh" data-page="https://github.com/barak007/brk-audio/releases/tag/gear-tube-v0.1.0">0.1.0 (2026-11-10)</option></select></label></div>
+        <div class="install" data-install="https://github.com/barak007/brk-audio/releases/download/gear-tube-v0.1.1/install.sh">
+          <p class="install-label">Or install from Terminal</p>
+          <div class="install-formats" role="group" aria-label="Formats to install" hidden><label class="install-format"><input type="checkbox" value="au" checked><span>AU</span></label><label class="install-format"><input type="checkbox" value="vst3" checked><span>VST3</span></label><label class="install-format"><input type="checkbox" value="clap" checked><span>CLAP</span></label></div>
+          <div class="install-row">
+            <code class="install-command" data-command="run">curl -fsSL https://github.com/barak007/brk-audio/releases/download/gear-tube-v0.1.1/install.sh | bash</code><button class="install-copy" type="button" data-goatcounter-click="copy-install-gear-tube" hidden>Copy</button>
+          </div>
+          <details class="install-details">
+            <summary>What this does</summary>
+            <p>Downloads the release archive from GitHub, checks it against the checksum fixed at release time and copies the chosen formats into ~/Library/Audio/Plug-Ins. Installs in your own plugin folders without sudo, refreshes the Audio Unit list when AU is selected, and replaces each installed format only once its new bundle is fully copied.</p>
+            <p>To read the script first, download it and open it in TextEdit (this runs nothing):</p>
+            <div class="install-row">
+              <code class="install-command" data-command="read">curl -fsSL https://github.com/barak007/brk-audio/releases/download/gear-tube-v0.1.1/install.sh -o install.sh && open -e install.sh</code><button class="install-copy" type="button" data-goatcounter-click="copy-read-gear-tube" hidden>Copy</button>
+            </div>
+            <p><a data-release="install" href="https://github.com/barak007/brk-audio/releases/download/gear-tube-v0.1.1/install.sh" data-goatcounter-click="install-sh-gear-tube">Download install.sh</a> / <a data-release="page" href="https://github.com/barak007/brk-audio/releases/tag/gear-tube-v0.1.1">Release on GitHub</a></p>
+          </details>
+        </div>
+        <p class="gear-availability">Version <span data-release="version">0.1.1</span> / macOS universal / VST3, AU, CLAP / Free early access</p>
+      </div>
+      <ul class="gear-facts reveal"><li>Try four tube characters to find the colour that suits the part</li><li>Use Drive for grit, Bias for character and Sag for a softer response</li><li>Shape the brightness with Tone and blend the effect with Mix</li><li>Try Pair mode for another take on the tube character</li><li>Arm Auto Gain before a change to help match the listening level</li><li>See how the sound changes in LAB, or start from a preset</li></ul>
+    </section>
+    <section id="changelog" class="changelog section-shell" aria-labelledby="changelog-title">
+      <h2 id="changelog-title" class="eyebrow reveal">Changelog</h2>
+      <div class="changelog-list reveal">
+        <details class="changelog-entry" open>
+          <summary><span class="changelog-version">0.1.1</span><span class="changelog-date">2026-11-11</span><span class="changelog-latest">Latest</span></summary>
+          <div class="changelog-notes"><ul><li>Remove the help panel’s X button; press HELP again to close it.</li><li>Seal AU, VST3 and CLAP bundles with complete ad-hoc signatures during packaging.</li><li>Shared numeric cells now apply typed values only with Enter; Escape, focus loss and outside clicks cancel entry.</li></ul></div>
+        </details>
+        <details class="changelog-entry">
+          <summary><span class="changelog-version">0.1.0</span><span class="changelog-date">2026-11-10</span></summary>
+          <div class="changelog-notes"><ul><li>Direct host-bypass processing retains the same latency-aligned dry path as the Power switch.</li><li>Auto Gain now arms idle and learns only from direct user sound-knob edits, never automation, switches, presets or session recall. Presets exclude Auto Gain; offline rendering holds the saved Output.</li><li>Rendered controls and Auto Gain support named keyboard/VoiceOver interaction; HELP links to the website/PDF manual.</li><li>Knobs no longer jump when Shift is pressed or released during a drag: each move counts at the speed Shift sets at that moment (the same drag and wheel as every other plugin's knobs).</li><li>The GRID lamp is gone from the amplifier (and its label); what it showed, the grid conducting, is in the LAB and explained under Bias in the help bar. The lit tube is brighter, and glows with the signal: dim while quiet, full as it gets loud or the grid conducts.</li><li>Mix is after Output: Output sets the level of the tube signal only, so Mix 0% is the input exactly as it came. Output only takes level off now, -48 to 0 dB (it was -20 to +20): Drive is the gain, and the knob reaches as far down as Drive can add.</li><li>Auto Gain shows a pulsing dot and a time-left line while learning, and a steady dot while armed and idle. Output stays manually adjustable while idle.</li><li>A hover help bar under the top bar (the HELP button, or its cross, shows and hides it; it starts closed) says what each knob, switch, lamp, tube, the VU meter and the top bar's buttons are, with the value now; the GRID lamp is explained there (grid conduction) and its text is gone from the top bar.</li><li>Debug is now LAB, with a new EVIDENCE page that checks every parameter's range and what the engine applies, the VU against an independent measurement of the output, the GRID lamp against its threshold, and the latency.</li><li>The printed labels on the amplifier are larger, printed heavier and darker (they read grey before), and the small texts of the bar and the lab are brighter. &quot;Vacuum tube stage&quot; now reads &quot;Tube saturator&quot;.</li><li>Fixed a loud click on the first samples after the plugin loads or playback starts (the stage began from a wrong state), and a thump on load with Bias off centre.</li><li>The VU meter integrates the output over 20 ms (it flickered on short blocks) and the GRID lamp holds for 100 ms, so a brief touch of the grid shows.</li><li>Power off keeps the stage's latency (the dry signal is delayed the same) and crossfades over 5 ms instead of clicking.</li><li>Changing the tube no longer spikes the CPU (every tube's curves are built once, when the plugin loads), and changing the tube or the quality while playing no longer clicks: the sound dips for a few milliseconds instead.</li><li>The editor is the amplifier: a rendered chassis with the four tubes on its deck (the chosen one lit, warming up and cooling down), every control on its front, the VU meter on the output and the GRID lamp.</li><li>First version: a dynamic-curve tube stage (12AX7, EL34, KT88, 300B) with ADAA and 2x, 4x or 8x oversampling, Drive, Bias, Sag, Pair, Tone, Mix, Output, Link, Quality, a GRID lamp and a debug view of the curve.</li><li>The 12AX7 is fitted to a 12AX7 stage solved as a circuit: its curve, its harmonics over level and its recovery after a loud burst now match the circuit's (the measurements and a listening test are in <code>gear/tube/proof</code>).</li><li>The bias shift is the coupling capacitor's charge: the grid's current charges it, the grid leak drains it, so a loud passage makes the stage block for a moment and recover as a real one does.</li><li>Bias was backwards: Hot now moves toward grid conduction and Cold toward cutoff, as labelled.</li><li>Standard quality no longer dulls the top octave (it lost 4 dB at 20 kHz), and with Mix below 100% the dry and the tube signal line up to the sample.</li><li>Sag 0 no longer colours quiet signals, and full Sag brings the supply down far enough to hear.</li><li>The debug view's dots stay on the drawn curve while the bias moves, its spectrum reads the right level with finer bins, and its frequency axis follows the session's sample rate.</li></ul></div>
+        </details>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><a class="wordmark wordmark-footer" href="../../"><span><span class="kamatz">B</span><span class="kamatz">R</span><span class="hirik">K</span></span><span>AUDIO</span></a><p class="footer-meta">VST3 / AU / CLAP<br>macOS universal<br>VoiceOver and keyboard</p><a class="footer-link" href="https://github.com/barak007/brk-audio" data-goatcounter-click="github-footer"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.37A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>GitHub</a></footer>
+</body>
+</html>

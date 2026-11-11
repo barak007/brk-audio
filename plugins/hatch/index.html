@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Find the hats that make your track move, with a shaker and ride alongside them. Try a new pattern until something clicks, then keep it playing the same way on every pass. Use the built-in sounds or send the rhythm to another instrument.">
+  <meta name="theme-color" content="#f1efe6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)">
+  <script>try { const theme = localStorage.getItem("theme"); if (theme) document.documentElement.dataset.theme = theme; } catch {}</script>
+  <title>BRK - Hatch - BRK Audio</title>
+  <link rel="stylesheet" href="../../assets/vendor/fonts/fonts.css">
+  <link rel="stylesheet" href="../../styles.css">
+  <script src="../../assets/vendor/gsap/gsap.min.js" defer></script>
+  <script src="../../site.js" defer></script>
+  <script data-goatcounter="https://brk-audio.goatcounter.com/count" src="../../assets/vendor/goatcounter/count.js" async></script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="wordmark" href="../../" aria-label="BRK Audio home"><span><span class="kamatz">B</span><span class="kamatz">R</span><span class="hirik">K</span></span><span>AUDIO</span></a>
+    <nav class="site-nav" aria-label="Main navigation"><a href="../../#gear">Gear</a><a href="../../#plugins">Plugins</a><a href="../../#downloads">Downloads</a></nav>
+    <button class="theme-toggle" type="button">Theme</button>
+  </header>
+  <main class="product-main" style="--accent: #54e2d6">
+    <section class="product-hero">
+      <canvas class="hero-waves" data-colors="#54e2d6 signal" aria-hidden="true"></canvas>
+      <div class="product-copy reveal">
+        <p class="breadcrumbs"><a href="../../#plugins">Collection</a> / 08</p>
+        <p class="eyebrow">Hi-hat generator / Free download</p>
+        <h1 class="product-title">BRK - Hatch</h1>
+        <p class="product-tagline">A little chance. A groove worth keeping.</p>
+        <p class="product-description">Find the hats that make your track move, with a shaker and ride alongside them. Try a new pattern until something clicks, then keep it playing the same way on every pass. Use the built-in sounds or send the rhythm to another instrument.</p>
+        <div class="product-actions"><a class="button" data-release="download" href="https://github.com/barak007/brk-audio/releases/download/hatch-v1.0.1/hatch-1.0.1-macos-universal.zip" data-goatcounter-click="download-hatch">Download for macOS</a>
+          <label class="version-picker" hidden><span>Version</span><select><option data-version="1.0.1" data-download="https://github.com/barak007/brk-audio/releases/download/hatch-v1.0.1/hatch-1.0.1-macos-universal.zip" data-install="https://github.com/barak007/brk-audio/releases/download/hatch-v1.0.1/install.sh" data-page="https://github.com/barak007/brk-audio/releases/tag/hatch-v1.0.1" selected>1.0.1 (latest)</option><option data-version="1.0.0" data-download="https://github.com/barak007/brk-audio/releases/download/hatch-v1.0.0/hatch-1.0.0-macos-universal.zip" data-install="https://github.com/barak007/brk-audio/releases/download/hatch-v1.0.0/install.sh" data-page="https://github.com/barak007/brk-audio/releases/tag/hatch-v1.0.0">1.0.0 (2026-11-10)</option></select></label></div>
+        <div class="install" data-install="https://github.com/barak007/brk-audio/releases/download/hatch-v1.0.1/install.sh">
+          <p class="install-label">Or install from Terminal</p>
+          <div class="install-formats" role="group" aria-label="Formats to install" hidden><label class="install-format"><input type="checkbox" value="au" checked><span>AU</span></label><label class="install-format"><input type="checkbox" value="vst3" checked><span>VST3</span></label><label class="install-format"><input type="checkbox" value="clap" checked><span>CLAP</span></label></div>
+          <div class="install-row">
+            <code class="install-command" data-command="run">curl -fsSL https://github.com/barak007/brk-audio/releases/download/hatch-v1.0.1/install.sh | bash</code><button class="install-copy" type="button" data-goatcounter-click="copy-install-hatch" hidden>Copy</button>
+          </div>
+          <details class="install-details">
+            <summary>What this does</summary>
+            <p>Downloads the release archive from GitHub, checks it against the checksum fixed at release time and copies the chosen formats into ~/Library/Audio/Plug-Ins. Installs in your own plugin folders without sudo, refreshes the Audio Unit list when AU is selected, and replaces each installed format only once its new bundle is fully copied.</p>
+            <p>To read the script first, download it and open it in TextEdit (this runs nothing):</p>
+            <div class="install-row">
+              <code class="install-command" data-command="read">curl -fsSL https://github.com/barak007/brk-audio/releases/download/hatch-v1.0.1/install.sh -o install.sh && open -e install.sh</code><button class="install-copy" type="button" data-goatcounter-click="copy-read-hatch" hidden>Copy</button>
+            </div>
+            <p><a data-release="install" href="https://github.com/barak007/brk-audio/releases/download/hatch-v1.0.1/install.sh" data-goatcounter-click="install-sh-hatch">Download install.sh</a> / <a data-release="page" href="https://github.com/barak007/brk-audio/releases/tag/hatch-v1.0.1">Release on GitHub</a></p>
+          </details>
+        </div>
+        <p class="product-availability">Version <span data-release="version">1.0.1</span> / macOS universal / VST3, AU, CLAP / Free early access</p>
+        <details class="product-access">
+          <summary><span class="access-badge">Accessible</span></summary>
+          <ul><li>Works with VoiceOver and the keyboard since 1.0.0</li><li>Its knobs, choices and buttons are named and read</li><li>Tab reaches them, the arrows move them, Return presses them</li><li class="access-limit">Drawing and dragging in the step grid need a mouse</li></ul>
+        </details><p class="manual-links"><a href="../../manuals/hatch/">Help and parameter manual</a> <span aria-hidden="true">/</span> <a href="../../assets/manuals/hatch.pdf" download>PDF manual</a></p>
+      </div>
+      <div class="product-visual reveal" style="--editor-ratio: 1000 / 740"><div class="plugin-shot"><a class="screenshot-enlarge" href="../../assets/screenshots/hatch.png" target="_blank" rel="noopener" aria-label="Enlarge BRK - Hatch interface"><img src="../../assets/screenshots/hatch.png" width="1000" height="740" alt="BRK - Hatch plugin interface"></a></div></div>
+    </section>
+    <section id="changelog" class="changelog section-shell" aria-labelledby="changelog-title">
+      <h2 id="changelog-title" class="eyebrow reveal">Changelog</h2>
+      <div class="changelog-list reveal">
+        <details class="changelog-entry" open>
+          <summary><span class="changelog-version">1.0.1</span><span class="changelog-date">2026-11-11</span><span class="changelog-latest">Latest</span></summary>
+          <div class="changelog-notes"><ul><li>Remove the help panel’s X button; press HELP again to close it.</li><li>Keep hovered control help visible across timer refreshes; unchanged keyboard focus no longer replaces it.</li><li>Seal AU, VST3 and CLAP bundles with complete ad-hoc signatures during packaging.</li><li>Rename the plugin to BRK - Hatch in hosts and installed bundles; keep plugin IDs, saved host sessions and the existing preset folder.</li><li>Unify the header: 16 px title, presets beside it, right-aligned version/build details, shared neutral colours and square controls.</li><li>Apply typed numeric values with Enter; Escape, focus loss and clicks outside cancel entry.</li></ul></div>
+        </details>
+        <details class="changelog-entry">
+          <summary><span class="changelog-version">1.0.0</span><span class="changelog-date">2026-11-10</span></summary>
+          <div class="changelog-notes"><ul><li>Contextual HELP, named keyboard/VoiceOver controls and an HTML/PDF parameter manual. Grid drawing and dragging still use a mouse.</li><li>First version: hi-hat patterns from a seed. A take plays the same every time, at any song position.</li><li>Plays while a note is held (or with the transport, or PLAY), always in step with the song's position. A note up to 30 ms late still catches the hit it missed. C1 to D#1 pick slots A to D, and the mod wheel raises Density.</li><li>Four slots, each with Style (Straight, House, Garage, Techno, Breaks, Trap, Euclid), Grid, Density, Complexity, Evolve, Open, Pedal and Accent. Density only adds or removes hits, never reshuffles them. NEW, MUTATE, and back and forth through the takes. A Cycle of whole bars and eighth notes over them, up to 8 bars: one that ends mid-bar starts again there and drifts across the bar lines.</li><li>Rolls of 2 to 16 hits a step (Roll Min to Max), with a Shape (Rising, Falling, Flat, Dip or Mixed), a Depth and a Curve that speeds a roll up or slows it down. Decay Vary gives each hit its own decay from the seed.</li><li>Swing from -100% (early) through 0 (straight) to +100%, on the grid's steps or on the eighths, drawn in the grid, with Humanize, Velocity and Output in a groove row of their own.</li><li>A step grid where each hit shows how loud it is and how it rings, a roll its hits and their count, and the next steps Density would bring in. A click selects a step and holds its bar (plainly marked; FOLLOW or Esc lets go), and the STEP row shows and sets all its values (with none selected, it shows the step under the mouse); a double-click adds a hit or takes it away; a drag changes two values at once by mode: velocity and roll level, hits and roll timing, decay and ring, sweep and place. Saved with the session. A strip shows every bar of the cycle, with a faint line of how long the hits ring.</li><li>A live synth with Metal, FM, Modal and Noise engines, morphed. The closed hat, the open hat, the shaker and the ride each have a whole sound of their own, in tabs, with Hold (how the ring fades), and COPY TO between them. The pedal is a foot's chick that closes a ringing open hat as a foot does. Every sound control can be automated.</li><li>A shaker and a ride, each with its own amount per slot, its own row in the grid, its own sound and its own note.</li><li>Each sound has an Attack, a Level and a Pan; per slot, Decay Vary and Pan Vary (with Pan Drift, from a spot of each hit's own to one slow curve across the cycle) each have a seed of their own.</li><li>A click on a row's name in the grid switches that layer off or on (silent, no notes). The pedal has a sound of its own. A sweep shows as an arrow in PAN mode, and a single hit given one glides across as it rings.</li><li>Beads (a shaker), Bell and Wash (a ride) engines join Metal, FM, Modal and Noise, for every sound.</li><li>A Low Cut (12 dB an octave, up to 8 kHz) on the whole mix, in the OUTPUT section with Dynamics, Output and MIDI Out.</li><li>Sends the hits as MIDI notes (General MIDI, channel 10).</li><li>Copy and paste patterns with a right-click: a row in the grid (every bar of it), a bar in the strip under the grid, or the whole cycle (a slot's settings and steps). A pasted row or bar plays exactly as it did where it was copied (as hand-set steps), onto any row of any slot, so a shaker's row can become the closed hat's. Add lays only the hits, keeping what is there where the copy rests; the same menus clear a row's, a bar's or the cycle's edits.</li><li>C1 to D#1 pick slots A to D and the last one played stays picked after the note ends, shown on the A to D buttons, which name their notes. A click on A to D picks a slot the same way.</li><li>DICE in each section, and DICE ALL: rolls the controls from where they are, as far as Range says, within spans that stay musical. &lt; and &gt; step back and forth through every NEW, MUTATE and DICE of the slot.</li><li>A step set by hand can now hold a Flat or Dip roll, so a pasted roll keeps its shape.</li></ul></div>
+        </details>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><a class="wordmark wordmark-footer" href="../../"><span><span class="kamatz">B</span><span class="kamatz">R</span><span class="hirik">K</span></span><span>AUDIO</span></a><p class="footer-meta">VST3 / AU / CLAP<br>macOS universal<br>VoiceOver and keyboard</p><a class="footer-link" href="https://github.com/barak007/brk-audio" data-goatcounter-click="github-footer"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.37A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>GitHub</a></footer>
+</body>
+</html>

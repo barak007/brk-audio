@@ -1,0 +1,1036 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="BRK - Rampa user manual and parameter reference"><title>BRK - Rampa manual — BRK Audio</title><link rel="stylesheet" href="../../assets/vendor/fonts/fonts.css"><link rel="stylesheet" href="../../manuals.css"></head><body>
+<header><a href="../../">BRK AUDIO</a><a href="../../plugins/rampa/">BRK - Rampa</a><a class="pdf-download" href="../../assets/manuals/rampa.pdf" download>Download PDF</a></header>
+<main><h1>BRK - Rampa</h1><p class="subtitle">User manual and parameter reference · 1.2.1</p><p>A tempo-locked generator for risers, transitions, downlifters and impacts.</p>
+<nav aria-label="Manual contents"><a href="#quick-start">Quick start</a><a href="#operation">Operation</a><a href="#parameters">Every parameter</a><a href="#files">Presets and files</a><a href="#installation">Installation and help</a></nav>
+<section id="quick-start"><h2>Quick start</h2><ol><li>Insert Rampa as an instrument and load a factory preset.</li><li>Play a MIDI note or use Play; the Rise, Transition and Fall follow the song tempo.</li><li>Adjust sources or modulation, then drag the rendered WAV cell into your DAW.</li></ol></section>
+<section id="window"><h2>Editor window</h2><p>1100 × 681 minimum; resizable. Dimensions are logical editor pixels, before host window chrome. HELP adds 92 pixels of height (Gear adds a one-pixel divider too). Allow enough usable screen space at your display scale. Press HELP again to close the help area.</p></section>
+<section id="operation"><h2>Operation</h2><p>The gesture is monophonic. Release mode decides whether note-off plays out, jumps to the fall, or releases the sound. The sources and effects have their own pages; turning a section off is separate from changing its parameters.</p><p>The Sample sound menu offers Load file for a new sample or relinking a missing one. Collect file into preset library copies an external sample into the Rampa user preset library. Copy that library, including Samples, when transferring collected patches. Uncollected files also retain a home-relative path where possible and an absolute fallback.</p><p>HELP follows the pointer or keyboard focus. Timeline and modulation drawing still use the pointer. The WAV render updates after edits; wait for a current render before dragging it out.</p><p>Modulator parameters are allocated in reusable slots. Unused slots remain listed in the host but have no audible role. Adding a modulator assigns the slot its controls; the Ramps and modulators section describes each type.</p><h2>The gesture</h2>
+<ul>
+<li><strong>Rise</strong>, <strong>Transition</strong> and <strong>Fall</strong> can each be switched on or off, so a gesture can be a Rise alone, a Rise into a
+Transition, a Fall alone, or all three. Their lengths are note values, from a 1/128 triplet to 32 bars (dotted and triplet values all the way down). A bar follows the
+host’s time signature.</li>
+<li>The <strong>Transition</strong> says how everything gets from where the Rise left it to where the Fall starts:
+<ul>
+<li><code>Glide</code>: moves along the Transition’s curve over its length.</li>
+<li><code>Jump</code>: switches at the drop, then stays for the Transition’s length.</li>
+<li><code>Hold</code>: stays where the Rise left it, then switches at the end.</li>
+<li><code>Gap</code>: silence for its length (the riser cutting out before the drop), then the Fall.</li>
+</ul>
+</li>
+<li><strong>Time</strong> says where the Transition’s length comes from:
+<ul>
+<li><code>From rise</code> (the default), <code>From fall</code>, <code>Both</code>: it is taken from the end of the Rise, the start of the Fall, or
+half from each. The section it takes from is squeezed: it still runs from its start level to its end level, only
+sooner. The gesture keeps its length and the Fall keeps its place on the grid.</li>
+<li>Example: with a 4-bar Rise, a quarter-note Transition and a 4-bar Fall, <code>From rise</code> makes the Rise 3¾ bars and
+starts the Fall exactly on bar 5; <code>Both</code> centres the Transition on that bar line.</li>
+<li>A section shorter than its share gives what it has, and the rest is the Transition’s own time.</li>
+<li><code>Own</code>: it is added between the Rise and the Fall, so the gesture gets longer by it.</li>
+</ul>
+</li>
+<li><code>½</code> and <code>×2</code> (beside the tempo) halve or double the Rise, the Transition and the Fall at once, each to the nearest
+note value.</li>
+<li>A note starts the gesture at once. While the host plays, the gesture then counts from the host’s song position, so it
+stays in time with the song. With the host stopped, it runs at the host’s tempo.</li>
+<li><strong>Release</strong> is what letting go of the key does:
+<ul>
+<li><code>Stop</code> (the default): the sound fades out over 20 ms. The delay and reverb ring on.</li>
+<li><code>Play out</code>: nothing; the gesture plays to its end whatever the key does.</li>
+<li><code>To fall</code>: letting go during the Rise ends the Rise there, and the gesture goes on to the Transition and Fall. Hold
+a key to build; let go to drop.</li>
+</ul>
+</li>
+<li>More keys while one is held change only the note (legato). Each source glides to it over its own <strong>Glide</strong>. A key pressed after all keys
+were let go starts a new gesture. A gesture still sounding fades out over one cell (32 samples) first, so the
+restart does not click.</li>
+<li><strong>Seed</strong> picks the take of everything random (noise, Swarm, Sparks, the Voice’s breath, the Hit’s crack). Every
+gesture plays the same take.</li>
+</ul>
+<h2>Ramps and modulators</h2>
+<ul>
+<li>
+<p>The <strong>Amp ramp</strong> is the level of everything over the gesture. It has four levels: at the start, at the drop, after
+the Transition and at the end. The Rise and the Fall each have a curve. <code>Mirror</code> (off by default) makes the Fall undo
+the Rise: it starts where the Rise got to and ends where the Rise started, whatever After and End say. The level is
+the ramp squared.
+Like a Ramp modulator it can also drive other controls (<code>+ Target</code> under its chip, or <code>Amp</code> in a control’s
+right-click menu), so a filter or a reverb send can move with exactly the shape of the level.</p>
+</li>
+<li>
+<p><strong>Curve shapes</strong>: every curve (each ramp’s Rise and Fall, and the Transition’s glide) has a shape as well as an
+amount. The amount is the diamond on the timeline; what it does follows the shape:</p>
+<table>
+<thead>
+<tr>
+<th>Shape</th>
+<th>The amount</th>
+<th>For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Bend</code></td>
+<td>how sharply it bends, either way (the only shape before)</td>
+<td>the surge before a drop</td>
+</tr>
+<tr>
+<td><code>Steep</code></td>
+<td>a Bend that goes four times as far: all but flat, then a shot to the other level at the very end (or start)</td>
+<td>extreme last-moment surges and snaps</td>
+</tr>
+<tr>
+<td><code>S-curve</code></td>
+<td>up: eases out and in; down: fast, slow, fast</td>
+<td>smooth swells and glides</td>
+</tr>
+<tr>
+<td><code>Steps</code></td>
+<td>2 to 32 equal steps (2, 3, 4, 6, 8, 12, 16, 24, 32; 8 at rest)</td>
+<td>stair risers on the grid</td>
+</tr>
+<tr>
+<td><code>Accel</code></td>
+<td>8 steps, each shorter than the last (up) or longer (down)</td>
+<td>the roll feel on any control</td>
+</tr>
+<tr>
+<td><code>Bounce</code></td>
+<td>up: lands and bounces off the end; down: bounces off the start; more is more bounces (1 to 16), and past 4 they stay tall and jiggle to the end</td>
+<td>impacts, Falls that bounce, jiggles</td>
+</tr>
+<tr>
+<td><code>Breath</code></td>
+<td>how deep it dips back just before the end, then lands</td>
+<td>the inhale before the drop</td>
+</tr>
+<tr>
+<td><code>Wobble</code></td>
+<td>how many swings around the straight path (1.5 to 12); up: they grow toward the end, down: they fade out</td>
+<td>tension that shakes before the drop</td>
+</tr>
+<tr>
+<td><code>Zigzag</code></td>
+<td>2 to 16 saw teeth, each climbing and dropping back (at least 30 % of where it got, so it pumps right to the top); down: each jumps up and sags back</td>
+<td>pumping risers</td>
+</tr>
+<tr>
+<td><code>Elastic</code></td>
+<td>how many springs (1 to 8); up: shoots past the end and settles, down: winds up around the start, then springs</td>
+<td>snaps into the drop</td>
+</tr>
+<tr>
+<td><code>Jitter</code></td>
+<td>how wild a random wander around the straight path is; up: smooth, down: in steps</td>
+<td>nervous, unsteady movement</td>
+</tr>
+</tbody>
+</table>
+<p>Every shape starts exactly at its section’s first level and ends exactly at its last, so Mirror and <code>To fall</code> work
+with all of them. None but the Elastic leaves the range between the two (a Bounce never overshoots); an Elastic may,
+but never past 0 or 100 %. A Jitter’s take is the same every gesture: it follows the patch’s <code>Seed</code>, and each ramp
+and section has its own. Pick a shape with the small button in each section of the timeline, or with the ramp’s
+<code>Rise shape</code> and <code>Fall shape</code> cells.</p>
+</li>
+<li>
+<p><strong>Modulators</strong> are added from the <code>+</code> after the last chip (Ramp, LFO or Random), up to eight. Double-click a chip to
+give its modulator a name (up to 20 characters, saved with the patch; empty goes back to “LFO 2”), or use the small
+menu button on the selected chip to rename or remove it. A modulator drives any number of controls, each by its own
+depth. Add targets with <code>+ Target</code>, or
+right-click any control and pick a modulator (or make a new one for it). A routing’s cell takes a drag for the
+depth, a double-click to type it and a right-click to invert or remove it. Modulators can drive other modulators’
+controls, such as a Ramp speeding up an LFO.</p>
+<ul>
+<li><code>Ramp</code>: the same controls as the Amp ramp, 0 to 1 over the gesture.</li>
+<li><code>LFO</code>: Rate as a note value (8 bars to 1/128), Shape (sine, triangle, saw up, saw down, square), Phase,
+Polarity, Snap. <code>Snap</code> has three settings:
+<ul>
+<li><code>Off</code>: the rate is used as set, so a modulated rate sweeps smoothly (and drifts off the beat while it moves).</li>
+<li><code>On</code>: the rate is rounded to a straight note value (1/4, 1/8, 1/16…), so a modulated rate steps up or down
+like gears; a new value takes over when the current cycle ends, so the wave never jumps and every cycle starts
+on a note.</li>
+<li><code>Hz</code>: the rate is in Hz (1/16 Hz to 64 Hz) and ignores the tempo. A knob position plays the speed its note
+value has at 120 BPM, so switching to Hz at 120 BPM keeps the speed.</li>
+</ul>
+</li>
+<li><code>Random</code>: a new value every cycle, from a sequence that depends only on its Seed and the cycle, with Smooth
+gliding between values. Its Snap works as the LFO’s.</li>
+<li>LFO and Random count their cycles from the start of the gesture.</li>
+</ul>
+</li>
+<li>
+<p>A modulated control shows a track along its bottom: the reach of its routings, where it is set, and where it is now.</p>
+</li>
+<li>
+<p>Between the modulators and the sources and effects, every routing to a control on a page is a wire down to that
+page’s tab, which gets a bar in the source’s colour. The selected source’s wires start at its routing cells and stand
+out; the others start under their chips, dimmer. Each wire brightens the more its routing moves its target right
+now. Click a routing (without dragging) to open its target’s page.</p>
+</li>
+<li>
+<p>The <strong>timeline</strong> shows the sections on a bar grid, the Amp ramp filled, every modulator’s curve, where the Hit
+fires and the playhead. Behind the curves, faintly, is the gesture’s waveform as it sounds (its tails fainter), with
+its length in seconds at the bottom right. Rampa renders the patch again in the background a quarter of a second after
+you edit it (a control let go, a preset, the modulation, the sample, the tempo), while the editor is on screen. Host
+automation moving a control does not render it again: the waveform and the WAV are the patch as you set it. Nothing
+waits for it, and a soft shimmer runs across the waveform until the new one
+is ready (after a preset change the old waveform is hidden and the shimmer runs across the empty timeline). The time
+axis follows the section lengths only; tails that ring longer than the room after the end run off its right edge.</p>
+</li>
+<li>
+<p><strong>Drag WAV</strong> (beside Play) drags the gesture out as a WAV into the DAW or a folder: a held C4 at the host’s tempo,
+24-bit stereo. It starts on the note’s first sample and runs to the first bar line after the gesture and its tails
+(until they fall under -80 dB), so its length is a whole number of bars to the sample. A tail that never dies (a
+frozen reverb) ends on the bar line after about 20 s more, faded over its last 10 ms. The file is kept in <code>~/Music/Rampa</code>, since a DAW may play it
+from there, named with the patch, the tempo, the date and the time, and never written over another file. While the
+cell reads <code>Rendering</code>, a drag does nothing; it takes a moment after an edit. Click it to save it elsewhere.
+The selected ramp has handles:</p>
+<ul>
+<li>Drag a square up or down for a level (Shift for fine steps).</li>
+<li>Drag a diamond to bend a section’s curve (for shapes other than Bend and Steep, up raises the amount; the label says what it
+means, such as “16 steps”).</li>
+<li>The small button at the top of each section (the Rise’s at its left, the Fall’s at its right, the Transition’s
+over it while it glides) shows the curve’s shape and opens a menu of the ten.</li>
+<li>Double-click a handle for its default.</li>
+<li>Click a curve to select its modulator.</li>
+</ul>
+</li>
+</ul>
+<h2>Sources</h2>
+<p>Every source is transposed by the note (C4 plays untransposed) and has its own switch and level; a tab’s dot is filled
+while its source is on. All but the Hit have a Glide (how long they take to reach a new legato note; off by default).
+They sound alike at the same level.</p>
+<ul>
+<li>
+<p><strong>Noise</strong>: white, pink or brown, decorrelated left and right by Width, or one of three that <code>Texture</code> shapes:</p>
+<ul>
+<li><code>Crackle</code>: clicks, 4 to 4000 a second, on both channels or (as often as Width says) on one.</li>
+<li><code>Digital</code>: the 1-bit shift-register noise of old game consoles, clocked at 1 to 128 times the note’s frequency,
+so it transposes with the note.</li>
+<li><code>Metallic</code>: six square waves at a TR-808 cymbal’s ratios, two octaves either way, transposed by the note; Width
+sets the right a hair sharper so they beat. A high-pass around 7 kHz makes it a hat.</li>
+</ul>
+<p>It has its own state-variable filter (low-, band- or high-pass at 12 or 24 dB/oct), whose cutoff can follow the note
+(Track). <code>Spread</code> pulls the left and right cutoffs apart (up to three octaves); <code>Dual</code> is two band-passes Spread
+apart in both channels: ramp the Spread and they part.</p>
+</li>
+<li>
+<p><strong>Tone</strong>: 1 to 9 voices (saw, square, triangle or sine) detuned by up to 200 cents and spread across Width. The saw
+and square are band-limited with PolyBLEP.</p>
+<ul>
+<li><code>Shepard</code> turns each voice into 2 to 8 octave copies under a fixed raised-cosine window, so Pitch rises or falls
+forever.</li>
+<li>Crossing an octave hands each copy’s phase to the next, so the endless glide never clicks.</li>
+<li><code>Chord</code> puts the voices on a chord’s notes (octaves, fifths, major, minor, sus, major 7 or minor 7; its own, apart
+from the Swarm’s), a layer of octaves for each round of them: supersaw chord risers.</li>
+</ul>
+</li>
+<li>
+<p><strong>Swarm</strong>: 4 to 32 sines. Each starts at its own random pitch within Spread and drifts slowly. As Focus goes from
+0 to 100 % they settle into the notes of the Chord (unison, octaves, fifths, major, minor, sus, major 7, minor 7)
+around the played note. Ramp Focus over the Rise and noise-like chaos lands in key at the drop.</p>
+</li>
+<li>
+<p><strong>Sub</strong>: a sine, triangle, <code>Warm</code> (a rounded square, harmonics a small speaker can play) or square, Pitch semitones
+from the note (two octaves down by default).</p>
+<ul>
+<li><code>Clean</code> (on by default) sends it around the Bus and the effects chain, joining with the Hit, so a high-pass, Comb,
+Crush or Shifter never thins it; it still gets the Width, Delay and Reverb.</li>
+<li><code>During</code>: <code>Always</code>, <code>Before drop</code> or <code>After drop</code> (it fades in or out over 5 ms at the drop).</li>
+<li><code>Drop</code> (down to -48 st) falls from the drop: most of the way in a third of <code>Drop time</code>, all of it by the Drop
+time. The 808 drop under an impact.</li>
+</ul>
+</li>
+<li>
+<p><strong>Sparks</strong>: short pings at random moments, Density per beat, each at a random pitch within Range around Pitch.
+Tonal pulls them onto the Chord’s notes.</p>
+</li>
+<li>
+<p><strong>Voice</strong>: a buzz at the note and breath noise through three formant filters.</p>
+<ul>
+<li><code>Vowel</code> morphs A, E, I, O, U; ramp it for a vowel that opens as it rises.</li>
+<li><code>Formant</code> shifts the formants (a smaller or larger singer), <code>Breath</code> mixes the buzz toward noise (a whisper),
+<code>Sharp</code> narrows the formants, <code>Width</code> moves them apart left and right.</li>
+</ul>
+</li>
+<li>
+<p><strong>Metal</strong>: two-operator FM. <code>Ratio</code> sets the modulator against the carrier (0.25 to 16; off the whole numbers it goes
+bell-like and metallic), <code>Index</code> its depth (the brightness: ramp it for a riser that opens up), <code>Feedback</code> the
+modulator on itself (toward noise), <code>Width</code> a slight detune between left and right. The index is held under the point
+where it would alias.</p>
+<ul>
+<li><code>Stack</code> adds the same pair an octave down, a fifth up and an octave up, all turned down together, so it grows
+bigger, not louder: a giant bell chord.</li>
+<li><code>Ring</code> adds four resonators on the Metal’s own strongest partials (its carrier and first sidebands, so they follow
+the Ratio). They take the Metal after the Amp ramp and keep ringing after it: louder and longer (0.4 to 6.4 s) as Ring
+goes up, through a Gap and past the gesture’s end. Release <code>Stop</code> fades them with everything else.</li>
+</ul>
+</li>
+<li>
+<p><strong>Hit</strong>: a one-shot at the drop (<code>At: Drop</code>, where the Rise ends) or where the Fall starts (<code>At: Fall</code>, for a Gap).
+The Amp ramp does not shape it: it has its own envelope.</p>
+<ul>
+<li>A sine that starts <code>Sweep</code> semitones above <code>Pitch</code> and falls to it over <code>Snap</code>, dying over <code>Decay</code>.</li>
+<li><code>Crack</code>, a burst of high-passed noise, and <code>Drive</code>.</li>
+<li>It joins after the effects that run in any order (so it is never filtered or gated shut) and before the Space and
+Reverb. It rings on past the gesture’s end; Release <code>Stop</code> fades it with everything else. A gesture fires it once,
+and the timeline marks where.</li>
+</ul>
+</li>
+<li>
+<p><strong>Sample</strong>: a sound read from memory, either one of five built in (Impact, Choir, Metal, Sweep, Glass, made in code
+so they are the same everywhere) or your own audio file. Pick it on the <code>Sound</code> cell (or <code>Load file...</code> there), or
+drop a WAV, AIFF or FLAC anywhere on Rampa. The patch keeps the file’s path: move the file and the Sound reads
+“(missing)” and stays silent. Up to 30 seconds are read. Every sound is taken as rooted at C4, so the note transposes
+it.</p>
+<ul>
+<li><code>Grains</code> mode: grains <code>Size</code> long (5 ms to 1 s), <code>Density</code> a beat (0.5 to 64), read around <code>Position</code> (0 to 100 % of
+the sound), scattered by <code>Spray</code>, played backwards as often as <code>Reverse</code> says (a backwards grain plays the same
+stretch, from its far end) and panned within <code>Width</code>. Like the other sources it follows the Amp ramp. Ramp Position
+across a Rise for a riser made of the sound.</li>
+<li><code>One-shot</code> mode: plays the sound once from <code>Position</code>, at the gesture’s start, the drop or where the Fall starts
+(<code>At</code>). With Reverse past half it plays backwards from the mirror point, and at the drop or the Fall it ends there
+instead of starting there, so it swells into it; when it is longer than the gesture before that point, it starts
+with the gesture, part way in, and still ends on it. Like the Hit, the Amp ramp does not shape it and it rings on
+past the gesture’s end; Release <code>Stop</code> fades it. The timeline marks its At point and, along the bottom, how long it
+plays.</li>
+<li>The cells a mode ignores are dimmed (<code>At</code> in Grains; <code>Size</code>, <code>Density</code>, <code>Spray</code> and <code>Width</code> in One-shot), and in
+One-shot <code>Reverse</code> reads On or Off.</li>
+</ul>
+</li>
+</ul>
+<h2>The Bus</h2>
+<p>Between the sources and the effects (the column between the two arrows), the <strong>Bus</strong> drives the sources, summed, into a
+limiter. It is off by default.</p>
+<ul>
+<li><code>Drive</code> (0 to 24 dB) pushes them in, and <code>Ceiling</code> (-24 to 0 dB) is where the limiter holds them: louder and denser,
+then squashed, so the effects get an even level however the sources stack up. Ramp the Drive and a riser gets
+denser instead of louder.</li>
+<li>The gain falls at once with each peak and recovers over 60 ms. There is no lookahead, so it adds no latency.</li>
+<li>The Hit joins after the chain, so it never goes through the Bus.</li>
+</ul>
+<h2>Effects</h2>
+<p>The chain: <strong>Filter, Drive, Crush, Gate, Phaser and Shifter in any order</strong>, then the Hit joins, then Space (Width and
+Delay), Reverb, Output and the Limiter. The effects tabs stand in the chain’s order, with arrows between them; drag one
+left or right to move its effect. The order is saved with the patch. Every effect works on the whole sound (all the
+sources but the Hit). A tab’s dot is filled while its effect is doing something and hollow while it is set to do
+nothing: Drive, Crush, Gate, Phaser, Shifter and the Delay start at 0 (their Amount, Mix or Depth), so they do nothing
+until that is raised.</p>
+<ul>
+<li><strong>Filter</strong>: low-pass, band-pass, high-pass, notch or peak at 12 or 24 dB/oct (trapezoidal state-variable, stable
+under fast modulation), with Resonance and key Track (the played note, not glided). <code>Comb</code> is a feedback comb tuned
+to Cutoff (with Track it plays the note); Resonance is its feedback, and <code>Damp</code> darkens each pass. <code>Comb -</code> feeds back
+upside down: only the odd harmonics, hollow and an octave lower. <code>Morph</code> crossfades low-pass (0) to band-pass (50 %)
+to high-pass (100 %) on the <code>Morph</code> control: ramp it and the filter turns inside out. <code>Spread</code> pulls the left and
+right cutoffs apart, up to two octaves.</li>
+<li><strong>Drive</strong>: Soft (tanh), Hard (clip), Fold (folds back from full scale) or Rectify (both halves turned up: the
+octave above), at 0 to 36 dB with Mix. <code>Bias</code> moves the signal off the curve’s centre so its halves bend apart (even
+harmonics, a tube’s grit); the DC it leaves is blocked. <code>Tone</code> is a low-pass after the curve (off at 20 kHz). The
+output is turned down by about a third of the drive in dB, so more drive makes the sound denser more than louder. It
+runs at four times the sample rate. It fades in over its first 3 dB, so 0 dB is clean.</li>
+<li><strong>Crush</strong>: a lower sample rate (<code>Rate</code>, held samples, aliasing on purpose) and fewer bits (<code>Bits</code>, 1 to 16, between
+whole numbers too), with <code>Mix</code>. Off at Mix 0.
+<ul>
+<li><code>Follow</code> (on by default) counts the bits from the sound’s own level, so a quiet start crunches as hard as a loud
+end; off, they count from full scale and a quiet sound rounds away to silence.</li>
+<li><code>Track</code> moves the Rate with the note, so the aliasing plays it; <code>Jitter</code> stretches each held sample by up to an
+octave either way (a wobbling clock); <code>Tone</code> is a low-pass on what comes out.</li>
+</ul>
+</li>
+<li><strong>Gate</strong>: the roll that speeds up toward the drop. Rate is a note value, with Depth, Duty and Smooth for the edges
+(at least 0.6 ms, so it never clicks). <code>Snap</code> keeps it on straight note values locked to the gesture’s grid; off,
+its rate sweeps freely.
+<ul>
+<li><code>Swing</code> lengthens the first of each pair of cycles and shortens the second, up to a triplet shuffle.</li>
+<li><code>Pattern</code> turns it into a step gate: each step lasts one cycle of Rate, <code>Length</code> (1 to 16) says how many steps
+loop, and the row of steps says which open. Steps past the Length are dimmed.</li>
+</ul>
+</li>
+<li><strong>Phaser</strong>: <code>Phaser</code> (4, 8, 12 or 16 all-pass <code>Stages</code>), <code>Flanger</code> (a 0.3 to 10 ms delay) or <code>Through-zero</code> (a
+flanger whose delay sweeps through the dry’s own, upside down, so they cancel where they meet: the jet that closes
+to nothing; the dry is 3 ms late). An LFO at <code>Rate</code> (a note value, <code>Shape</code> sine, triangle, up or down) sweeps it by
+<code>Depth</code> around <code>Centre</code>; ramp the Centre for the jet sweep. <code>Feedback</code> (either sign), <code>Spread</code> (the right channel’s
+LFO up to half a cycle behind) and <code>Mix</code>: 100 % is dry and wet half and half, where the notches are deepest. Off at
+Mix 0.</li>
+<li><strong>Shifter</strong>: a frequency shifter (every frequency moves by the same number of hertz, up to 5 kHz either way, fine
+near 0) in a loop through a short <code>Delay</code>: with <code>Feedback</code> each pass shifts further, the endless barber-pole rise or
+fall. Off at Mix 0.
+<ul>
+<li><code>Track</code> scales the shift with the note (at 100 % an octave up shifts twice as far), so a patch keeps its colour
+across the keyboard.</li>
+<li><code>Both ways</code> shifts the right channel the other way: up on the left, down on the right.</li>
+<li><code>Low cut</code> and <code>High cut</code> in the loop keep the passes from piling up as rumble or fizz.</li>
+<li><code>Sync</code> sets the Delay as a note value (<code>Note</code>, a 1/128 triplet to a bar), so each pass lands on the grid.</li>
+<li><code>Spread</code> turns the right channel’s carrier up to 90 degrees, which widens it without ever cancelling in mono.</li>
+</ul>
+</li>
+<li><strong>Space</strong>:
+<ul>
+<li>Width (mid/side, 0 to 200 %).</li>
+<li>A tempo-synced delay (a 1/128 triplet to a bar, ping-pong or stereo, damped feedback up to 95 %).</li>
+<li>In its loop, <code>Low cut</code> thins each repeat more than the last and <code>Saturate</code> makes high feedback bloom instead of
+piling up.</li>
+<li><code>Mode</code>: <code>Tape</code> glides to a new time (the repeats bend in pitch); <code>Jump</code> crossfades to it over 30 ms.</li>
+</ul>
+</li>
+<li><strong>Reverb</strong>: an eight-line feedback delay network with a pre-delay (<code>Pre-delay</code>, up to 250 ms), input diffusion,
+damping and a decay time (RT60) of 0.2 to 20 s. Size and Decay can be modulated.
+<ul>
+<li><code>Mod</code> drifts the lines’ lengths slowly (read with a cubic between samples), so long tails on sines do not ring
+metallic.</li>
+<li><code>Freeze</code> holds the tail: no more input and no loss. Drive it with a Ramp (a <code>Jump</code> Transition, or a <code>Steps</code> shape)
+to freeze the wash at the drop and let it go later.</li>
+<li><code>Shimmer</code> feeds the tank’s output back in pitched by <code>Interval</code> (+12, +7, +19 or -12 semitones), bounded so it
+can never run away, and kept between 250 Hz and 9 kHz so it never builds a low tone under a long tail.</li>
+</ul>
+</li>
+<li><strong>Limiter</strong> (<code>Limit</code> in the header, on by default): a stereo-linked lookahead limiter holding peaks under -0.3 dBFS.
+Its 1.3 ms lookahead is there even when it is off, so the latency the host sees never changes.</li>
+</ul>
+<p>The delay and reverb run after the gesture ends, so tails ring past the last note.</p>
+<h2>Factory presets</h2>
+<p>The presets are grouped by job, each group a submenu of the preset list. Each preset shows one or two ideas, and its
+modulators are named for what they do: load one, select a modulator’s chip to see what it drives, and change the one
+thing suggested.</p>
+<p>Presets and sessions store every choice by a stable ID beside its position (<code>&lt;PARAM id=&quot;delayTime&quot; value=&quot;15&quot; choice=&quot;1/8d&quot;/&gt;</code>, and <code>p2=&quot;sine&quot;</code> on a modulator for its choices), and read the ID first, so a list that gains entries
+never turns an older file’s setting into another. Choices are not open to host automation (a host stores a choice as
+its position in the list); the on/off switches are toggles hosts may automate.</p>
+<h3>Risers</h3>
+<table>
+<thead>
+<tr>
+<th>Preset</th>
+<th>Shows</th>
+<th>Try</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Noise Riser</td>
+<td>The Amp ramp, and one Ramp opening the noise’s high-pass</td>
+<td>Drag the Amp ramp’s Rise curve diamond up and down</td>
+</tr>
+<tr>
+<td>Sparkle Build</td>
+<td>Sparks Density from 1 to 32 per beat, every ping on the chord, through a ping-pong delay</td>
+<td>Lower Tonal for random pitches</td>
+</tr>
+<tr>
+<td>Glitch Riser</td>
+<td>Random steps on a band-pass, sped up by a Ramp that also drives Fold</td>
+<td>Change the Random’s Seed</td>
+</tr>
+<tr>
+<td>Dirty Riser</td>
+<td>A Ramp opening the filter while Hard drive bites harder; <code>Jump</code> dropping both at the drop</td>
+<td>Swap the Drive curve to Fold</td>
+</tr>
+<tr>
+<td>Stair Riser</td>
+<td>A <code>Steps</code> shape: 16 steps over 4 bars lift the Tone a semitone a beat</td>
+<td>Pick <code>Accel</code> on the Ramp’s Rise shape button</td>
+</tr>
+<tr>
+<td>Choir Rise</td>
+<td>The Voice: a Ramp opens the vowel from A to I, into a shimmering reverb</td>
+<td>Change the Ramp’s routing to <code>Formant</code></td>
+</tr>
+<tr>
+<td>Metal Bloom</td>
+<td>Metal: a Ramp opens the FM index (and a little feedback) over the Rise</td>
+<td>Set the Ratio to a whole number</td>
+</tr>
+<tr>
+<td>Jet Sweep</td>
+<td>The Flanger, its Centre ramped across the Rise</td>
+<td>Switch the Mode to <code>Phaser</code></td>
+</tr>
+<tr>
+<td>Crushed Build</td>
+<td>Crush: a Ramp lowers the sample rate and the bits as it builds</td>
+<td>Drag the Crush tab before the Filter</td>
+</tr>
+<tr>
+<td>Supersaw Wall</td>
+<td>Detune pushed wide: nine saws spread from 40 to 190 cents into the Bus, while Denser ramps the Bus Drive to +20 dB, so the wall gets denser, not louder</td>
+<td>Turn the Bus off to hear it get louder instead</td>
+</tr>
+<tr>
+<td>Shaking Riser</td>
+<td>The <code>Wobble</code> shape: Shake lifts the pitch two octaves and opens the filter, swinging more and more toward the drop</td>
+<td>Drag Shake’s Rise diamond down, so the swings fade out instead</td>
+</tr>
+<tr>
+<td>Granular Choir Rise</td>
+<td>The Sample in <code>Grains</code> on the built-in Choir: Scan moves the Position through the sound while the grains get denser, shorter and higher</td>
+<td>Load your own vocal on the Sound cell</td>
+</tr>
+<tr>
+<td>Stacked Metal Rise</td>
+<td>The Metal’s <code>Stack</code> growing from nothing to a giant chord while its Index opens, with a little <code>Ring</code></td>
+<td>Set Ring to 100 % and let the Rise end</td>
+</tr>
+<tr>
+<td>Crackle Rain Riser</td>
+<td><code>Crackle</code> noise thickening from a few clicks into rain (Thicken drives Texture) through a <code>Dual</code> filter whose bands Part over the Rise, then the Hit</td>
+<td>Switch the filter to <code>BP</code> and drive the Spread for a stereo split</td>
+</tr>
+<tr>
+<td>Inside-Out Filter</td>
+<td>A supersaw through the Filter’s <code>Morph</code>: Turn takes it from low-pass through band-pass to high-pass over the Rise and back over the Fall</td>
+<td>Lower the Resonance for a smoother turn</td>
+</tr>
+</tbody>
+</table>
+<h3>Downlifters</h3>
+<table>
+<thead>
+<tr>
+<th>Preset</th>
+<th>Shows</th>
+<th>Try</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Downlifter</td>
+<td>A Fall alone; Mirror off, so the Ramp’s After and End set where the Fall goes</td>
+<td>Swap the Ramp’s After and End to make it rise instead</td>
+</tr>
+<tr>
+<td>Sub Drop</td>
+<td>Two Ramps with different Fall curves: a slow pitch drop and a fast noise burst</td>
+<td>Bend Pitch Dive’s Fall curve</td>
+</tr>
+<tr>
+<td>Bouncing Ball</td>
+<td>A <code>Bounce</code> shape with 8 bounces on the pitch: it falls, lands and bounces back up, each bounce shorter and lower</td>
+<td>Drag Ball’s Fall diamond to the top for 16 bounces</td>
+</tr>
+<tr>
+<td>Chord Dissolves</td>
+<td>Swarm Focus falling from 100 % to 0: a minor 7 chord melts into drifting sines as it sinks an octave</td>
+<td>Bend Melt’s Fall curve down, so it melts at once</td>
+</tr>
+<tr>
+<td>Sinking Choir</td>
+<td>The Voice closing from A to U as it sinks an octave and its formants drop, into a Shimmer an octave down (<code>-12 st</code>)</td>
+<td>Set the Shimmer Interval to <code>+12 st</code></td>
+</tr>
+<tr>
+<td>Detuned Collapse</td>
+<td>Detune spreading from 5 to 200 cents as the pitch falls and the filter closes: the supersaw falls apart</td>
+<td>Shorten the Fall to 1 bar</td>
+</tr>
+<tr>
+<td>Swinging Fall</td>
+<td>The <code>Wobble</code> shape fading (its diamond down): wide swings of pitch and filter at the start settle as it falls</td>
+<td>Drag Settle’s Fall diamond up, so the swings grow instead</td>
+</tr>
+<tr>
+<td>Sawtooth Dive</td>
+<td>The <code>Zigzag</code> shape: noise through the Comb filter (tracking the note), its pitch diving three octaves in six saw teeth</td>
+<td>Drag Teeth’s Fall diamond up for more teeth</td>
+</tr>
+<tr>
+<td>Reverse Sweep Fall</td>
+<td>The Sample’s built-in Sweep played in reversed grains, Rewind dragging the Position from the bright end back to the dark</td>
+<td>Lower the Reverse to 50 %</td>
+</tr>
+<tr>
+<td>Hollow Octave Fall</td>
+<td>Noise through <code>Comb -</code> tracking the note (hollow, an octave below the comb’s own pitch), <code>Damp</code> darkening each pass, Sink pulling the Cutoff down over the Fall</td>
+<td>Set the Mode to <code>Comb</code> to hear the octave come back</td>
+</tr>
+<tr>
+<td>Rotor Wind-Down</td>
+<td>An LFO on <code>Hz</code> Snap chopping the noise and a low saw, and Spin Down slowing it from 14 Hz to 4 Hz as the pitch sinks: the rotor keeps its speed at any tempo</td>
+<td>Set Blades’ Snap to <code>On</code> to lock the chop to the beat</td>
+</tr>
+</tbody>
+</table>
+<h3>Transitions &amp; Drops</h3>
+<table>
+<thead>
+<tr>
+<th>Preset</th>
+<th>Shows</th>
+<th>Try</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Supersaw Gap</td>
+<td>One Ramp on two targets (filter and pitch); a <code>Gap</code> Transition cutting out before the drop</td>
+<td>Change the Transition to <code>Jump</code> or <code>Hold</code></td>
+</tr>
+<tr>
+<td>Rise Glide Fall</td>
+<td>All three sections; the Transition gliding from the drop down to the Ramp’s After</td>
+<td>Drag the Transition’s purple diamond</td>
+</tr>
+<tr>
+<td>Hold Then Let Go</td>
+<td>Release <code>To fall</code>: hold a key to build, let go to drop wherever the Rise has got to</td>
+<td>Let go early, then late</td>
+</tr>
+<tr>
+<td>Breath Then Hit</td>
+<td>The Amp’s Rise shape <code>Breath</code>: it dips away just before the drop, and the Hit lands on it</td>
+<td>Lower the Breath diamond for a shallower inhale</td>
+</tr>
+<tr>
+<td>Frozen Drop</td>
+<td>A second Ramp freezing the reverb at the drop (a <code>Jump</code> Transition), let go half way into the Fall by a <code>Steps</code> shape</td>
+<td>Remove the freeze routing to hear the difference</td>
+</tr>
+<tr>
+<td>Chord Gap Hit</td>
+<td>Tone on a major 7 chord, a Gap taken from the Rise, and the Hit <code>At: Fall</code></td>
+<td>Set the Hit to <code>At: Drop</code></td>
+</tr>
+<tr>
+<td>Elastic Snap</td>
+<td>An <code>Elastic</code> Transition: at the drop the filter and pitch shoot past where the Fall starts and spring back</td>
+<td>Pick <code>Bounce</code> on the Transition’s shape button</td>
+</tr>
+<tr>
+<td>Stumble Into Drop</td>
+<td>A <code>Jitter</code> Transition in steps: the last bar before the Fall stumbles down in random sixteenths</td>
+<td>Change the Seed for another take</td>
+</tr>
+<tr>
+<td>Ring Through The Gap</td>
+<td>The Metal’s <code>Ring</code> at 100 %: the riser stops for a Gap but its ring carries through it into the Hit</td>
+<td>Set Ring to 0 to hear the Gap go silent</td>
+</tr>
+<tr>
+<td>Sub Falls After</td>
+<td>A noise riser, then at the drop a <code>Warm</code> Sub that waits for it (<code>During</code>: After drop) and falls an octave (<code>Drop</code>) over 1.2 s under the Hit</td>
+<td>Set Drop time to 200 ms for a tight 808</td>
+</tr>
+<tr>
+<td>Jet Closes At The Drop</td>
+<td>A <code>Through-zero</code> flanger whose Centre Close brings to the meeting point at the drop, where dry and wet cancel; a Sub <code>Before drop</code> rumbles under the Rise and stops at the Gap</td>
+<td>Raise the Phaser’s Depth for a wider sweep</td>
+</tr>
+</tbody>
+</table>
+<h3>Impacts</h3>
+<table>
+<thead>
+<tr>
+<th>Preset</th>
+<th>Shows</th>
+<th>Try</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Impact Wash</td>
+<td>A short, fast-dying Fall; the reverb and delay ring on after the gesture ends</td>
+<td>Lengthen the Reverb Decay</td>
+</tr>
+<tr>
+<td>Bounce Impact</td>
+<td>The Hit at the start of a Fall alone, and the Amp’s Fall shape <code>Bounce</code></td>
+<td>Drag the Fall diamond for more bounces</td>
+</tr>
+<tr>
+<td>Spring Impact</td>
+<td>An <code>Elastic</code> Fall: noise through a Comb tuned to the note boings down and settles, on a Hit. Release <code>Play out</code>, so a tap plays it all</td>
+<td>Drag Spring’s Fall diamond up for more springs</td>
+</tr>
+<tr>
+<td>Rattle Impact</td>
+<td>The Amp’s Fall shape <code>Bounce</code> at its most, 16 bounces: past 4 they stay tall, so the noise rattles to the end</td>
+<td>Lower the Fall diamond until it reads 4 bounces</td>
+</tr>
+<tr>
+<td>Squashed Boom</td>
+<td>The Bus at +18 dB into a -9 dB Ceiling squashing noise, Sub and Tone into one boom; the Hit joins after the Bus and keeps its punch</td>
+<td>Set the Bus Drive to 0</td>
+</tr>
+<tr>
+<td>Shimmer Crash</td>
+<td>A Hit and a noise burst into a long Shimmer reverb that climbs in octaves; Glow raises the Shimmer as the crash dies</td>
+<td>Set the Interval to <code>+19 st</code></td>
+</tr>
+<tr>
+<td>Metal Clang</td>
+<td>Metal at an inharmonic Ratio (3.53) with a Hit; Ring Out closes the FM index fast, through a Peak filter at 2.5 kHz</td>
+<td>Set the Ratio to 4 for a harmonic clang</td>
+</tr>
+<tr>
+<td>Reverse Into Hit</td>
+<td>A one-bar reverse swell (the Amp’s Rise curve bent hard) landing on the Hit at the drop</td>
+<td>Lengthen the Rise to 2 bars</td>
+</tr>
+<tr>
+<td>Giant Bell</td>
+<td>The Metal with <code>Stack</code> and <code>Ring</code> full: a low inharmonic bell chord that rings on after a short Fall, under a Hit</td>
+<td>Change the Ratio to a whole number</td>
+</tr>
+<tr>
+<td>Sampled Boom</td>
+<td>The Sample as a <code>One-shot</code>: the built-in Impact five semitones down at the start, into the Bus, air on top</td>
+<td>Set At to <code>Drop</code> and add a Rise</td>
+</tr>
+<tr>
+<td>Octave Crunch Impact</td>
+<td>A square Sub (not <code>Clean</code>, so it goes through the chain) and noise into Drive <code>Rectify</code> with <code>Bias</code> and a 4 kHz <code>Tone</code>; the Sub drops an octave</td>
+<td>Turn the Sub’s Clean on to keep its low end out of the drive</td>
+</tr>
+<tr>
+<td>Reverse Rattle</td>
+<td>Rattle Impact backwards: the Amp’s 16 bounces move to the Rise and flip (Bounce at its lowest, bounces at the start), so the rattle starts sparse, crowds and grows into the Hit on the drop; Brighten opens the noise on the way</td>
+<td>Raise the Rise diamond until it reads 4 bounces</td>
+</tr>
+</tbody>
+</table>
+<h3>Rhythmic</h3>
+<table>
+<thead>
+<tr>
+<th>Preset</th>
+<th>Shows</th>
+<th>Try</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Snare Roll Build</td>
+<td>The Gate, its Rate driven by a Ramp from 1/4 to 1/32; <code>Snap</code> keeps the steps on the grid</td>
+<td>Turn Gate Snap off for a smooth accelerando</td>
+</tr>
+<tr>
+<td>Wobble Speeds Up</td>
+<td>An LFO on the filter, and a Ramp driving the LFO’s Rate (a modulator modulating a modulator)</td>
+<td>Turn the LFO’s Snap on for stepped speeds</td>
+</tr>
+<tr>
+<td>Accelerating Steps</td>
+<td>An <code>Accel</code> shape: 8 steps, each half as long as the last</td>
+<td>Drag its diamond down, so the steps slow instead</td>
+</tr>
+<tr>
+<td>Trance Gate</td>
+<td>A Gate pattern with Swing on a minor chord (Tone <code>Chord</code>)</td>
+<td>Click steps on and off; change the Length to 12</td>
+</tr>
+<tr>
+<td>Pumping Build</td>
+<td>The <code>Zigzag</code> shape at 16 teeth, one a beat, on the Amp ramp and on Pump (the filter): each beat swells and drops back</td>
+<td>Lower Pump’s Rise diamond for 8 teeth, one every two beats</td>
+</tr>
+<tr>
+<td>Sample And Hold</td>
+<td>A Random modulator with Snap on, stepping the resonant filter every sixteenth, while Open lifts it</td>
+<td>Change S&amp;H’s Seed</td>
+</tr>
+<tr>
+<td>Shuffle Creeps In</td>
+<td>A Ramp on the Gate’s Swing: straight sixteenths turn into a triplet shuffle over the Rise</td>
+<td>Invert Swing In’s routing, so the shuffle straightens out</td>
+</tr>
+<tr>
+<td>Drunk Roll</td>
+<td>A <code>Jitter</code> shape on the Gate Rate (Snap off): the roll speeds up from 1/4 to 1/32, lurching faster and slower on the way</td>
+<td>Change the Seed for another take</td>
+</tr>
+<tr>
+<td>Wobbling Clock Roll</td>
+<td>A 1/16 gate into 4-bit Crush whose Rate follows the note (<code>Track</code>); Wobble Clock raises <code>Jitter</code> until the clock staggers</td>
+<td>Turn Crush Follow off and hear the quiet start round away</td>
+</tr>
+</tbody>
+</table>
+<h3>Textures</h3>
+<table>
+<thead>
+<tr>
+<th>Preset</th>
+<th>Shows</th>
+<th>Try</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Endless Shepard</td>
+<td>Shepard: Pitch rises three octaves and the tone never leaves its register</td>
+<td>Invert the routing (right-click it) for an endless fall</td>
+</tr>
+<tr>
+<td>Swarm Into Chord</td>
+<td>Swarm Focus settling random pitches into a chord; <code>Hold</code> keeping it there</td>
+<td>Play other keys; change the Chord</td>
+</tr>
+<tr>
+<td>Stereo Bloom</td>
+<td>Modulating the effects: Width from mono to wide, reverb and delay swelling into the drop</td>
+<td>Add an LFO on Width</td>
+</tr>
+<tr>
+<td>Barber Pole</td>
+<td>The Shifter in a feedback loop, its shift sped up by a Ramp</td>
+<td>Invert the routing for an endless fall</td>
+</tr>
+<tr>
+<td>Nervous Static</td>
+<td>Two Ramps with <code>Jitter</code> shapes, smooth and in steps, wandering the noise’s band-pass, the width and the Crush</td>
+<td>Change the Seed for another take</td>
+</tr>
+<tr>
+<td>Unison To Cluster</td>
+<td>Detune ramped from 2 to 200 cents and back (Mirror): nine saws in unison open into a cluster, through a slow Phaser</td>
+<td>Set the Tone Wave to Sine</td>
+</tr>
+<tr>
+<td>Bell Drift</td>
+<td>An LFO swinging the Metal Ratio across whole numbers and between them, so the bell turns harmonic and back</td>
+<td>Set Drift’s Shape to Square</td>
+</tr>
+<tr>
+<td>Whisper Cloud</td>
+<td>The Voice whispering (Breath 90 %), a smooth Random modulator wandering its vowel</td>
+<td>Lower the Breath to hear it sing</td>
+</tr>
+<tr>
+<td>Glass Cloud</td>
+<td>The Sample’s built-in Glass in long, scattered, half-reversed grains, an LFO drifting the Position and a Random the pitch</td>
+<td>Raise the Density</td>
+</tr>
+<tr>
+<td>Split Barber</td>
+<td>A saw through the Shifter <code>Both ways</code> (up on the left, down on the right), synced to 1/16 with a Low and High cut in its loop, its shift tracking the note</td>
+<td>Play an octave up: the Track keeps the spin’s colour</td>
+</tr>
+<tr>
+<td>Digital Rain</td>
+<td><code>Digital</code> noise (the clock follows the note) wandering in Texture (Drizzle), two bands apart, through a 16-stage triangle Phaser</td>
+<td>Change the Phaser’s Stages to 4</td>
+</tr>
+<tr>
+<td>Metal Shimmer Bed</td>
+<td><code>Metallic</code> noise high-passed into a long Shimmer reverb, the Shifter <code>Both ways</code> beating the sides 7 Hz apart</td>
+<td>Raise the Noise Texture for a higher metal</td>
+</tr>
+<tr>
+<td>Tape Warble Pad</td>
+<td>A detuned saw with tape hiss, a smooth Random (Flutter, 6.5 Hz) and a slow LFO (Wow, 0.4 Hz) on its pitch, both on <code>Hz</code> Snap so the tape runs the same at any tempo</td>
+<td>Raise Flutter’s depth on Tone Pitch for a worn tape</td>
+</tr>
+</tbody>
+</table>
+<h3>Complex</h3>
+<p>Deep patches with many moving parts: several modulators, some driving others, all three sections, layered sources,
+the Bus and a reordered chain. Each still makes one musical point.</p>
+<table>
+<thead>
+<tr>
+<th>Preset</th>
+<th>Shows</th>
+<th>Try</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Everything Accelerates</td>
+<td>An 8-bar build where everything speeds up: Speed (an <code>Accel</code> shape) drives the Gate’s Rate and the Rates of Wobble and Scatter, Build opens the filter, sparks and drive, then a Gap and the Hit. The Gate runs first in the chain</td>
+<td>Remove Speed’s routings to hear the build without the rush</td>
+</tr>
+<tr>
+<td>Chaos To Chord</td>
+<td>Random chaos landing on a major 7: Focus pulls the Swarm and Sparks onto the chord while slowing and smoothing Chaos; the Tone chord glides in at the drop and Bloom raises the Shimmer in the Fall</td>
+<td>Change the Chord</td>
+</tr>
+<tr>
+<td>Machine Wind-Up</td>
+<td>A machine winding up on the grid: Wind Up speeds a 16-step Gate pattern in 8 steps, Speed spins up Crank and Grind, Heat pushes the drive and the Bus. The chain runs Gate, Crush, Filter, Drive, Shifter</td>
+<td>Drag the Gate tab to the end of the chain</td>
+</tr>
+<tr>
+<td>Freeze Then Collapse</td>
+<td>The build freezes in midair: Freeze holds the reverb through a one-bar Gap, then the Hit lands and Collapse drops the pitch two octaves with bounces as the detune spreads to 200 cents</td>
+<td>Remove Freeze’s routing</td>
+</tr>
+<tr>
+<td>Spinning Layers</td>
+<td>Three LFOs a third of a cycle apart swap the Tone, Swarm and Metal levels; Spin Up speeds them, the Phaser and the Width into the drop, and Fly Apart spreads the Swarm in the Transition</td>
+<td>Turn Snap off on the three Orbit LFOs</td>
+</tr>
+<tr>
+<td>Rise Into Wobble Bass</td>
+<td>A riser whose filter wobble speeds up, a Gap and a Hit, then a wobble bass for 4 bars: Bass Mode drops the Tone two octaves and brings in the Sub, and Faster doubles the wobble every bar</td>
+<td>Raise Wobble’s depth on the Filter Cutoff for a deeper wobble</td>
+</tr>
+</tbody>
+</table>
+<h3>Micro</h3>
+<p>Gestures of a beat or less: zaps, blips, swishes and tight hits. Release <code>Play out</code>, so a tap plays the whole thing.</p>
+<table>
+<thead>
+<tr>
+<th>Preset</th>
+<th>Shows</th>
+<th>Try</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Laser Zap</td>
+<td>An eighth-note Fall: a square wave diving four octaves, into a ping-pong delay</td>
+<td>Bend Dive’s Fall curve the other way</td>
+</tr>
+<tr>
+<td>Rubber Blip</td>
+<td>An <code>Elastic</code> pitch on a quarter-note sine: it boings down and settles</td>
+<td>Drag Boing’s Fall diamond up for more springs</td>
+</tr>
+<tr>
+<td>Micro Riser</td>
+<td>A riser in one beat: a dotted-eighth whoosh up two octaves, a 1/32 Gap, then the Hit</td>
+<td>Set the Transition to <code>Glide</code></td>
+</tr>
+<tr>
+<td>Air Swish</td>
+<td>Noise through a band-pass swept up and back (Mirror and an <code>S-curve</code>) in a quarter note</td>
+<td>Raise the noise’s Q for a whistle</td>
+</tr>
+<tr>
+<td>Tight Hit</td>
+<td>The Hit at its tightest (a 12 ms snap, 180 ms decay, driven) over a 1/32 click of noise</td>
+<td>Lengthen the Hit’s Decay for a boom</td>
+</tr>
+<tr>
+<td>Crushed Stab</td>
+<td>A minor 7 square chord for an eighth note, crushed to 5 bits, its pitch and sample rate falling in <code>Jitter</code> steps</td>
+<td>Raise the Crush Bits</td>
+</tr>
+<tr>
+<td>Glass Blip</td>
+<td>The Sample’s Glass as a <code>One-shot</code> an octave up, its pitch falling an octave over an eighth note, into a ping-pong</td>
+<td>Set Reverse past 50 %</td>
+</tr>
+<tr>
+<td>Rectified Zap</td>
+<td>A triangle diving two octaves through Drive <code>Rectify</code> at full <code>Bias</code> (the octave above, bent), into a 1/16 delay</td>
+<td>Set the Curve to <code>Soft</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extremes</h3>
+<p>Settings pushed to the edge on purpose, still under 0 dB.</p>
+<table>
+<thead>
+<tr>
+<th>Preset</th>
+<th>Shows</th>
+<th>Try</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Thirty-Two Bar Rise</td>
+<td>The longest Rise, 32 bars: a <code>Steps</code> shape at its most (32 steps) lifts a Shepard tone a semitone a bar</td>
+<td>Shorten the Rise to 8 bars, so it climbs a semitone a beat</td>
+</tr>
+<tr>
+<td>Maximum Pressure</td>
+<td>The Bus at +24 dB into a -18 dB Ceiling, then Fold drive (before the Filter) pushed from 3 to 30 dB: a riser made of pressure</td>
+<td>Set the Drive curve to Soft</td>
+</tr>
+<tr>
+<td>Frozen Shimmer</td>
+<td>Climb raises the Shimmer to its most over the Rise, then Freeze holds the shimmering wash from the drop through the Fall</td>
+<td>Set the Interval to <code>+19 st</code></td>
+</tr>
+<tr>
+<td>Feedback Spiral</td>
+<td>The Delay at its most feedback (95 %) with Saturate, after a Shifter at 85 % that Spiral speeds up: it blooms without piling up</td>
+<td>Lower the Delay Feedback</td>
+</tr>
+<tr>
+<td>Gate Into Buzz</td>
+<td>The Gate’s Rate swept from 1/4 to 1/128 with Snap off: the roll speeds past rhythm into an audio-rate buzz</td>
+<td>Turn Gate Snap on</td>
+</tr>
+<tr>
+<td>Jitter Storm</td>
+<td><code>Jitter</code> at its wildest, smooth and in steps, on pitch, filter and width, over nine saws detuned 200 cents</td>
+<td>Lower the Detune to 25 cents</td>
+</tr>
+<tr>
+<td>Sixteen Bar Bounce</td>
+<td>A 16-bar Fall with <code>Bounce</code> and <code>Zigzag</code> at their most: the pitch bounces 16 times and the noise steps down in 16 teeth</td>
+<td>Shorten the Fall to 4 bars</td>
+</tr>
+</tbody>
+</table>
+<h3>Drum FX</h3>
+<p>One-shots for a kit: no Rise (but the Reverse Cymbal), Release <code>Play out</code>, so a tap plays the whole hit.</p>
+<table>
+<thead>
+<tr>
+<th>Preset</th>
+<th>Shows</th>
+<th>Try</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>808 Drop</td>
+<td>The Hit’s click over a <code>Warm</code> Sub that falls an octave (<code>Drop</code>) over 600 ms</td>
+<td>Play lower notes: the whole kick transposes</td>
+</tr>
+<tr>
+<td>Tight Hat</td>
+<td><code>Metallic</code> noise high-passed over an eighth note</td>
+<td>Lower the Noise Texture for a darker hat</td>
+</tr>
+<tr>
+<td>Open Hat</td>
+<td>The same metal for a quarter note, its left and right cutoffs <code>Spread</code> apart and a Shifter drifting the sides 3 Hz</td>
+<td>Lengthen the Fall</td>
+</tr>
+<tr>
+<td>Crackle Snare</td>
+<td>The Hit’s crack over dense <code>Crackle</code> through two bands, driven with <code>Bias</code></td>
+<td>Lower the Texture for a dusty snare</td>
+</tr>
+<tr>
+<td>Gated Clap</td>
+<td>Band-passed noise cut by a 1/128 Gate <code>Pattern</code> into three bursts and a tail</td>
+<td>Turn step 8 off for a fourth burst</td>
+</tr>
+<tr>
+<td>Octave Tom</td>
+<td>A Sub (not <code>Clean</code>) dropping 7 semitones through Drive <code>Rectify</code>: the tom and its octave</td>
+<td>Set the Drive Mix to 100 %</td>
+</tr>
+<tr>
+<td>Crushed Rim</td>
+<td><code>Digital</code> noise and a short Hit, crushed to 3 bits with the Rate tracking the note</td>
+<td>Raise the Crush Bits</td>
+</tr>
+<tr>
+<td>Jet Crash</td>
+<td><code>Metallic</code> noise through a <code>Through-zero</code> flanger over two bars</td>
+<td>Raise the Phaser’s Feedback</td>
+</tr>
+<tr>
+<td>Reverse Cymbal</td>
+<td>A bar of metal swelling into the drop, where the Hit lands</td>
+<td>Shorten the Rise to 1/2</td>
+</tr>
+<tr>
+<td>Spiral Snare</td>
+<td>A snare into the Shifter <code>Both ways</code>, synced to 1/32, so its tail spirals apart</td>
+<td>Set the Shifter’s Mode to <code>One way</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="parameters"><h2>Every parameter</h2><p>Values and defaults are taken from the plugin. A control's effect can depend on the selected mode; see the operation notes above. Choices keep their saved identity between versions. Knobs and switches can be automated unless marked otherwise.</p><table><thead><tr><th>Parameter</th><th>What it does</th><th>Values and default</th></tr></thead><tbody><tr data-parameter="output"><th scope="row">Output</th><td>Sets the signal level at this stage. Output is the final listening trim unless the signal-flow notes describe a wet-only output control.</td><td>-inf to 12 dB<br><small>Default: 0.0 dB</small></td></tr><tr data-parameter="seed"><th scope="row">Seed</th><td>Which take of the random sources (noise, Swarm, Sparks, the Voice's breath, the Hit's crack) plays; every gesture plays the same take</td><td>1 to 100<br><small>Default: 1</small></td></tr><tr data-parameter="release"><th scope="row">Release</th><td>Selects what happens at key release: stop, play out or move into Fall.</td><td>Play out, To fall, Stop<br><small>Default: Stop</small><br><small>Not host automatable</small></td></tr><tr data-parameter="limit"><th scope="row">Limit</th><td>A lookahead limiter at the very end, holding peaks under -0.3 dBFS</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="fxOrder"><th scope="row">Effect Order</th><td>Selects the order of Filter, Drive, Crush, Gate, Phaser and Shifter. Drag their tabs to reorder the chain.</td><td>0 to 719<br><small>Default: 0</small><br><small>Not host automatable</small></td></tr><tr data-parameter="riseOn"><th scope="row">Rise</th><td>Switch the section on or off</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="riseLength"><th scope="row">Rise Length</th><td>Sets the musical length of this part of the gesture.</td><td>1/128 T, 1/128, 1/64 T, 1/128 D, 1/64, 1/32 T, 1/64 D, 1/32, 1/16 T, 1/32 D, 1/16, 1/8 T, 1/16 D, 1/8, 1/4 T, 1/8 D, 1/4, 1/2 T, 1/4 D, 1/2, 1/2 D, 1 bar, 2 bars, 3 bars, 4 bars, 6 bars, 8 bars, 12 bars, 16 bars, 24 bars, 32 bars<br><small>Default: 4 bars</small><br><small>Not host automatable</small></td></tr><tr data-parameter="transitionOn"><th scope="row">Transition</th><td>Switch the section on or off</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="transitionLength"><th scope="row">Transition Length</th><td>Sets the musical length of this part of the gesture.</td><td>1/128 T, 1/128, 1/64 T, 1/128 D, 1/64, 1/32 T, 1/64 D, 1/32, 1/16 T, 1/32 D, 1/16, 1/8 T, 1/16 D, 1/8, 1/4 T, 1/8 D, 1/4, 1/2 T, 1/4 D, 1/2, 1/2 D, 1 bar, 2 bars, 3 bars, 4 bars, 6 bars, 8 bars, 12 bars, 16 bars, 24 bars, 32 bars<br><small>Default: 1/4</small><br><small>Not host automatable</small></td></tr><tr data-parameter="transitionMode"><th scope="row">Transition Mode</th><td>Glide moves along the curve; Jump switches at the drop; Hold waits before switching.</td><td>Glide, Jump, Hold, Gap<br><small>Default: Glide</small><br><small>Not host automatable</small></td></tr><tr data-parameter="transitionCurve"><th scope="row">Transition Curve</th><td>Bends the Transition segment between the Drop and After values; Transition Shape chooses its curve family.</td><td>-100 to +100<br><small>Default: straight</small></td></tr><tr data-parameter="transitionShape"><th scope="row">Transition Shape</th><td>Transition shape: Bend. Click for another</td><td>Bend, Steep, S-curve, Steps, Accel, Bounce, Breath, Wobble, Zigzag, Elastic, Jitter<br><small>Default: Bend</small><br><small>Not host automatable</small></td></tr><tr data-parameter="transitionTime"><th scope="row">Transition Time</th><td>Chooses whether Transition adds its own time or borrows time from Rise and/or Fall.</td><td>Own, From rise, From fall, Both<br><small>Default: From rise</small><br><small>Not host automatable</small></td></tr><tr data-parameter="fallOn"><th scope="row">Fall</th><td>Switch the section on or off</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="fallLength"><th scope="row">Fall Length</th><td>Sets the musical length of this part of the gesture.</td><td>1/128 T, 1/128, 1/64 T, 1/128 D, 1/64, 1/32 T, 1/64 D, 1/32, 1/16 T, 1/32 D, 1/16, 1/8 T, 1/16 D, 1/8, 1/4 T, 1/8 D, 1/4, 1/2 T, 1/4 D, 1/2, 1/2 D, 1 bar, 2 bars, 3 bars, 4 bars, 6 bars, 8 bars, 12 bars, 16 bars, 24 bars, 32 bars<br><small>Default: 2 bars</small><br><small>Not host automatable</small></td></tr><tr data-parameter="ampStart"><th scope="row">Amp Start</th><td>Sets the ramp value at this named gesture point. Targets follow the ramp through Rise, Transition and Fall.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="ampDrop"><th scope="row">Amp Drop</th><td>Sets the ramp value at this named gesture point. Targets follow the ramp through Rise, Transition and Fall.</td><td>0% to 100%<br><small>Default: 100%</small></td></tr><tr data-parameter="ampAfter"><th scope="row">Amp After</th><td>Sets the ramp value at this named gesture point. Targets follow the ramp through Rise, Transition and Fall.</td><td>0% to 100%<br><small>Default: 100%</small></td></tr><tr data-parameter="ampEnd"><th scope="row">Amp End</th><td>Sets the ramp value at this named gesture point. Targets follow the ramp through Rise, Transition and Fall.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="ampRiseCurve"><th scope="row">Amp Rise Curve</th><td>Bends this ramp segment between its endpoint values; Shape chooses the curve family.</td><td>-100 to +100<br><small>Default: +36</small></td></tr><tr data-parameter="ampFallCurve"><th scope="row">Amp Fall Curve</th><td>Bends this ramp segment between its endpoint values; Shape chooses the curve family.</td><td>-100 to +100<br><small>Default: -36</small></td></tr><tr data-parameter="ampMirror"><th scope="row">Amp Mirror</th><td>Makes the two sides of the ramp mirror each other.</td><td>Off to On<br><small>Default: Off</small></td></tr><tr data-parameter="ampRiseShape"><th scope="row">Amp Rise Shape</th><td>Chooses or changes the source waveform or curve. Shape changes harmonic content; curve controls change how a segment progresses.</td><td>Bend, Steep, S-curve, Steps, Accel, Bounce, Breath, Wobble, Zigzag, Elastic, Jitter<br><small>Default: Bend</small><br><small>Not host automatable</small></td></tr><tr data-parameter="ampFallShape"><th scope="row">Amp Fall Shape</th><td>Chooses or changes the source waveform or curve. Shape changes harmonic content; curve controls change how a segment progresses.</td><td>Bend, Steep, S-curve, Steps, Accel, Bounce, Breath, Wobble, Zigzag, Elastic, Jitter<br><small>Default: Bend</small><br><small>Not host automatable</small></td></tr><tr data-parameter="noiseOn"><th scope="row">Noise</th><td>Enables this source or Bus stage. Its level and other controls stay saved while it is off.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="noiseLevel"><th scope="row">Noise Level</th><td>Sets the signal level at this stage. Output is the final listening trim unless the signal-flow notes describe a wet-only output control.</td><td>-inf to 6.0 dB<br><small>Default: -6.0 dB</small></td></tr><tr data-parameter="noiseColour"><th scope="row">Noise Colour</th><td>Selects the noise algorithm; Texture has a different role for Crackle, Digital and Metallic.</td><td>White, Pink, Brown, Crackle, Digital, Metallic<br><small>Default: White</small><br><small>Not host automatable</small></td></tr><tr data-parameter="noiseTexture"><th scope="row">Noise Texture</th><td>Shapes click density, digital clocking or metallic pitch, depending on Noise Colour.</td><td>0% to 100%<br><small>Default: 50%</small></td></tr><tr data-parameter="noiseFilter"><th scope="row">Noise Filter</th><td>Selects the noise-filter response.</td><td>Off, LP, BP, HP, Dual<br><small>Default: HP</small><br><small>Not host automatable</small></td></tr><tr data-parameter="noiseSlope"><th scope="row">Noise Slope</th><td>Chooses the steepness of the filter response.</td><td>12 dB, 24 dB<br><small>Default: 12 dB</small><br><small>Not host automatable</small></td></tr><tr data-parameter="noiseSpread"><th scope="row">Noise Spread</th><td>Spreads frequencies or voices apart according to this source or effect; see its operation notes.</td><td>0 st to +36 st<br><small>Default: 0 st</small></td></tr><tr data-parameter="noiseCutoff"><th scope="row">Noise Cutoff</th><td>Sets the frequency boundary of this filter or band. Its mode and slope determine which frequencies it changes.</td><td>20.0 Hz to 20.0 kHz<br><small>Default: 300 Hz</small></td></tr><tr data-parameter="noiseQ"><th scope="row">Noise Q</th><td>Sets resonance in the noise filter.</td><td>0.50 to 12.00<br><small>Default: 0.71</small></td></tr><tr data-parameter="noiseWidth"><th scope="row">Noise Width</th><td>Places or spreads the signal across the stereo field.</td><td>0% to 100%<br><small>Default: 100%</small></td></tr><tr data-parameter="noiseTrack"><th scope="row">Noise Track</th><td>Makes this frequency or rate follow MIDI note pitch.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="noiseGlide"><th scope="row">Noise Glide</th><td>Sets how long this source takes to reach a new legato note.</td><td>off to 2000 ms<br><small>Default: off</small></td></tr><tr data-parameter="toneOn"><th scope="row">Tone</th><td>Enables this source or Bus stage. Its level and other controls stay saved while it is off.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="toneLevel"><th scope="row">Tone Level</th><td>Sets the signal level at this stage. Output is the final listening trim unless the signal-flow notes describe a wet-only output control.</td><td>-inf to 6.0 dB<br><small>Default: -6.0 dB</small></td></tr><tr data-parameter="toneWave"><th scope="row">Tone Wave</th><td>Sets the frequency boundary of this filter or band. Its mode and slope determine which frequencies it changes.</td><td>Saw, Square, Triangle, Sine<br><small>Default: Saw</small><br><small>Not host automatable</small></td></tr><tr data-parameter="tonePitch"><th scope="row">Tone Pitch</th><td>Sets the frequency boundary of this filter or band. Its mode and slope determine which frequencies it changes.</td><td>-48 st to +48 st<br><small>Default: -12 st</small></td></tr><tr data-parameter="toneVoices"><th scope="row">Tone Voices</th><td>Sets the frequency boundary of this filter or band. Its mode and slope determine which frequencies it changes.</td><td>1 to 9<br><small>Default: 7</small></td></tr><tr data-parameter="toneDetune"><th scope="row">Tone Detune</th><td>Sets the frequency boundary of this filter or band. Its mode and slope determine which frequencies it changes.</td><td>0 ct to 200 ct<br><small>Default: 25 ct</small></td></tr><tr data-parameter="toneWidth"><th scope="row">Tone Width</th><td>Sets the frequency boundary of this filter or band. Its mode and slope determine which frequencies it changes.</td><td>0% to 100%<br><small>Default: 80%</small></td></tr><tr data-parameter="toneShepard"><th scope="row">Tone Shepard</th><td>Turns Tone voices into overlapping octave copies for an apparently endless pitch glide.</td><td>Off to On<br><small>Default: Off</small></td></tr><tr data-parameter="toneOctaves"><th scope="row">Tone Octaves</th><td>Sets how many octave copies the Shepard source uses.</td><td>2 to 8<br><small>Default: 6</small></td></tr><tr data-parameter="toneChord"><th scope="row">Tone Chord</th><td>Selects the musical intervals used by this source.</td><td>Off, Octaves, Fifths, Major, Minor, Sus, Major 7, Minor 7<br><small>Default: Off</small><br><small>Not host automatable</small></td></tr><tr data-parameter="toneGlide"><th scope="row">Tone Glide</th><td>Sets how long this source takes to reach a new legato note.</td><td>off to 2000 ms<br><small>Default: off</small></td></tr><tr data-parameter="swarmOn"><th scope="row">Swarm</th><td>Enables this source or Bus stage. Its level and other controls stay saved while it is off.</td><td>Off to On<br><small>Default: Off</small></td></tr><tr data-parameter="swarmLevel"><th scope="row">Swarm Level</th><td>Sets the signal level at this stage. Output is the final listening trim unless the signal-flow notes describe a wet-only output control.</td><td>-inf to 6.0 dB<br><small>Default: -6.0 dB</small></td></tr><tr data-parameter="swarmPitch"><th scope="row">Swarm Pitch</th><td>Changes the pitch of this source. Fine tuning is useful for small offsets; octave/semitone controls make larger musical intervals.</td><td>-48 st to +48 st<br><small>Default: 0 st</small></td></tr><tr data-parameter="swarmPartials"><th scope="row">Swarm Partials</th><td>Sets the number of sine partials in Swarm.</td><td>4 to 32<br><small>Default: 16</small></td></tr><tr data-parameter="swarmSpread"><th scope="row">Swarm Spread</th><td>Spreads frequencies or voices apart according to this source or effect; see its operation notes.</td><td>0 st to +48 st<br><small>Default: +24 st</small></td></tr><tr data-parameter="swarmFocus"><th scope="row">Swarm Focus</th><td>Pulls drifting partials toward the notes of the selected Chord.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="swarmDrift"><th scope="row">Swarm Drift</th><td>Adds pitch variation or layers detuned voices. Use a small amount for movement; larger values spread the source more strongly.</td><td>0% to 100%<br><small>Default: 50%</small></td></tr><tr data-parameter="swarmWidth"><th scope="row">Swarm Width</th><td>Places or spreads the signal across the stereo field.</td><td>0% to 100%<br><small>Default: 100%</small></td></tr><tr data-parameter="chord"><th scope="row">Chord</th><td>Selects the musical intervals used by this source.</td><td>Unison, Octaves, Fifths, Major, Minor, Sus, Major 7, Minor 7<br><small>Default: Major</small><br><small>Not host automatable</small></td></tr><tr data-parameter="swarmGlide"><th scope="row">Swarm Glide</th><td>Sets how long this source takes to reach a new legato note.</td><td>off to 2000 ms<br><small>Default: off</small></td></tr><tr data-parameter="subOn"><th scope="row">Sub</th><td>Enables this source or Bus stage. Its level and other controls stay saved while it is off.</td><td>Off to On<br><small>Default: Off</small></td></tr><tr data-parameter="subLevel"><th scope="row">Sub Level</th><td>Sets the signal level at this stage. Output is the final listening trim unless the signal-flow notes describe a wet-only output control.</td><td>-inf to 6.0 dB<br><small>Default: -6.0 dB</small></td></tr><tr data-parameter="subPitch"><th scope="row">Sub Pitch</th><td>Changes the pitch of this source. Fine tuning is useful for small offsets; octave/semitone controls make larger musical intervals.</td><td>-36 st to +12 st<br><small>Default: -24 st</small></td></tr><tr data-parameter="subWave"><th scope="row">Sub Wave</th><td>Chooses or changes the source waveform or curve. Shape changes harmonic content; curve controls change how a segment progresses.</td><td>Sine, Triangle, Warm, Square<br><small>Default: Sine</small><br><small>Not host automatable</small></td></tr><tr data-parameter="subClean"><th scope="row">Sub Clean</th><td>Routes Sub around the Bus and reorderable effects while retaining Space and Reverb.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="subDuring"><th scope="row">Sub During</th><td>Selects whether Sub plays throughout, before the drop or after it.</td><td>Always, Before drop, After drop<br><small>Default: Always</small><br><small>Not host automatable</small></td></tr><tr data-parameter="subDrop"><th scope="row">Sub Drop</th><td>Sets the downward sub pitch movement after the drop.</td><td>-48 st to off<br><small>Default: off</small></td></tr><tr data-parameter="subDropTime"><th scope="row">Sub Drop Time</th><td>Sets the time taken by the Sub drop.</td><td>20 ms to 4.00 s<br><small>Default: 400 ms</small></td></tr><tr data-parameter="subGlide"><th scope="row">Sub Glide</th><td>Sets how long this source takes to reach a new legato note.</td><td>off to 2000 ms<br><small>Default: off</small></td></tr><tr data-parameter="sparksOn"><th scope="row">Sparks</th><td>Enables this source or Bus stage. Its level and other controls stay saved while it is off.</td><td>Off to On<br><small>Default: Off</small></td></tr><tr data-parameter="sparksLevel"><th scope="row">Sparks Level</th><td>Sets the signal level at this stage. Output is the final listening trim unless the signal-flow notes describe a wet-only output control.</td><td>-inf to 6.0 dB<br><small>Default: -6.0 dB</small></td></tr><tr data-parameter="sparksDensity"><th scope="row">Sparks Density</th><td>Sets the number of random pings per beat.</td><td>0.2 /beat to 64 /beat<br><small>Default: 4.0 /beat</small></td></tr><tr data-parameter="sparksLength"><th scope="row">Sparks Length</th><td>Sets how long each ping lasts.</td><td>5 ms to 500 ms<br><small>Default: 60 ms</small></td></tr><tr data-parameter="sparksPitch"><th scope="row">Sparks Pitch</th><td>Changes the pitch of this source. Fine tuning is useful for small offsets; octave/semitone controls make larger musical intervals.</td><td>-24 st to +48 st<br><small>Default: +24 st</small></td></tr><tr data-parameter="sparksRange"><th scope="row">Sparks Range</th><td>Sets the random pitch spread around the Sparks pitch.</td><td>0 st to +48 st<br><small>Default: +24 st</small></td></tr><tr data-parameter="sparksTonal"><th scope="row">Sparks Tonal</th><td>Pulls Sparks pitches onto the selected Chord notes.</td><td>0% to 100%<br><small>Default: 100%</small></td></tr><tr data-parameter="sparksWidth"><th scope="row">Sparks Width</th><td>Places or spreads the signal across the stereo field.</td><td>0% to 100%<br><small>Default: 100%</small></td></tr><tr data-parameter="sparksGlide"><th scope="row">Sparks Glide</th><td>Sets how long this source takes to reach a new legato note.</td><td>off to 2000 ms<br><small>Default: off</small></td></tr><tr data-parameter="voiceOn"><th scope="row">Voice</th><td>Enables this source or Bus stage. Its level and other controls stay saved while it is off.</td><td>Off to On<br><small>Default: Off</small></td></tr><tr data-parameter="voiceLevel"><th scope="row">Voice Level</th><td>Sets the signal level at this stage. Output is the final listening trim unless the signal-flow notes describe a wet-only output control.</td><td>-inf to 6.0 dB<br><small>Default: -6.0 dB</small></td></tr><tr data-parameter="voicePitch"><th scope="row">Voice Pitch</th><td>Changes the pitch of this source. Fine tuning is useful for small offsets; octave/semitone controls make larger musical intervals.</td><td>-48 st to +48 st<br><small>Default: -12 st</small></td></tr><tr data-parameter="voiceVowel"><th scope="row">Voice Vowel</th><td>Morphs between the A, E, I, O and U formant shapes.</td><td>A to U<br><small>Default: A</small></td></tr><tr data-parameter="voiceFormant"><th scope="row">Voice Formant</th><td>Shifts all vocal formants, changing the apparent singer size.</td><td>-12 st to +12 st<br><small>Default: 0 st</small></td></tr><tr data-parameter="voiceBreath"><th scope="row">Voice Breath</th><td>Blends the vocal buzz toward breath noise.</td><td>0% to 100%<br><small>Default: 30%</small></td></tr><tr data-parameter="voiceSharp"><th scope="row">Voice Sharp</th><td>Narrows the vocal formant filters.</td><td>0% to 100%<br><small>Default: 50%</small></td></tr><tr data-parameter="voiceWidth"><th scope="row">Voice Width</th><td>Places or spreads the signal across the stereo field.</td><td>0% to 100%<br><small>Default: 50%</small></td></tr><tr data-parameter="voiceGlide"><th scope="row">Voice Glide</th><td>Sets how long this source takes to reach a new legato note.</td><td>off to 2000 ms<br><small>Default: off</small></td></tr><tr data-parameter="metalOn"><th scope="row">Metal</th><td>Enables this source or Bus stage. Its level and other controls stay saved while it is off.</td><td>Off to On<br><small>Default: Off</small></td></tr><tr data-parameter="metalLevel"><th scope="row">Metal Level</th><td>Sets the signal level at this stage. Output is the final listening trim unless the signal-flow notes describe a wet-only output control.</td><td>-inf to 6.0 dB<br><small>Default: -6.0 dB</small></td></tr><tr data-parameter="metalPitch"><th scope="row">Metal Pitch</th><td>Changes the pitch of this source. Fine tuning is useful for small offsets; octave/semitone controls make larger musical intervals.</td><td>-48 st to +48 st<br><small>Default: 0 st</small></td></tr><tr data-parameter="metalRatio"><th scope="row">Metal Ratio</th><td>Sets the FM modulator frequency relative to the carrier; noninteger ratios create metallic spectra.</td><td>0.25 to 16.0<br><small>Default: 1.41</small></td></tr><tr data-parameter="metalIndex"><th scope="row">Metal Index</th><td>Sets FM depth and brightness.</td><td>0% to 100%<br><small>Default: 30%</small></td></tr><tr data-parameter="metalFeedback"><th scope="row">Metal Feedback</th><td>Returns part of a signal to its input. More feedback increases the strength or persistence of the selected effect.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="metalWidth"><th scope="row">Metal Width</th><td>Places or spreads the signal across the stereo field.</td><td>0% to 100%<br><small>Default: 50%</small></td></tr><tr data-parameter="metalGlide"><th scope="row">Metal Glide</th><td>Sets how long this source takes to reach a new legato note.</td><td>off to 2000 ms<br><small>Default: off</small></td></tr><tr data-parameter="metalStack"><th scope="row">Metal Stack</th><td>Adds quieter octave/fifth layers to the Metal source.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="metalRing"><th scope="row">Metal Ring</th><td>Adds resonators tuned to the Metal source partials; more Ring sustains them longer.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="sampleOn"><th scope="row">Sample</th><td>Enables this source or Bus stage. Its level and other controls stay saved while it is off.</td><td>Off to On<br><small>Default: Off</small></td></tr><tr data-parameter="sampleLevel"><th scope="row">Sample Level</th><td>Sets the signal level at this stage. Output is the final listening trim unless the signal-flow notes describe a wet-only output control.</td><td>-inf to 6.0 dB<br><small>Default: -6.0 dB</small></td></tr><tr data-parameter="sampleSound"><th scope="row">Sample Sound</th><td>Chooses a built-in sound or external audio file. External files are referenced; use Collect for portable library copies.</td><td>Impact, Choir, Metal, Sweep, Glass, File<br><small>Default: Impact</small><br><small>Not host automatable</small></td></tr><tr data-parameter="sampleMode"><th scope="row">Sample Mode</th><td>Grains reads overlapping fragments; One-shot plays the file once at its At point.</td><td>Grains, One-shot<br><small>Default: Grains</small><br><small>Not host automatable</small></td></tr><tr data-parameter="samplePitch"><th scope="row">Sample Pitch</th><td>Changes the pitch of this source. Fine tuning is useful for small offsets; octave/semitone controls make larger musical intervals.</td><td>-48 st to +48 st<br><small>Default: 0 st</small></td></tr><tr data-parameter="samplePosition"><th scope="row">Sample Position</th><td>Sets the grain read position or one-shot start position in the source file.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="sampleSize"><th scope="row">Sample Size</th><td>Sets grain length; inactive in One-shot mode.</td><td>5 ms to 1000 ms<br><small>Default: 80 ms</small></td></tr><tr data-parameter="sampleDensity"><th scope="row">Sample Density</th><td>Sets the number of sample grains per beat.</td><td>0.5 /beat to 64 /beat<br><small>Default: 8.0 /beat</small></td></tr><tr data-parameter="sampleSpray"><th scope="row">Sample Spray</th><td>Scatters grain positions around Position; inactive in One-shot mode.</td><td>0% to 100%<br><small>Default: 10%</small></td></tr><tr data-parameter="sampleReverse"><th scope="row">Sample Reverse</th><td>Sets the share of reversed grains; in One-shot mode, values above half reverse the file.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="sampleWidth"><th scope="row">Sample Width</th><td>Places or spreads the signal across the stereo field.</td><td>0% to 100%<br><small>Default: 60%</small></td></tr><tr data-parameter="sampleAt"><th scope="row">Sample At</th><td>Chooses the one-shot timing point: start, drop or Fall. Reversed one-shots end there.</td><td>Start, Drop, Fall<br><small>Default: Drop</small><br><small>Not host automatable</small></td></tr><tr data-parameter="sampleGlide"><th scope="row">Sample Glide</th><td>Sets how long this source takes to reach a new legato note.</td><td>off to 2000 ms<br><small>Default: off</small></td></tr><tr data-parameter="hitOn"><th scope="row">Hit</th><td>Enables this source or Bus stage. Its level and other controls stay saved while it is off.</td><td>Off to On<br><small>Default: Off</small></td></tr><tr data-parameter="hitLevel"><th scope="row">Hit Level</th><td>Sets the signal level at this stage. Output is the final listening trim unless the signal-flow notes describe a wet-only output control.</td><td>-inf to 6.0 dB<br><small>Default: -6.0 dB</small></td></tr><tr data-parameter="hitAt"><th scope="row">Hit At</th><td>Triggers the Hit at the drop or the start of Fall.</td><td>Drop, Fall<br><small>Default: Drop</small><br><small>Not host automatable</small></td></tr><tr data-parameter="hitPitch"><th scope="row">Hit Pitch</th><td>Changes the pitch of this source. Fine tuning is useful for small offsets; octave/semitone controls make larger musical intervals.</td><td>-48 st to +12 st<br><small>Default: -24 st</small></td></tr><tr data-parameter="hitSweep"><th scope="row">Hit Sweep</th><td>Sets the Hit starting pitch above its final pitch.</td><td>0 st to +48 st<br><small>Default: +24 st</small></td></tr><tr data-parameter="hitSnap"><th scope="row">Hit Snap</th><td>Sets how quickly the Hit pitch falls to its final pitch.</td><td>5 ms to 500 ms<br><small>Default: 40 ms</small></td></tr><tr data-parameter="hitDecay"><th scope="row">Hit Decay</th><td>Sets the time from the envelope peak to its sustain level.</td><td>50 ms to 4.00 s<br><small>Default: 700 ms</small></td></tr><tr data-parameter="hitCrack"><th scope="row">Hit Crack</th><td>Adds a short high-passed noise burst to the Hit.</td><td>0% to 100%<br><small>Default: 35%</small></td></tr><tr data-parameter="hitDrive"><th scope="row">Hit Drive</th><td>Adds nonlinear drive within the Hit source.</td><td>off to 24.0 dB<br><small>Default: 6.0 dB</small></td></tr><tr data-parameter="busOn"><th scope="row">Bus</th><td>The sources (all but the Hit, which joins after the chain) driven into a limiter before the effects: louder and denser, then squashed, so the effects get an even level</td><td>Off to On<br><small>Default: Off</small></td></tr><tr data-parameter="busDrive"><th scope="row">Bus Drive</th><td>Pushes the summed sources into the Bus limiter before the effects.</td><td>0.0 dB to +24.0 dB<br><small>Default: +6.0 dB</small></td></tr><tr data-parameter="busCeiling"><th scope="row">Bus Ceiling</th><td>Sets where the Bus limiter holds the summed sources before the effect chain.</td><td>-24.0 dB to 0.0 dB<br><small>Default: -6.0 dB</small></td></tr><tr data-parameter="filterMode"><th scope="row">Filter Mode</th><td>Selects the chain filter response, including Morph and Comb modes.</td><td>Off, LP, BP, HP, Notch, Peak, Comb, Comb -, Morph<br><small>Default: LP</small><br><small>Not host automatable</small></td></tr><tr data-parameter="filterSlope"><th scope="row">Filter Slope</th><td>Chooses the steepness of the filter response.</td><td>12 dB, 24 dB<br><small>Default: 24 dB</small><br><small>Not host automatable</small></td></tr><tr data-parameter="filterCutoff"><th scope="row">Filter Cutoff</th><td>Sets the frequency boundary of this filter or band. Its mode and slope determine which frequencies it changes.</td><td>20.0 Hz to 20.0 kHz<br><small>Default: 400 Hz</small></td></tr><tr data-parameter="filterResonance"><th scope="row">Filter Resonance</th><td>Emphasizes frequencies near the filter cutoff; high settings can ring or self-oscillate on some filter models.</td><td>0% to 100%<br><small>Default: 25%</small></td></tr><tr data-parameter="filterTrack"><th scope="row">Filter Track</th><td>Makes this frequency or rate follow MIDI note pitch.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="filterSpread"><th scope="row">Filter Spread</th><td>Spreads frequencies or voices apart according to this source or effect; see its operation notes.</td><td>0 st to +24 st<br><small>Default: 0 st</small></td></tr><tr data-parameter="filterMorph"><th scope="row">Filter Morph</th><td>Moves continuously from low-pass through band-pass to high-pass.</td><td>LP to HP<br><small>Default: LP</small></td></tr><tr data-parameter="filterDamp"><th scope="row">Filter Damp</th><td>Darkens feedback in Comb modes.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="driveAmount"><th scope="row">Drive Amount</th><td>Sets how hard the effect drives the selected distortion curve.</td><td>off to 36.0 dB<br><small>Default: off</small></td></tr><tr data-parameter="driveCurve"><th scope="row">Drive Curve</th><td>Chooses Soft, Hard, Fold or Rectify distortion.</td><td>Soft, Hard, Fold, Rectify<br><small>Default: Soft</small><br><small>Not host automatable</small></td></tr><tr data-parameter="driveMix"><th scope="row">Drive Mix</th><td>Blends the processed and dry signals. The signal-flow notes specify whether Output changes the wet signal alone or the complete blend.</td><td>0% to 100%<br><small>Default: 100%</small></td></tr><tr data-parameter="driveBias"><th scope="row">Drive Bias</th><td>Offsets the distortion curve to change the balance of even harmonics.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="driveTone"><th scope="row">Drive Tone</th><td>Enables this source or Bus stage. Its level and other controls stay saved while it is off.</td><td>500 Hz to off<br><small>Default: off</small></td></tr><tr data-parameter="crushMix"><th scope="row">Crush Mix</th><td>Blends the processed and dry signals. The signal-flow notes specify whether Output changes the wet signal alone or the complete blend.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="crushRate"><th scope="row">Crush Rate</th><td>Sets the speed of this effect or modulator; the operation notes specify free or musical units.</td><td>200 Hz to 48.0 kHz<br><small>Default: 8.00 kHz</small></td></tr><tr data-parameter="crushBits"><th scope="row">Crush Bits</th><td>Sets bit-depth reduction, including fractional depths.</td><td>1.0 bits to 16.0 bits<br><small>Default: 8.0 bits</small></td></tr><tr data-parameter="crushFollow"><th scope="row">Crush Follow</th><td>Makes bit reduction follow the signal level; off, quantization is relative to full scale.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="crushTrack"><th scope="row">Crush Track</th><td>Makes this frequency or rate follow MIDI note pitch.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="crushJitter"><th scope="row">Crush Jitter</th><td>Varies the duration of held samples in the rate reducer.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="crushTone"><th scope="row">Crush Tone</th><td>Enables this source or Bus stage. Its level and other controls stay saved while it is off.</td><td>500 Hz to off<br><small>Default: off</small></td></tr><tr data-parameter="gateRate"><th scope="row">Gate Rate</th><td>Sets the speed of this effect or modulator; the operation notes specify free or musical units.</td><td>1/1 to 1/128<br><small>Default: 1/16</small></td></tr><tr data-parameter="gateSnap"><th scope="row">Gate Snap</th><td>Locks rate changes to straight grid divisions.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="gateDepth"><th scope="row">Gate Depth</th><td>Sets how far the rhythmic gate turns the signal down when closed.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="gateDuty"><th scope="row">Gate Duty</th><td>Sets the open portion of each gate cycle.</td><td>5% to 95%<br><small>Default: 50%</small></td></tr><tr data-parameter="gateSmooth"><th scope="row">Gate Smooth</th><td>Softens the gate edges.</td><td>0% to 100%<br><small>Default: 30%</small></td></tr><tr data-parameter="gateSwing"><th scope="row">Gate Swing</th><td>Lengthens one gate cycle of each pair and shortens the next.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="gatePattern"><th scope="row">Gate Pattern</th><td>Enables the step gate pattern.</td><td>Off to On<br><small>Default: Off</small></td></tr><tr data-parameter="gateLength"><th scope="row">Gate Length</th><td>Sets how many gate steps repeat.</td><td>1 to 16<br><small>Default: 16</small></td></tr><tr data-parameter="gateStep1"><th scope="row">Gate Step 1</th><td>Opens or closes this step when the step gate is active.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="gateStep2"><th scope="row">Gate Step 2</th><td>Opens or closes this step when the step gate is active.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="gateStep3"><th scope="row">Gate Step 3</th><td>Opens or closes this step when the step gate is active.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="gateStep4"><th scope="row">Gate Step 4</th><td>Opens or closes this step when the step gate is active.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="gateStep5"><th scope="row">Gate Step 5</th><td>Opens or closes this step when the step gate is active.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="gateStep6"><th scope="row">Gate Step 6</th><td>Opens or closes this step when the step gate is active.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="gateStep7"><th scope="row">Gate Step 7</th><td>Opens or closes this step when the step gate is active.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="gateStep8"><th scope="row">Gate Step 8</th><td>Opens or closes this step when the step gate is active.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="gateStep9"><th scope="row">Gate Step 9</th><td>Opens or closes this step when the step gate is active.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="gateStep10"><th scope="row">Gate Step 10</th><td>Opens or closes this step when the step gate is active.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="gateStep11"><th scope="row">Gate Step 11</th><td>Opens or closes this step when the step gate is active.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="gateStep12"><th scope="row">Gate Step 12</th><td>Opens or closes this step when the step gate is active.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="gateStep13"><th scope="row">Gate Step 13</th><td>Opens or closes this step when the step gate is active.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="gateStep14"><th scope="row">Gate Step 14</th><td>Opens or closes this step when the step gate is active.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="gateStep15"><th scope="row">Gate Step 15</th><td>Opens or closes this step when the step gate is active.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="gateStep16"><th scope="row">Gate Step 16</th><td>Opens or closes this step when the step gate is active.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="phaserMix"><th scope="row">Phaser Mix</th><td>Sets the phase or phase behavior described in the source and synchronization notes.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="phaserMode"><th scope="row">Phaser Mode</th><td>Chooses Phaser, Flanger or Through-zero processing.</td><td>Phaser, Flanger, Through-zero<br><small>Default: Phaser</small><br><small>Not host automatable</small></td></tr><tr data-parameter="phaserStages"><th scope="row">Phaser Stages</th><td>Sets the number of all-pass stages in Phaser mode.</td><td>4, 8, 12, 16<br><small>Default: 8</small><br><small>Not host automatable</small></td></tr><tr data-parameter="phaserShape"><th scope="row">Phaser Shape</th><td>Chooses or changes the source waveform or curve. Shape changes harmonic content; curve controls change how a segment progresses.</td><td>Sine, Triangle, Up, Down<br><small>Default: Sine</small><br><small>Not host automatable</small></td></tr><tr data-parameter="phaserRate"><th scope="row">Phaser Rate</th><td>Sets the speed of this effect or modulator; the operation notes specify free or musical units.</td><td>8 bars to 1/128<br><small>Default: 2 bars</small></td></tr><tr data-parameter="phaserDepth"><th scope="row">Phaser Depth</th><td>Sets the phase or phase behavior described in the source and synchronization notes.</td><td>0% to 100%<br><small>Default: 60%</small></td></tr><tr data-parameter="phaserCentre"><th scope="row">Phaser Centre</th><td>Sets the centre frequency or delay around which the modulation moves.</td><td>0% to 100%<br><small>Default: 50%</small></td></tr><tr data-parameter="phaserFeedback"><th scope="row">Phaser Feedback</th><td>Sets the phase or phase behavior described in the source and synchronization notes.</td><td>-90% to +90%<br><small>Default: +40%</small></td></tr><tr data-parameter="phaserSpread"><th scope="row">Phaser Spread</th><td>Offsets the right-channel LFO phase.</td><td>0% to 100%<br><small>Default: 50%</small></td></tr><tr data-parameter="shifterMix"><th scope="row">Shifter Mix</th><td>Blends the processed and dry signals. The signal-flow notes specify whether Output changes the wet signal alone or the complete blend.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="shifterShift"><th scope="row">Shifter Shift</th><td>Moves every frequency by the same number of hertz.</td><td>-5000 Hz to +5000 Hz<br><small>Default: +40 Hz</small></td></tr><tr data-parameter="shifterFeedback"><th scope="row">Shifter Feedback</th><td>Returns part of a signal to its input. More feedback increases the strength or persistence of the selected effect.</td><td>0% to 95%<br><small>Default: 60%</small></td></tr><tr data-parameter="shifterDelay"><th scope="row">Shifter Delay</th><td>Sets the delay in the frequency-shifter feedback loop, in milliseconds unless Sync selects a note value.</td><td>1.0 ms to 1000 ms<br><small>Default: 80 ms</small></td></tr><tr data-parameter="shifterSpread"><th scope="row">Shifter Spread</th><td>Offsets the right carrier phase for stereo width.</td><td>0% to 100%<br><small>Default: 50%</small></td></tr><tr data-parameter="shifterTrack"><th scope="row">Shifter Track</th><td>Makes this frequency or rate follow MIDI note pitch.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="shifterMode"><th scope="row">Shifter Mode</th><td>Chooses whether both channels shift together or in opposite directions.</td><td>One way, Both ways<br><small>Default: One way</small><br><small>Not host automatable</small></td></tr><tr data-parameter="shifterLowCut"><th scope="row">Shifter Low Cut</th><td>Removes low frequencies from the frequency-shifter feedback loop.</td><td>off to 2.00 kHz<br><small>Default: off</small></td></tr><tr data-parameter="shifterHighCut"><th scope="row">Shifter High Cut</th><td>Removes high frequencies from the frequency-shifter feedback loop.</td><td>1.00 kHz to off<br><small>Default: off</small></td></tr><tr data-parameter="shifterSync"><th scope="row">Shifter Sync</th><td>Switches this timing control to musical note divisions.</td><td>Off to On<br><small>Default: Off</small></td></tr><tr data-parameter="shifterNote"><th scope="row">Shifter Note</th><td>Sets the delay as a musical note while Shifter Sync is on.</td><td>1/128 T, 1/128, 1/64 T, 1/128 D, 1/64, 1/32 T, 1/64 D, 1/32, 1/16 T, 1/32 D, 1/16, 1/8 T, 1/16 D, 1/8, 1/4 T, 1/8 D, 1/4, 1/2 T, 1/4 D, 1/2, 1/2 D, 1 bar<br><small>Default: 1/16</small><br><small>Not host automatable</small></td></tr><tr data-parameter="width"><th scope="row">Width</th><td>Places or spreads the signal across the stereo field.</td><td>0% to 200%<br><small>Default: 100%</small></td></tr><tr data-parameter="delayTime"><th scope="row">Delay Time</th><td>Sets this stage duration; see its timing mode in the operation notes.</td><td>1/128 T, 1/128, 1/64 T, 1/128 D, 1/64, 1/32 T, 1/64 D, 1/32, 1/16 T, 1/32 D, 1/16, 1/8 T, 1/16 D, 1/8, 1/4 T, 1/8 D, 1/4, 1/2 T, 1/4 D, 1/2, 1/2 D, 1 bar<br><small>Default: 1/8 D</small><br><small>Not host automatable</small></td></tr><tr data-parameter="delayPingPong"><th scope="row">Delay Ping-pong</th><td>Alternates delay repeats between channels.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="delayFeedback"><th scope="row">Delay Feedback</th><td>Returns part of a signal to its input. More feedback increases the strength or persistence of the selected effect.</td><td>0% to 95%<br><small>Default: 40%</small></td></tr><tr data-parameter="delayMix"><th scope="row">Delay Mix</th><td>Blends the processed and dry signals. The signal-flow notes specify whether Output changes the wet signal alone or the complete blend.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="delayMode"><th scope="row">Delay Mode</th><td>Tape glides between delay times with pitch movement; Jump crossfades to the new time.</td><td>Tape, Jump<br><small>Default: Tape</small><br><small>Not host automatable</small></td></tr><tr data-parameter="delayLowCut"><th scope="row">Delay Low Cut</th><td>Removes low frequencies from the delay feedback loop so repeats become thinner.</td><td>off to 2.00 kHz<br><small>Default: off</small></td></tr><tr data-parameter="delaySaturate"><th scope="row">Delay Saturate</th><td>Adds nonlinear saturation in the delay feedback loop.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="reverbSize"><th scope="row">Reverb Size</th><td>Sets the space or grain size of this stage.</td><td>0% to 100%<br><small>Default: 60%</small></td></tr><tr data-parameter="reverbDecay"><th scope="row">Reverb Decay</th><td>Sets the time from the envelope peak to its sustain level.</td><td>0.2 s to 20 s<br><small>Default: 3.0 s</small></td></tr><tr data-parameter="reverbDamping"><th scope="row">Reverb Damping</th><td>Reduces high-frequency persistence in the reverb tail.</td><td>1.00 kHz to 20.0 kHz<br><small>Default: 7.00 kHz</small></td></tr><tr data-parameter="reverbMix"><th scope="row">Reverb Mix</th><td>Blends the processed and dry signals. The signal-flow notes specify whether Output changes the wet signal alone or the complete blend.</td><td>0% to 100%<br><small>Default: 25%</small></td></tr><tr data-parameter="reverbPredelay"><th scope="row">Reverb Pre-delay</th><td>Sets the gap before the reverb starts.</td><td>off to 250 ms<br><small>Default: off</small></td></tr><tr data-parameter="reverbMod"><th scope="row">Reverb Mod</th><td>Adds slow movement to reverb delay lengths.</td><td>0% to 100%<br><small>Default: 25%</small></td></tr><tr data-parameter="reverbFreeze"><th scope="row">Reverb Freeze</th><td>Stops new input and holds the existing reverb tail.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="reverbShimmer"><th scope="row">Reverb Shimmer</th><td>Feeds pitch-shifted reverb back into the tank.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="reverbInterval"><th scope="row">Reverb Interval</th><td>Chooses the pitch interval used by Shimmer.</td><td>+12 st, +7 st, +19 st, -12 st<br><small>Default: +12 st</small><br><small>Not host automatable</small></td></tr><tr data-parameter="m1p1"><th scope="row">Mod 1 Start</th><td>Sets the ramp value at this named gesture point. Targets follow the ramp through Rise, Transition and Fall.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="m1p2"><th scope="row">Mod 1 Drop</th><td>Sets the ramp value at this named gesture point. Targets follow the ramp through Rise, Transition and Fall.</td><td>0% to 100%<br><small>Default: 100%</small></td></tr><tr data-parameter="m1p3"><th scope="row">Mod 1 After</th><td>Sets the ramp value at this named gesture point. Targets follow the ramp through Rise, Transition and Fall.</td><td>0% to 100%<br><small>Default: 100%</small></td></tr><tr data-parameter="m1p4"><th scope="row">Mod 1 End</th><td>Sets the ramp value at this named gesture point. Targets follow the ramp through Rise, Transition and Fall.</td><td>0% to 100%<br><small>Default: 0%</small></td></tr><tr data-parameter="m1p5"><th scope="row">Mod 1 Rise curve</th><td>Bends this ramp segment between its endpoint values; Shape chooses the curve family.</td><td>-100 to +100<br><small>Default: straight</small></td></tr><tr data-parameter="m1p6"><th scope="row">Mod 1 Fall curve</th><td>Bends this ramp segment between its endpoint values; Shape chooses the curve family.</td><td>-100 to +100<br><small>Default: straight</small></td></tr><tr data-parameter="m1p7"><th scope="row">Mod 1 Mirror</th><td>Makes the two sides of the ramp mirror each other.</td><td>Off to On<br><small>Default: Off</small></td></tr><tr data-parameter="m1p8"><th scope="row">Mod 1 Rise shape</th><td>Chooses or changes the source waveform or curve. Shape changes harmonic content; curve controls change how a segment progresses.</td><td>Bend to Jitter<br><small>Default: Bend</small></td></tr><tr data-parameter="m1p9"><th scope="row">Mod 1 Fall shape</th><td>Chooses or changes the source waveform or curve. Shape changes harmonic content; curve controls change how a segment progresses.</td><td>Bend to Jitter<br><small>Default: Bend</small></td></tr><tr data-parameter="m2p1"><th scope="row">Mod 2 1</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m2p2"><th scope="row">Mod 2 2</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m2p3"><th scope="row">Mod 2 3</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m2p4"><th scope="row">Mod 2 4</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m2p5"><th scope="row">Mod 2 5</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m2p6"><th scope="row">Mod 2 6</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m2p7"><th scope="row">Mod 2 7</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m2p8"><th scope="row">Mod 2 8</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m2p9"><th scope="row">Mod 2 9</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m3p1"><th scope="row">Mod 3 1</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m3p2"><th scope="row">Mod 3 2</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m3p3"><th scope="row">Mod 3 3</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m3p4"><th scope="row">Mod 3 4</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m3p5"><th scope="row">Mod 3 5</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m3p6"><th scope="row">Mod 3 6</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m3p7"><th scope="row">Mod 3 7</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m3p8"><th scope="row">Mod 3 8</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m3p9"><th scope="row">Mod 3 9</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m4p1"><th scope="row">Mod 4 1</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m4p2"><th scope="row">Mod 4 2</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m4p3"><th scope="row">Mod 4 3</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m4p4"><th scope="row">Mod 4 4</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m4p5"><th scope="row">Mod 4 5</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m4p6"><th scope="row">Mod 4 6</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m4p7"><th scope="row">Mod 4 7</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m4p8"><th scope="row">Mod 4 8</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m4p9"><th scope="row">Mod 4 9</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m5p1"><th scope="row">Mod 5 1</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m5p2"><th scope="row">Mod 5 2</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m5p3"><th scope="row">Mod 5 3</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m5p4"><th scope="row">Mod 5 4</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m5p5"><th scope="row">Mod 5 5</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m5p6"><th scope="row">Mod 5 6</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m5p7"><th scope="row">Mod 5 7</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m5p8"><th scope="row">Mod 5 8</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m5p9"><th scope="row">Mod 5 9</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m6p1"><th scope="row">Mod 6 1</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m6p2"><th scope="row">Mod 6 2</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m6p3"><th scope="row">Mod 6 3</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m6p4"><th scope="row">Mod 6 4</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m6p5"><th scope="row">Mod 6 5</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m6p6"><th scope="row">Mod 6 6</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m6p7"><th scope="row">Mod 6 7</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m6p8"><th scope="row">Mod 6 8</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m6p9"><th scope="row">Mod 6 9</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m7p1"><th scope="row">Mod 7 1</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m7p2"><th scope="row">Mod 7 2</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m7p3"><th scope="row">Mod 7 3</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m7p4"><th scope="row">Mod 7 4</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m7p5"><th scope="row">Mod 7 5</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m7p6"><th scope="row">Mod 7 6</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m7p7"><th scope="row">Mod 7 7</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m7p8"><th scope="row">Mod 7 8</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m7p9"><th scope="row">Mod 7 9</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m8p1"><th scope="row">Mod 8 1</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m8p2"><th scope="row">Mod 8 2</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m8p3"><th scope="row">Mod 8 3</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m8p4"><th scope="row">Mod 8 4</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m8p5"><th scope="row">Mod 8 5</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m8p6"><th scope="row">Mod 8 6</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m8p7"><th scope="row">Mod 8 7</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m8p8"><th scope="row">Mod 8 8</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr><tr data-parameter="m8p9"><th scope="row">Mod 8 9</th><td>Reserved parameter in an unused modulator slot. Adding a Ramp, LFO or other modulator gives it a name and range; see Ramps and modulators.</td><td>- to -<br><small>Default: -</small></td></tr></tbody></table></section>
+<section id="files"><h2>Presets and files</h2><p>Presets are browsed with the arrows or the preset-name menu. A star marks an edited patch. Save supports folders, Rename, Delete and opening the user preset folder; dropping a compatible preset file onto the bar loads it. A newer-file indication means this version could not apply every setting.</p><p>The host session stores the complete patch. A product preset can deliberately leave listening trim, audition or display controls unchanged; the product-specific rules below describe those exceptions.</p><p>Rampa presets use .rampa in ~/Library/Audio/Presets/Barakigal Audio/Rampa. Output stays unchanged on preset loading. User samples are referenced rather than embedded in a preset file; transfer the collected Samples folder as well as the .rampa files. A missing source is shown as missing and remains silent until relinked with Load file.</p></section>
+<section id="installation"><h2>Installation and help</h2><p>Download the macOS archive from the product page and quit your audio host. Place the AU .component in ~/Library/Audio/Plug-Ins/Components, VST3 in ~/Library/Audio/Plug-Ins/VST3, or CLAP in ~/Library/Audio/Plug-Ins/CLAP. The product page also offers an installer with format selection. Restart or rescan the host. To uninstall, quit the host and remove that product's bundles from those folders; saved sessions and user presets are separate.</p><p>For questions or a problem report, use <a href="https://github.com/barak007/brk-audio/issues">BRK Audio support on GitHub</a>. Include the plugin version, macOS version, host and format, sample rate and a short description of how to reproduce it.</p></section>
+</main><footer>BRK AUDIO · BRK - Rampa manual</footer></body></html>

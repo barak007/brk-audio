@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Independent audio plugins by BRK Audio. BRK - Sub Lattice, BRK - Autoloop, BRK - Feedline, BRK - Good Kick, BRK - Rampa, BRK - Zero Clip, BRK - Sonoscopeia, BRK - Hatch.">
+  <meta name="theme-color" content="#f1efe6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)">
+  <script>try { const theme = localStorage.getItem("theme"); if (theme) document.documentElement.dataset.theme = theme; } catch {}</script>
+  <title>BRK Audio - Made for my music, tuned for yours</title>
+  <link rel="stylesheet" href="assets/vendor/fonts/fonts.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="assets/vendor/gsap/gsap.min.js" defer></script>
+  <script src="site.js" defer></script>
+  <script data-goatcounter="https://brk-audio.goatcounter.com/count" src="assets/vendor/goatcounter/count.js" async></script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="wordmark" href="./" aria-label="BRK Audio home"><span><span class="kamatz">B</span><span class="kamatz">R</span><span class="hirik">K</span></span><span>AUDIO</span></a>
+    <nav class="site-nav" aria-label="Main navigation"><a href="#gear">Gear</a><a href="#plugins">Plugins</a><a href="#downloads">Downloads</a></nav>
+    <button class="theme-toggle" type="button">Theme</button>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <canvas class="hero-waves" data-colors="signal #6c5ce7 #14a38b #4c8dff #eeae49 #e8508f #e86c60 #ffba5c #54e2d6" aria-hidden="true"></canvas>
+      <div class="hero-copy reveal">
+        <p class="eyebrow">Boutique audio software</p>
+        <h1 id="hero-title">Made for my music.<br><em>Tuned for yours.</em></h1>
+        <p class="hero-intro">Instruments and effects, tuned by ear.</p>
+        <a class="button hero-install" href="#downloads">Install plugins</a>
+        <a class="text-link" href="#gear">Browse the plugins <span aria-hidden="true">-&gt;</span></a>
+      </div>
+    </section>
+    <section id="downloads" class="collections section-shell" aria-labelledby="collections-title">
+      <div class="collections-intro">
+        <p class="eyebrow">Install collections</p>
+        <h2 id="collections-title">One install. Your choice.</h2>
+        <p>Get the Gear collection, the BRK plugins, or everything at once. Free for macOS, on Apple Silicon and Intel.</p>
+      </div>
+      <div class="collection-grid"><article class="collection-card" data-collection="gear">
+          <p class="eyebrow">3 plugins / AU · VST3 · CLAP</p>
+          <h3>Gear plugins</h3>
+          <p>The complete Gear collection.</p>
+          <a class="button" href="install/gear.sh" download data-goatcounter-click="collection-gear">Download installer</a>
+          <div class="install" data-install="https://barak007.github.io/brk-audio/install/gear.sh">
+          <p class="install-label">Or install from Terminal</p>
+          <div class="install-formats" role="group" aria-label="Formats to install" hidden><label class="install-format"><input type="checkbox" value="au" checked><span>AU</span></label><label class="install-format"><input type="checkbox" value="vst3" checked><span>VST3</span></label><label class="install-format"><input type="checkbox" value="clap" checked><span>CLAP</span></label></div>
+          <div class="install-row">
+            <code class="install-command" data-command="run">curl -fsSL https://barak007.github.io/brk-audio/install/gear.sh | bash</code><button class="install-copy" type="button" data-goatcounter-click="copy-install-collection-gear" hidden>Copy</button>
+          </div>
+          <details class="install-details">
+            <summary>What this does</summary>
+            <p>Downloads and verifies every plugin installer before running them. Each installer checks its release archive and installs your chosen formats into ~/Library/Audio/Plug-Ins, without sudo. Stops if a plugin fails; plugins already installed stay installed.</p>
+            <p>To read the script first, download it and open it in TextEdit (this runs nothing):</p>
+            <div class="install-row">
+              <code class="install-command" data-command="read">curl -fsSL https://barak007.github.io/brk-audio/install/gear.sh -o install.sh && open -e install.sh</code><button class="install-copy" type="button" data-goatcounter-click="copy-read-collection-gear" hidden>Copy</button>
+            </div>
+            <p><a data-release="install" href="https://barak007.github.io/brk-audio/install/gear.sh" data-goatcounter-click="install-sh-collection-gear">Download installer</a> / <a data-release="page" href="https://github.com/barak007/brk-audio/releases">Collection releases</a></p>
+          </details>
+        </div>
+          <details class="collection-contents"><summary>What’s included</summary><ul><li>Gear Tube <span>0.1.1</span></li><li>Gear Comp <span>0.1.1</span></li><li>Gear Exciter <span>0.1.1</span></li></ul></details>
+        </article><article class="collection-card" data-collection="brk">
+          <p class="eyebrow">8 plugins / AU · VST3 · CLAP</p>
+          <h3>BRK plugins</h3>
+          <p>All BRK instruments and effects.</p>
+          <a class="button" href="install/brk.sh" download data-goatcounter-click="collection-brk">Download installer</a>
+          <div class="install" data-install="https://barak007.github.io/brk-audio/install/brk.sh">
+          <p class="install-label">Or install from Terminal</p>
+          <div class="install-formats" role="group" aria-label="Formats to install" hidden><label class="install-format"><input type="checkbox" value="au" checked><span>AU</span></label><label class="install-format"><input type="checkbox" value="vst3" checked><span>VST3</span></label><label class="install-format"><input type="checkbox" value="clap" checked><span>CLAP</span></label></div>
+          <div class="install-row">
+            <code class="install-command" data-command="run">curl -fsSL https://barak007.github.io/brk-audio/install/brk.sh | bash</code><button class="install-copy" type="button" data-goatcounter-click="copy-install-collection-brk" hidden>Copy</button>
+          </div>
+          <details class="install-details">
+            <summary>What this does</summary>
+            <p>Downloads and verifies every plugin installer before running them. Each installer checks its release archive and installs your chosen formats into ~/Library/Audio/Plug-Ins, without sudo. Stops if a plugin fails; plugins already installed stay installed.</p>
+            <p>To read the script first, download it and open it in TextEdit (this runs nothing):</p>
+            <div class="install-row">
+              <code class="install-command" data-command="read">curl -fsSL https://barak007.github.io/brk-audio/install/brk.sh -o install.sh && open -e install.sh</code><button class="install-copy" type="button" data-goatcounter-click="copy-read-collection-brk" hidden>Copy</button>
+            </div>
+            <p><a data-release="install" href="https://barak007.github.io/brk-audio/install/brk.sh" data-goatcounter-click="install-sh-collection-brk">Download installer</a> / <a data-release="page" href="https://github.com/barak007/brk-audio/releases">Collection releases</a></p>
+          </details>
+        </div>
+          <details class="collection-contents"><summary>What’s included</summary><ul><li>BRK - Sub Lattice <span>1.4.1</span></li><li>BRK - Autoloop <span>1.2.1</span></li><li>BRK - Feedline <span>1.3.1</span></li><li>BRK - Good Kick <span>1.3.1</span></li><li>BRK - Rampa <span>1.2.1</span></li><li>BRK - Zero Clip <span>1.2.1</span></li><li>BRK - Sonoscopeia <span>1.0.1</span></li><li>BRK - Hatch <span>1.0.1</span></li></ul></details>
+        </article><article class="collection-card collection-card-all" data-collection="all">
+          <p class="eyebrow">11 plugins / AU · VST3 · CLAP</p>
+          <h3>Everything</h3>
+          <p>BRK and Gear, in one install.</p>
+          <a class="button" href="install/all.sh" download data-goatcounter-click="collection-all">Download installer</a>
+          <div class="install" data-install="https://barak007.github.io/brk-audio/install/all.sh">
+          <p class="install-label">Or install from Terminal</p>
+          <div class="install-formats" role="group" aria-label="Formats to install" hidden><label class="install-format"><input type="checkbox" value="au" checked><span>AU</span></label><label class="install-format"><input type="checkbox" value="vst3" checked><span>VST3</span></label><label class="install-format"><input type="checkbox" value="clap" checked><span>CLAP</span></label></div>
+          <div class="install-row">
+            <code class="install-command" data-command="run">curl -fsSL https://barak007.github.io/brk-audio/install/all.sh | bash</code><button class="install-copy" type="button" data-goatcounter-click="copy-install-collection-all" hidden>Copy</button>
+          </div>
+          <details class="install-details">
+            <summary>What this does</summary>
+            <p>Downloads and verifies every plugin installer before running them. Each installer checks its release archive and installs your chosen formats into ~/Library/Audio/Plug-Ins, without sudo. Stops if a plugin fails; plugins already installed stay installed.</p>
+            <p>To read the script first, download it and open it in TextEdit (this runs nothing):</p>
+            <div class="install-row">
+              <code class="install-command" data-command="read">curl -fsSL https://barak007.github.io/brk-audio/install/all.sh -o install.sh && open -e install.sh</code><button class="install-copy" type="button" data-goatcounter-click="copy-read-collection-all" hidden>Copy</button>
+            </div>
+            <p><a data-release="install" href="https://barak007.github.io/brk-audio/install/all.sh" data-goatcounter-click="install-sh-collection-all">Download installer</a> / <a data-release="page" href="https://github.com/barak007/brk-audio/releases">Collection releases</a></p>
+          </details>
+        </div>
+          <details class="collection-contents"><summary>What’s included</summary><ul><li>BRK - Sub Lattice <span>1.4.1</span></li><li>BRK - Autoloop <span>1.2.1</span></li><li>BRK - Feedline <span>1.3.1</span></li><li>BRK - Good Kick <span>1.3.1</span></li><li>BRK - Rampa <span>1.2.1</span></li><li>BRK - Zero Clip <span>1.2.1</span></li><li>BRK - Sonoscopeia <span>1.0.1</span></li><li>BRK - Hatch <span>1.0.1</span></li><li>Gear Tube <span>0.1.1</span></li><li>Gear Comp <span>0.1.1</span></li><li>Gear Exciter <span>0.1.1</span></li></ul></details>
+        </article></div>
+      <p class="collections-note">Installs the latest published versions in your own plugin folders. Choose formats in the Terminal option above. Individual downloads are available on each plugin page.</p>
+    </section>
+    <section id="gear" class="gear" aria-labelledby="gear-title">
+      <div class="gear-intro reveal">
+        <p class="eyebrow">Gear</p>
+        <h2 id="gear-title">A familiar feel, a sound of your own.</h2>
+        <p>Add warmth, bring a mix together or find a little more sparkle, with the familiar knobs and meters of studio gear.</p>
+      </div>
+      <ol class="gear-list">
+        <li class="gear-piece gear-piece-wide reveal" style="--accent: #ff9d3c">
+          <a href="plugins/gear-tube/" aria-label="Gear Tube: details">
+            <div class="gear-caption">
+              <h3>Gear Tube</h3>
+              <p>From a little warmth to a rougher edge.</p>
+              <span class="gear-status">Preview</span>
+              <span class="gear-more" aria-hidden="true">Details -&gt;</span>
+            </div>
+            <div class="gear-stage" style="--stage-ratio: 1200 / 747"><img class="gear-picture" src="assets/gear/gear-tube.jpg" width="1200" height="747" alt="Gear Tube interface with four glass tubes above a brushed-metal panel, seven knobs and a needle meter" loading="lazy"></div>
+          </a>
+        </li>
+        <li class="gear-piece gear-piece-wide reveal" style="--accent: #c9ced6">
+          <a href="plugins/gear-comp/" aria-label="Gear Comp: details">
+            <div class="gear-caption">
+              <h3>Gear Comp</h3>
+              <p>Bring the mix together, or give the drums a little more punch.</p>
+              <span class="gear-status">Preview</span>
+              <span class="gear-more" aria-hidden="true">Details -&gt;</span>
+            </div>
+            <div class="gear-stage" style="--stage-ratio: 1200 / 351"><img class="gear-picture" src="assets/gear/gear-comp.jpg" width="1200" height="351" alt="Gear Comp interface with a brushed-metal face, a needle meter, gain reduction lights, six knobs and switches for sidechain and compression character" loading="lazy"></div>
+          </a>
+        </li>
+        <li class="gear-piece gear-piece-wide reveal" style="--accent: #5fd3c6">
+          <a href="plugins/gear-exciter/" aria-label="Gear Exciter: details">
+            <div class="gear-caption">
+              <h3>Gear Exciter</h3>
+              <p>A little more body below and sparkle above.</p>
+              <span class="gear-status">Preview</span>
+              <span class="gear-more" aria-hidden="true">Details -&gt;</span>
+            </div>
+            <div class="gear-stage" style="--stage-ratio: 1200 / 511"><img class="gear-picture" src="assets/gear/gear-exciter.jpg" width="1200" height="511" alt="Gear Exciter interface with a brushed-metal panel, a needle meter and three groups of knobs for tone, harmonics and output" loading="lazy"></div>
+          </a>
+        </li>
+      </ol>
+    </section>
+    <section id="plugins" class="catalog section-shell" aria-label="BRK plugins">
+      <div class="plugin-grid">
+      <article class="plugin-card reveal" style="--accent: #6c5ce7">
+        <a class="plugin-card-link" href="plugins/sub-lattice/" aria-label="View BRK - Sub Lattice">
+          <div class="plugin-shot"><img src="assets/screenshots/sub-lattice.png" width="980" height="995" alt="BRK - Sub Lattice plugin interface" loading="lazy"></div>
+          <div class="card-meta"><span>01 / Synthesizer</span><span>Free download</span></div>
+          <h3>BRK - Sub Lattice</h3>
+          <p>Build basses, leads and pads, then give them movement. Blend two oscillators, explore the filters and draw your own modulation shapes, with the connections always in view.</p>
+          <div class="card-action"><span>Free</span><span aria-hidden="true">View plugin -&gt;</span></div>
+        </a>
+      </article>
+      <article class="plugin-card reveal" style="--accent: #14a38b">
+        <a class="plugin-card-link" href="plugins/autoloop/" aria-label="View BRK - Autoloop">
+          <div class="plugin-shot"><img src="assets/screenshots/autoloop.png" width="1320" height="841" alt="BRK - Autoloop plugin interface" loading="lazy"></div>
+          <div class="card-meta"><span>02 / Drum machine</span><span>Free download</span></div>
+          <h3>BRK - Autoloop</h3>
+          <p>Start with a folder of your own samples and let a groove take shape. Draw the details or try a little randomness, then keep the variation you like so it comes back with your project.</p>
+          <div class="card-action"><span>Free</span><span aria-hidden="true">View plugin -&gt;</span></div>
+        </a>
+      </article>
+      <article class="plugin-card reveal" style="--accent: #4c8dff">
+        <a class="plugin-card-link" href="plugins/feedline/" aria-label="View BRK - Feedline">
+          <div class="plugin-shot"><img src="assets/screenshots/feedline.png" width="1240" height="689" alt="BRK - Feedline plugin interface" loading="lazy"></div>
+          <div class="card-meta"><span>03 / Delay</span><span>Free download</span></div>
+          <h3>BRK - Feedline</h3>
+          <p>Let a simple echo grow into something stranger. Add filters, colour and movement to the repeats, choose how they feed back into each other, and cut the whole loop when you're ready.</p>
+          <div class="card-action"><span>Free</span><span aria-hidden="true">View plugin -&gt;</span></div>
+        </a>
+      </article>
+      <article class="plugin-card reveal" style="--accent: #eeae49">
+        <a class="plugin-card-link" href="plugins/good-kick/" aria-label="View BRK - Good Kick">
+          <div class="plugin-shot"><img src="assets/screenshots/good-kick.png" width="1180" height="720" alt="BRK - Good Kick plugin interface" loading="lazy"></div>
+          <div class="card-meta"><span>04 / Kick synth</span><span>Free download</span></div>
+          <h3>BRK - Good Kick</h3>
+          <p>Draw the punch, pitch drop and tail until the kick fits your track. Add a little noise for a sharper attack or a rougher edge, then play it from your keyboard or drag it into your session as audio.</p>
+          <div class="card-action"><span>Free</span><span aria-hidden="true">View plugin -&gt;</span></div>
+        </a>
+      </article>
+      <article class="plugin-card reveal" style="--accent: #e8508f">
+        <a class="plugin-card-link" href="plugins/rampa/" aria-label="View BRK - Rampa">
+          <div class="plugin-shot"><img src="assets/screenshots/rampa.png" width="1180" height="761" alt="BRK - Rampa plugin interface" loading="lazy"></div>
+          <div class="card-meta"><span>05 / FX generator</span><span>Free download</span></div>
+          <h3>BRK - Rampa</h3>
+          <p>Give the next section an entrance. Layer tones, noise and effects into a rise, a transition or an impact that follows your song's tempo, then play it from your keyboard or drag it into the arrangement as audio.</p>
+          <div class="card-action"><span>Free</span><span aria-hidden="true">View plugin -&gt;</span></div>
+        </a>
+      </article>
+      <article class="plugin-card reveal" style="--accent: #e86c60">
+        <a class="plugin-card-link" href="plugins/zero-clip/" aria-label="View BRK - Zero Clip">
+          <div class="plugin-shot"><img src="assets/screenshots/zero-clip.png" width="1200" height="801" alt="BRK - Zero Clip plugin interface" loading="lazy"></div>
+          <div class="card-meta"><span>06 / Clipper</span><span>Free download</span></div>
+          <h3>BRK - Zero Clip</h3>
+          <p>Get a little more level from your drums, bass or mix. Tame the peaks and shape the low end separately from the highs, so you can find the right balance of weight, bite and control.</p>
+          <div class="card-action"><span>Free</span><span aria-hidden="true">View plugin -&gt;</span></div>
+        </a>
+      </article>
+      <article class="plugin-card reveal" style="--accent: #ffba5c">
+        <a class="plugin-card-link" href="plugins/sonoscopeia/" aria-label="View BRK - Sonoscopeia">
+          <div class="plugin-shot"><img src="assets/screenshots/sonoscopeia.png" width="1100" height="685" alt="BRK - Sonoscopeia plugin interface" loading="lazy"></div>
+          <div class="card-meta"><span>07 / Spectrogram</span><span>Free download</span></div>
+          <h3>BRK - Sonoscopeia</h3>
+          <p>If the kick and bass are hard to untangle by ear, take a closer look. Watch their notes and pitch bends trace across the screen, see where they overlap, and check the rest of the track without changing what you hear.</p>
+          <div class="card-action"><span>Free</span><span aria-hidden="true">View plugin -&gt;</span></div>
+        </a>
+      </article>
+      <article class="plugin-card reveal" style="--accent: #54e2d6">
+        <a class="plugin-card-link" href="plugins/hatch/" aria-label="View BRK - Hatch">
+          <div class="plugin-shot"><img src="assets/screenshots/hatch.png" width="1000" height="740" alt="BRK - Hatch plugin interface" loading="lazy"></div>
+          <div class="card-meta"><span>08 / Hi-hat generator</span><span>Free download</span></div>
+          <h3>BRK - Hatch</h3>
+          <p>Find the hats that make your track move, with a shaker and ride alongside them. Try a new pattern until something clicks, then keep it playing the same way on every pass. Use the built-in sounds or send the rhythm to another instrument.</p>
+          <div class="card-action"><span>Free</span><span aria-hidden="true">View plugin -&gt;</span></div>
+        </a>
+      </article>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><a class="wordmark wordmark-footer" href="./"><span><span class="kamatz">B</span><span class="kamatz">R</span><span class="hirik">K</span></span><span>AUDIO</span></a><p class="footer-meta">VST3 / AU / CLAP<br>macOS universal<br>VoiceOver and keyboard</p><a class="footer-link" href="https://github.com/barak007/brk-audio" data-goatcounter-click="github-footer"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.37A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>GitHub</a></footer>
+</body>
+</html>

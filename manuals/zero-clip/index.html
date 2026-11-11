@@ -1,0 +1,141 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="BRK - Zero Clip user manual and parameter reference"><title>BRK - Zero Clip manual — BRK Audio</title><link rel="stylesheet" href="../../assets/vendor/fonts/fonts.css"><link rel="stylesheet" href="../../manuals.css"></head><body>
+<header><a href="../../">BRK AUDIO</a><a href="../../plugins/zero-clip/">BRK - Zero Clip</a><a class="pdf-download" href="../../assets/manuals/zero-clip.pdf" download>Download PDF</a></header>
+<main><h1>BRK - Zero Clip</h1><p class="subtitle">User manual and parameter reference · 1.2.1</p><p>A two-band clipper that reduces complete waveform lobes around zero crossings.</p>
+<nav aria-label="Manual contents"><a href="#quick-start">Quick start</a><a href="#operation">Operation</a><a href="#parameters">Every parameter</a><a href="#files">Presets and files</a><a href="#installation">Installation and help</a></nav>
+<section id="quick-start"><h2>Quick start</h2><ol><li>Insert Zero Clip on an audio track, play material and start with Gentle Peak Control.</li><li>Set Input and the low/high thresholds while watching gain reduction. Compare with Bypass or Match.</li><li>Use Delta to audition what changes, then turn Delta/Match off for the intended mix output. Save your setting with the preset bar.</li></ol></section>
+<section id="window"><h2>Editor window</h2><p>1130 × 701 minimum; resizable. Dimensions are logical editor pixels, before host window chrome. HELP adds 92 pixels of height (Gear adds a one-pixel divider too). Allow enough usable screen space at your display scale. Press HELP again to close the help area.</p></section>
+<section id="operation"><h2>Operation</h2><p>There are four factory starting points: Gentle Peak Control, Drum Punch, Low End Control and Soft Mix Bus. They are examples, not target loudness settings; adjust thresholds to the source.</p><p>Use the preset bar to browse and save clipping settings. HELP opens an optional footer. Preset loading preserves Output, Bypass, Delta, Match, Solo and loudness-target/view choices.</p><p>Lookahead is 70 ms. Linear phase adds about 40 ms more. This makes the effect suitable for processing/mixing rather than latency-sensitive live monitoring; the host receives the processing latency.</p><h2>How it works</h2>
+<p>The <strong>Crossover</strong> (80–500 Hz) splits each channel into a low and a high band, and each is clipped on its own. Its slope
+is 12, 24 (the default) or 48 dB/oct, each a Linkwitz-Riley pair, so the bands always sum back flat (at 12 dB/oct the
+high band’s polarity is flipped for that). Steeper keeps each band’s content to itself; gentler overlaps them more but
+turns the phase less around the crossover. Changing the slope while playing crossfades to the new filters once they
+have settled.</p>
+<p>Its phase is <strong>Natural</strong> (the default) or <strong>Linear</strong>. Natural turns the phase around the crossover frequency, as an
+analogue crossover does: the bands sum back flat in level, but a transient’s shape (and so its true peak) moves a
+little, and Mix at 0 is that sum, not the input. <strong>Linear</strong> turns no phase: the low band is a symmetric FIR whose level
+follows the same slope (1 / (1 + (f / fc)^n)), the high band the input less it, so the two add back to the input itself
+and Mix at 0 is the input, sample for sample. It costs 40 ms more latency (110 ms in all, reported to the host when
+you switch; switching fades the sound out and back in), about twice the CPU, and a pre-echo where the bands are
+clipped hard: a linear-phase low band starts rising a few milliseconds before a hit and the high band carries its
+opposite, which cancel only while both are turned down alike (a kick clipped 19 dB in the low band leaves a pre-echo
+about 14 dB under its peak; lighter clipping, much less). The FIR runs as an FFT convolution; moving the crossover
+designs a new one on a background thread, within about 10 ms (when the host renders offline, in step with the render),
+and crossfades to it. With oversampling, the linear split runs before it. Both bands work the same way: every lobe is measured whole in the lookahead
+and played with one gain from its first sample to its last, so gain only ever changes at a zero crossing (at the sample
+nearer zero).</p>
+<ul>
+<li><strong>Threshold</strong>: each lobe that peaks over it is turned down whole to meet it. It is set by dragging the band’s red
+lines in the display (double-click resets them to -6 dB). The <strong>lock</strong> (closed by default) moves both bands’ lines
+together; open it to set them apart (the high band’s starts where the low band’s is, so nothing jumps). Nothing makes
+up the level, so Output brings it back.</li>
+<li><strong>Half / Full</strong>, per band, picks what a lobe is: a half cycle, crossing to crossing, or a whole cycle, from a rising
+crossing to the next rising crossing, so both halves share one gain and the gain changes half as often.</li>
+<li><strong>Transient</strong> and <strong>Smooth</strong>, per band, give back part of each attack. The transient is measured on the entire signal
+(the crossover’s sum, so it is timed as the bands are, the louder of the two channels), sample by sample: how far the
+level rises over a smoothed level of the sound before it (a 30 to 60 ms peak hold, so the alternating halves of an
+asymmetric wave read as one level, then smoothed over the band’s <strong>Smooth</strong>, 2–200 ms), less 1 dB. Each band’s lobe
+takes the largest transient over its own span, and Transient returns that share of it, in dB, as less reduction on
+that lobe, never more than the threshold sits under 0 dB (at -5 dB, at most 5 dB), so a kept attack peaks at 0 dBFS
+at most. A hit keeps its attack in both bands and both channels alike, so a snare’s crack also opens the low band
+under it; the body and the tail are clipped as before, and a steady sound has no transient at all. The measuring runs
+where the lobes are measured, in the lookahead, and what is given back is part of the lobe’s one gain, so it lands on
+exactly the lobe it was measured on and gain still only changes at crossings. A longer Smooth keeps more of each hit;
+a shorter one only its first cycles.</li>
+<li><strong>Bypass</strong> (under Output, and what the host’s own bypass switches) plays the input as it came in, delayed by the
+latency so it lines up, fading over 20 ms either way. The engine keeps running underneath, so coming back is seamless.</li>
+<li><strong>Solo</strong>, per band, hears only that band. <strong>Mix</strong> blends the clipped path (Input, the bands, Output) against the bands as
+they came in, with neither Input nor Output, so Mix at 0 does nothing but delay (the crossover’s flat sum, so no
+phase comb).</li>
+</ul>
+<h2>Refinements</h2>
+<p>The chain between the lanes also holds refinements, each <strong>Off</strong> at zero, so a new instance is the plain clipper. None
+of them moves where the gain may change (still only at a lobe’s first sample); they choose each lobe’s gain better, or
+place the change more precisely. Each band’s strip runs through three stages, in the order the gain is decided:</p>
+<ul>
+<li><strong>Clip · Knee</strong> (0–12 dB, per band): lobes within half the knee of the threshold are turned down gradually instead
+of all or nothing, so a sound hovering at the threshold is not flipped between clipped and clean from lobe to lobe.
+The turned-down peak still never passes the threshold. 3 dB is a good start.</li>
+<li><strong>Glide · Attack</strong> (0–10 ms) and <strong>Release</strong> (0–200 ms), per band: the gain glides across lobes instead of jumping
+from each lobe’s need to the next. Attack reaches back through the lookahead and turns down the lobes waiting before
+a loud one, fading with their distance from it; Release lets the reduction go over the lobes after it. A lobe
+clipper’s distortion is the gain’s lobe-to-lobe modulation, so this is the biggest change: with a knee, Attack 1 ms
+and Release 30 ms (and both links), the energy outside two high tones falls from about -10 dB to -30 dB and below,
+and on 50 + 70 Hz from -10 to -15 dB. Bass suits a longer release (30–80 ms), highs a shorter one (10–30 ms).</li>
+<li><strong>Transient · Transient</strong> and <strong>Smooth</strong>, as above.</li>
+</ul>
+<p>Between the strips sits what both bands share. <strong>Link</strong> measures the bands together:</p>
+<ul>
+<li><strong>Band sum</strong> (0–100%): each lobe is also measured with the other band of its channel added, so at 100% the bands’
+sum stays under the threshold (with Transient, under 0 dBFS) instead of peaking up to 6 dB over it.</li>
+<li><strong>Stereo</strong> link (0–100%): each lobe is also measured against the same band in the other channel, so a loud side does
+not pull the image across.</li>
+</ul>
+<p><strong>Oversample</strong> (1x, 2x, 4x, 8x): the bands run at that rate, so each gain change lands nearer the true crossing and the
+corner it leaves is filtered above the audio band instead of folding back. On two tones near 10 kHz, aliasing falls
+from -20 dB of the signal at 1x to -33 dB at 2x, -44 dB at 4x and -49 dB at 8x (with the refinements above, -41, -49
+and -63 dB). The stretch of the chain it covers is shaded. The latency stays 70 ms: an oversampled engine’s lookahead gives
+up what its filters take. Changing the rate starts the new engine beside the playing one and crossfades once it has
+filled (about a quarter of a second), so nothing clicks; a session opens straight at its saved rate.</p>
+<p>The refinements and oversampling cost speed: the whole path with the refinements on (meters included) runs about 120x
+real time at 1x, 70x at 2x, 38x at 4x and 20x at 8x, against 260x for the plain clipping engine.</p>
+<p>The lookahead is 70 ms, which holds a whole cycle down to about 14.4 Hz (a 15 Hz cycle is 66.7 ms). That is the plugin’s
+latency, reported to the host. A lobe longer than that (sub-sonic content, a DC offset) is split where it is, with a
+0.5 ms ramp on the higher-gain side so the threshold still holds. Each band stays under its threshold (except where
+Transient lets an attack over), but their sum can peak over it.</p>
+<h2>Meters</h2>
+<p>The header measures the input, a latency late so it lines up in time with the output, and the output as it leaves
+(after Gain match and Bypass): bypassed, the two read the same, and at Mix 0 their loudness matches (the true peak can
+differ by a fraction of a dB, as the crossover’s sum turns the phase and so reshapes transients). Loudness gained and
+Gain match use the clipper’s own output, before Gain match and Bypass, so they show what the clipper does even while
+listening bypassed or matched.</p>
+<ul>
+<li><strong>IN</strong> and <strong>OUT</strong>: a bar per channel of momentary loudness (400 ms, each channel read as if it played from both
+speakers, so a centred sound’s bars meet the readout), coloured against the <strong>target</strong> as a K-meter’s zones are (green under it, amber up to 4 LU over, red beyond; the target is marked), with a tick at the true peak
+that falls back at 20 dB/s, and readouts of the short-term loudness (3 s, LUFS) and the largest true peak of the last
+3 s (dBTP, red over -1). Loudness follows ITU-R BS.1770 (K-weighted, -20 dBFS 1 kHz in both channels reads -20
+LUFS); true peak takes three points between every two samples (a 24-tap windowed sinc, within 0.2 dB up to 20 kHz
+at 48 kHz), so a peak between samples is not missed.</li>
+<li><strong>Loudness gained</strong>: the clipper’s short-term loudness less the input’s, in LU, what the clipper bought; under it the
+peak-to-loudness ratio of the input and the output (how much dynamic range is left).</li>
+<li><strong>Target</strong> (-9, -11, -14, -16 or -23 LUFS, -14 by default) only colours the meters.</li>
+<li><strong>Delta</strong> plays only what the clipping changes: the output less the bands as they would be unclipped, at the
+output’s level, so you hear exactly what is added and taken away.</li>
+<li><strong>Match</strong> (gain match) trims the clipped output to the input’s short-term loudness, easing over about 1.5 s, so the
+clipper and Bypass can be compared at the same loudness; the trim it applies shows under the readout. It is for
+listening: the bypassed input is never trimmed, and the meters show the output before it.</li>
+</ul>
+<h2>The display</h2>
+<p><strong>View</strong>, a small knob in the chain, sets how much time the lanes show, from 5 ms to 2 s (2 s by default; double-click
+returns to it; kept with the session). Below it, two lanes on one time axis, high above low, each on a fixed scale with
+0 dBFS at its edges, showing each band of the louder channel at each moment, with the deeper gain reduction of the two
+(so a reduction in one channel alone still shows). The ghost is the band as it
+came in, the fill is what leaves (turning red as it loses gain, blue where Transient gave an attack back), the red
+lines are its threshold (drag them), red bars hang from the top for gain reduction, and ticks on the centre line mark
+the crossings where the gain may change. Each lane’s header has its Half and Full tiles (a half and a whole sine) and
+Solo (headphones). The window starts on a rising crossing so a steady tone stands still; from 200 ms the lanes scroll
+freely, drawn from 32-sample spans; click to freeze (View still changes a frozen picture). Lobes slower than 15 Hz are marked along the bottom of their lane,
+and the lane says BELOW 15 Hz for a second after.</p>
+<p>Between the lanes the controls stand in the order the signal meets them: Input, the Crossover, a fork into a strip per
+band (Clip, Glide, Transient; the upper strip is the upper lane’s band) with View, Link and Oversample between them,
+then the join, Mix and Output. The Crossover’s cell holds its slope, and Output’s cell Bypass.
+Dots run along the line while sound passes, each branch as bright as its band, and stop in silence; a band soloed away
+has its branch dimmed. At the left, the lock sits on a rail that joins the high lane’s lower red line to the low lane’s
+upper one: solid while the thresholds are linked, faint and dashed when not.</p>
+<p>Beside each lane a 3D gain reduction meter keeps the last second: the front face is the newest 4 ms with no smoothing,
+and older slices recede behind it, smaller and fainter, so even one short reduction leaves a tail you can see.</p>
+<p>The tiles in the top meter’s header pick what gain reduction means, for both meters, their readouts and the lanes’ bars
+(kept with the session):</p>
+<ul>
+<li><strong>Env</strong> is the gain each lobe is given, Attack and Release included, whether the sound under it is
+loud, quiet or silent.</li>
+<li><strong>Actual</strong> (the default) is what that gain takes off the audio, as the dB it would take off a peak at the threshold (or at the
+output, where that stays over the line): <code>dB(1 + (|in| - |out|) / max(threshold, |out|))</code>, the most of it in each
+slice or column. A lobe clipped to the line, or left over it by a knee or Transient, reads its gain exactly; a
+Release held over a quiet sound reads little (6 dB on a sound 24 dB under the line reads about 0.3 dB) and over
+silence nothing. It never reads more than Env.</li>
+</ul>
+</section>
+<section id="parameters"><h2>Every parameter</h2><p>Values and defaults are taken from the plugin. A control's effect can depend on the selected mode; see the operation notes above. Choices keep their saved identity between versions. Knobs and switches can be automated unless marked otherwise.</p><table><thead><tr><th>Parameter</th><th>What it does</th><th>Values and default</th></tr></thead><tbody><tr data-parameter="input"><th scope="row">Input</th><td>Drives the clipped path into the thresholds.</td><td>-12.0 dB to +24.0 dB<br><small>Default: 0.0 dB</small></td></tr><tr data-parameter="output"><th scope="row">Output</th><td>The level of the clipped path (Mix at 0 bypasses it).</td><td>-24.0 dB to +12.0 dB<br><small>Default: 0.0 dB</small></td></tr><tr data-parameter="mix"><th scope="row">Mix</th><td>Blends the clipped bands with the bands as they came in.</td><td>0% to 100%<br><small>Default: 100%</small></td></tr><tr data-parameter="crossover"><th scope="row">Crossover</th><td>Where the low and high bands split. The crossings that set the gain are each band's own.</td><td>80 Hz to 500 Hz<br><small>Default: 150 Hz</small></td></tr><tr data-parameter="link"><th scope="row">Link</th><td>Links the bands for shared threshold editing; it is separate from Band sum and Stereo signal measurement.</td><td>Off to On<br><small>Default: On</small></td></tr><tr data-parameter="oversampling"><th scope="row">Oversampling</th><td>Oversampling: the bands run at 2, 4 or 8 times the rate, so each gain change lands nearer the true crossing and the corner it leaves is filtered above the audio band (far less aliasing). The latency stays the same; changing it crossfades.</td><td>1x, 2x, 4x, 8x<br><small>Default: 1x</small><br><small>Not host automatable</small></td></tr><tr data-parameter="crossoverSlope"><th scope="row">Crossover Slope</th><td>The crossover's slope in dB per octave. Steeper keeps each band's content to itself; gentler overlaps the bands more but turns the phase less around the crossover. Changing it crossfades.</td><td>12, 24, 48<br><small>Default: 24</small><br><small>Not host automatable</small></td></tr><tr data-parameter="crossoverPhase"><th scope="row">Crossover Phase</th><td>Natural: the crossover turns the phase around its frequency, as an analogue one does (70 ms latency). Linear: it turns no phase, so the bands add back to the input exactly, at 40 ms more latency; clipping each band apart can leave a faint pre-echo near the crossover. Switching fades out and back in.</td><td>Natural, Linear<br><small>Default: Natural</small><br><small>Not host automatable</small></td></tr><tr data-parameter="bypass"><th scope="row">Bypass</th><td>Bypass: the input as it came in, delayed by the latency so it lines up; switching fades over 20 ms. The host's own bypass uses the same switch.</td><td>Off to On<br><small>Default: Off</small></td></tr><tr data-parameter="delta"><th scope="row">Delta</th><td>Delta: hear only what the clipping changes, the output less the bands as they would be unclipped, at the output's level. A quick way to hear whether it is doing harm.</td><td>Off to On<br><small>Default: Off</small></td></tr><tr data-parameter="gainMatch"><th scope="row">Gain Match</th><td>Trims the clipped output toward the input short-term loudness for comparison, easing over about 1.5 seconds. Bypassed input is left unchanged.</td><td>Off to On<br><small>Default: Off</small></td></tr><tr data-parameter="loudnessTarget"><th scope="row">Loudness Target</th><td>The loudness target, in LUFS: the meters turn amber over it and red 4 LU over it, as a K-meter's zones. It changes nothing in the sound.</td><td>-9, -11, -14, -16, -23<br><small>Default: -14</small><br><small>Not host automatable</small></td></tr><tr data-parameter="stereoLink"><th scope="row">Stereo Link</th><td>Measures each lobe against the other channel as well, reducing stereo-image movement.</td><td>Off to 100%<br><small>Default: Off</small></td></tr><tr data-parameter="bandSum"><th scope="row">Band Sum</th><td>Each lobe is also measured with the other band added to it, so at 100% the bands' sum stays under the threshold (and under 0 dBFS with Transient) instead of peaking up to 6 dB over it. Off at 0.</td><td>Off to 100%<br><small>Default: Off</small></td></tr><tr data-parameter="band1Threshold"><th scope="row">Low Threshold</th><td>Sets the maximum target peak for low-band waveform lobes.</td><td>-30.0 dB to 0.0 dB<br><small>Default: -6.0 dB</small></td></tr><tr data-parameter="band1Lobe"><th scope="row">Low Lobe</th><td>Half: one gain per half cycle, crossing to crossing. Full: one gain per whole cycle, rising crossing to rising crossing, so the gain changes half as often.</td><td>Half, Full<br><small>Default: Half</small><br><small>Not host automatable</small></td></tr><tr data-parameter="band1Solo"><th scope="row">Low Solo</th><td>Auditions the low band.</td><td>Off to On<br><small>Default: Off</small></td></tr><tr data-parameter="band1Transient"><th scope="row">Low Transient</th><td>Lets short low-band attacks rise above the threshold, up to the stated transient ceiling.</td><td>Off to 100%<br><small>Default: Off</small></td></tr><tr data-parameter="band1Smooth"><th scope="row">Low Smooth</th><td>Sets the low-band transient measurement/smoothing interval.</td><td>2.0 ms to 200 ms<br><small>Default: 20 ms</small></td></tr><tr data-parameter="band1Knee"><th scope="row">Low Knee</th><td>Softens the transition into low-band clipping around the threshold.</td><td>Off to 12.0 dB<br><small>Default: Off</small></td></tr><tr data-parameter="band1Attack"><th scope="row">Low Attack</th><td>Sets how quickly this envelope or detector rises. Longer values soften the start; shorter values respond more quickly.</td><td>Off to 10 ms<br><small>Default: Off</small></td></tr><tr data-parameter="band1Release"><th scope="row">Low Release</th><td>Sets the fall after release or the recovery time of the selected processor; see the envelope or detector description above.</td><td>Off to 200 ms<br><small>Default: Off</small></td></tr><tr data-parameter="band2Threshold"><th scope="row">High Threshold</th><td>Sets the maximum target peak for high-band waveform lobes.</td><td>-30.0 dB to 0.0 dB<br><small>Default: -6.0 dB</small></td></tr><tr data-parameter="band2Lobe"><th scope="row">High Lobe</th><td>Half: one gain per half cycle, crossing to crossing. Full: one gain per whole cycle, rising crossing to rising crossing, so the gain changes half as often.</td><td>Half, Full<br><small>Default: Half</small><br><small>Not host automatable</small></td></tr><tr data-parameter="band2Solo"><th scope="row">High Solo</th><td>Auditions the high band.</td><td>Off to On<br><small>Default: Off</small></td></tr><tr data-parameter="band2Transient"><th scope="row">High Transient</th><td>Lets short high-band attacks rise above the threshold, up to the stated transient ceiling.</td><td>Off to 100%<br><small>Default: Off</small></td></tr><tr data-parameter="band2Smooth"><th scope="row">High Smooth</th><td>Sets the high-band transient measurement/smoothing interval.</td><td>2.0 ms to 200 ms<br><small>Default: 20 ms</small></td></tr><tr data-parameter="band2Knee"><th scope="row">High Knee</th><td>Softens the transition into high-band clipping around the threshold.</td><td>Off to 12.0 dB<br><small>Default: Off</small></td></tr><tr data-parameter="band2Attack"><th scope="row">High Attack</th><td>Sets how quickly this envelope or detector rises. Longer values soften the start; shorter values respond more quickly.</td><td>Off to 10 ms<br><small>Default: Off</small></td></tr><tr data-parameter="band2Release"><th scope="row">High Release</th><td>Sets the fall after release or the recovery time of the selected processor; see the envelope or detector description above.</td><td>Off to 200 ms<br><small>Default: Off</small></td></tr></tbody></table></section>
+<section id="files"><h2>Presets and files</h2><p>Presets are browsed with the arrows or the preset-name menu. A star marks an edited patch. Save supports folders, Rename, Delete and opening the user preset folder; dropping a compatible preset file onto the bar loads it. A newer-file indication means this version could not apply every setting.</p><p>The host session stores the complete patch. A product preset can deliberately leave listening trim, audition or display controls unchanged; the product-specific rules below describe those exceptions.</p><p>Zero Clip presets use .zeroclip in ~/Library/Audio/Presets/Barakigal Audio/Zero Clip. Sound controls are stored; listening trim, audition, bypass, meters and view settings are not overwritten. Old host sessions remain readable.</p></section>
+<section id="installation"><h2>Installation and help</h2><p>Download the macOS archive from the product page and quit your audio host. Place the AU .component in ~/Library/Audio/Plug-Ins/Components, VST3 in ~/Library/Audio/Plug-Ins/VST3, or CLAP in ~/Library/Audio/Plug-Ins/CLAP. The product page also offers an installer with format selection. Restart or rescan the host. To uninstall, quit the host and remove that product's bundles from those folders; saved sessions and user presets are separate.</p><p>For questions or a problem report, use <a href="https://github.com/barak007/brk-audio/issues">BRK Audio support on GitHub</a>. Include the plugin version, macOS version, host and format, sample rate and a short description of how to reproduce it.</p></section>
+</main><footer>BRK AUDIO · BRK - Zero Clip manual</footer></body></html>

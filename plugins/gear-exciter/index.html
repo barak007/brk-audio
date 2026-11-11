@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Give a thin sound more body, or bring a dull part a little closer. Shape the low-end weight and high-end detail, add some colour, and blend it in until the part sits where you want it.">
+  <meta name="theme-color" content="#f1efe6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)">
+  <script>try { const theme = localStorage.getItem("theme"); if (theme) document.documentElement.dataset.theme = theme; } catch {}</script>
+  <title>Gear Exciter - BRK Audio</title>
+  <link rel="stylesheet" href="../../assets/vendor/fonts/fonts.css">
+  <link rel="stylesheet" href="../../styles.css">
+  <script src="../../assets/vendor/gsap/gsap.min.js" defer></script>
+  <script src="../../site.js" defer></script>
+  <script data-goatcounter="https://brk-audio.goatcounter.com/count" src="../../assets/vendor/goatcounter/count.js" async></script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="wordmark" href="../../" aria-label="BRK Audio home"><span><span class="kamatz">B</span><span class="kamatz">R</span><span class="hirik">K</span></span><span>AUDIO</span></a>
+    <nav class="site-nav" aria-label="Main navigation"><a href="../../#gear">Gear</a><a href="../../#plugins">Plugins</a><a href="../../#downloads">Downloads</a></nav>
+    <button class="theme-toggle" type="button">Theme</button>
+  </header>
+  <main class="gear-main" style="--accent: #5fd3c6">
+    <section class="gear-hero">
+      <div class="gear-hero-copy reveal">
+        <p class="breadcrumbs"><a href="../../#gear">Gear</a> / Gear Exciter</p>
+        <p class="eyebrow">Exciter / Preview</p>
+        <h1 class="product-title">Gear Exciter</h1>
+        <p class="product-tagline">Find the weight and sparkle your track is missing.</p>
+      </div>
+      <figure class="gear-hero-stage reveal" style="--editor-ratio: 1200 / 548">
+        <div class="plugin-shot"><a class="screenshot-enlarge" href="../../assets/screenshots/gear-exciter.png" target="_blank" rel="noopener" aria-label="Enlarge Gear Exciter interface"><img src="../../assets/screenshots/gear-exciter.png" width="1200" height="548" alt="Gear Exciter plugin interface"></a></div>
+        <figcaption>Open the image to take a closer look at the controls.</figcaption>
+      </figure>
+    </section>
+    <section class="gear-detail" aria-label="About Gear Exciter">
+      <div class="gear-detail-copy reveal">
+        <p class="product-description">Give a thin sound more body, or bring a dull part a little closer. Shape the low-end weight and high-end detail, add some colour, and blend it in until the part sits where you want it.</p>
+        <p class="gear-look">A brushed-metal panel with separate controls for tone, harmonics and the final blend.</p>
+        <p class="manual-links"><a href="../../manuals/gear-exciter/">Help and parameter manual</a> <span aria-hidden="true">/</span> <a href="../../assets/manuals/gear-exciter.pdf" download>PDF manual</a></p>
+        <div class="product-actions"><a class="button" data-release="download" href="https://github.com/barak007/brk-audio/releases/download/gear-exciter-v0.1.1/gear-exciter-0.1.1-macos-universal.zip" data-goatcounter-click="download-gear-exciter">Download for macOS</a>
+          <label class="version-picker" hidden><span>Version</span><select><option data-version="0.1.1" data-download="https://github.com/barak007/brk-audio/releases/download/gear-exciter-v0.1.1/gear-exciter-0.1.1-macos-universal.zip" data-install="https://github.com/barak007/brk-audio/releases/download/gear-exciter-v0.1.1/install.sh" data-page="https://github.com/barak007/brk-audio/releases/tag/gear-exciter-v0.1.1" selected>0.1.1 (latest)</option><option data-version="0.1.0" data-download="https://github.com/barak007/brk-audio/releases/download/gear-exciter-v0.1.0/gear-exciter-0.1.0-macos-universal.zip" data-install="https://github.com/barak007/brk-audio/releases/download/gear-exciter-v0.1.0/install.sh" data-page="https://github.com/barak007/brk-audio/releases/tag/gear-exciter-v0.1.0">0.1.0 (2026-11-10)</option></select></label></div>
+        <div class="install" data-install="https://github.com/barak007/brk-audio/releases/download/gear-exciter-v0.1.1/install.sh">
+          <p class="install-label">Or install from Terminal</p>
+          <div class="install-formats" role="group" aria-label="Formats to install" hidden><label class="install-format"><input type="checkbox" value="au" checked><span>AU</span></label><label class="install-format"><input type="checkbox" value="vst3" checked><span>VST3</span></label><label class="install-format"><input type="checkbox" value="clap" checked><span>CLAP</span></label></div>
+          <div class="install-row">
+            <code class="install-command" data-command="run">curl -fsSL https://github.com/barak007/brk-audio/releases/download/gear-exciter-v0.1.1/install.sh | bash</code><button class="install-copy" type="button" data-goatcounter-click="copy-install-gear-exciter" hidden>Copy</button>
+          </div>
+          <details class="install-details">
+            <summary>What this does</summary>
+            <p>Downloads the release archive from GitHub, checks it against the checksum fixed at release time and copies the chosen formats into ~/Library/Audio/Plug-Ins. Installs in your own plugin folders without sudo, refreshes the Audio Unit list when AU is selected, and replaces each installed format only once its new bundle is fully copied.</p>
+            <p>To read the script first, download it and open it in TextEdit (this runs nothing):</p>
+            <div class="install-row">
+              <code class="install-command" data-command="read">curl -fsSL https://github.com/barak007/brk-audio/releases/download/gear-exciter-v0.1.1/install.sh -o install.sh && open -e install.sh</code><button class="install-copy" type="button" data-goatcounter-click="copy-read-gear-exciter" hidden>Copy</button>
+            </div>
+            <p><a data-release="install" href="https://github.com/barak007/brk-audio/releases/download/gear-exciter-v0.1.1/install.sh" data-goatcounter-click="install-sh-gear-exciter">Download install.sh</a> / <a data-release="page" href="https://github.com/barak007/brk-audio/releases/tag/gear-exciter-v0.1.1">Release on GitHub</a></p>
+          </details>
+        </div>
+        <p class="gear-availability">Version <span data-release="version">0.1.1</span> / macOS universal / VST3, AU, CLAP / Free early access</p>
+      </div>
+      <ul class="gear-facts reveal"><li>Add low-end body with Contour and open up the highs with Process</li><li>Adjust Align to explore how the bass, mids and highs sit together</li><li>Bring out extra colour and detail with Harmonics</li><li>Use Focus and Colour to choose where that detail sits and how bright it feels</li><li>Try Double Trouble when you want a stronger lift</li><li>Blend the effect with Mix, and arm Auto Gain before a change to help match the listening level</li><li>Start from a preset and use the needle meter to keep an eye on the level</li></ul>
+    </section>
+    <section id="changelog" class="changelog section-shell" aria-labelledby="changelog-title">
+      <h2 id="changelog-title" class="eyebrow reveal">Changelog</h2>
+      <div class="changelog-list reveal">
+        <details class="changelog-entry" open>
+          <summary><span class="changelog-version">0.1.1</span><span class="changelog-date">2026-11-11</span><span class="changelog-latest">Latest</span></summary>
+          <div class="changelog-notes"><ul><li>Remove the help panel’s X button; press HELP again to close it.</li><li>Seal AU, VST3 and CLAP bundles with complete ad-hoc signatures during packaging.</li><li>Shared numeric cells now apply typed values only with Enter; Escape, focus loss and outside clicks cancel entry.</li></ul></div>
+        </details>
+        <details class="changelog-entry">
+          <summary><span class="changelog-version">0.1.0</span><span class="changelog-date">2026-11-10</span></summary>
+          <div class="changelog-notes"><ul><li>Auto Gain arms idle, learns only after direct sound-knob edits, and stays idle after preset/session loads. Presets exclude Auto Gain; offline rendering holds the saved Output.</li><li>Power and host bypass retain the processing latency and fade without freezing the processing history. Both quality settings share a fixed latency and the harmonic path fades around switching.</li><li>Rendered controls support named keyboard/VoiceOver values, and HELP links to the HTML/PDF manual.</li><li>Double Trouble in the top bar doubles Process and Contour's boosts in dB and the added harmonic signal, with a smooth transition. It saves with presets and sessions, defaults off and keeps Align's timing. Like every switch, it does not start Auto Gain; only direct user sound-knob edits do.</li><li>A taller front gives every knob's scale and label their own space: Process above Contour and Align, Harmonics above Focus and Colour, and Mix above Output in one column.</li><li>First version: the bands (Process, Contour, Align) and the harmonic stage (Harmonics, Focus, Colour) on a plain editor; drawn as a piece of gear: a brushed-silver front with eight knobs on printed scales, a VU on the output level, Link and Quality toggles and a power switch.</li><li>The harmonics are stronger and hold their proportion on quiet material (they used to fall away under about -30 dBFS): at 100% they add about -9 dB against the 6-12 kHz band of noise, and Harmonics now starts at 30%, not 0.</li><li>The knobs are grouped on the front: Align, Process and Contour under TIME ALIGNMENT, Harmonics, Focus and Colour under HARMONIC STAGE, and Mix and Output together under BOTH STAGES, since Mix blends both with the dry signal.</li><li>Auto Gain, in the top bar: keeps the processed signal as loud as the dry input by turning the Output knob (-12 to +12 dB), working for eight seconds after a direct sound-knob edit. Double Trouble does not start learning. A HELP bar says what the control under the mouse is and what it does.</li><li>Twelve factory presets in three groups: Clarity (time alignment), Harmonics (the harmonic stage) and Utility.</li></ul></div>
+        </details>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><a class="wordmark wordmark-footer" href="../../"><span><span class="kamatz">B</span><span class="kamatz">R</span><span class="hirik">K</span></span><span>AUDIO</span></a><p class="footer-meta">VST3 / AU / CLAP<br>macOS universal<br>VoiceOver and keyboard</p><a class="footer-link" href="https://github.com/barak007/brk-audio" data-goatcounter-click="github-footer"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.37A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>GitHub</a></footer>
+</body>
+</html>

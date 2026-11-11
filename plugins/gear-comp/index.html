@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Pull a drum bus together, settle a lively track or add a bit more punch. Shape how the compression catches and lets go, then blend it with the original until the movement feels right.">
+  <meta name="theme-color" content="#f1efe6" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0a0b0d" media="(prefers-color-scheme: dark)">
+  <script>try { const theme = localStorage.getItem("theme"); if (theme) document.documentElement.dataset.theme = theme; } catch {}</script>
+  <title>Gear Comp - BRK Audio</title>
+  <link rel="stylesheet" href="../../assets/vendor/fonts/fonts.css">
+  <link rel="stylesheet" href="../../styles.css">
+  <script src="../../assets/vendor/gsap/gsap.min.js" defer></script>
+  <script src="../../site.js" defer></script>
+  <script data-goatcounter="https://brk-audio.goatcounter.com/count" src="../../assets/vendor/goatcounter/count.js" async></script>
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="wordmark" href="../../" aria-label="BRK Audio home"><span><span class="kamatz">B</span><span class="kamatz">R</span><span class="hirik">K</span></span><span>AUDIO</span></a>
+    <nav class="site-nav" aria-label="Main navigation"><a href="../../#gear">Gear</a><a href="../../#plugins">Plugins</a><a href="../../#downloads">Downloads</a></nav>
+    <button class="theme-toggle" type="button">Theme</button>
+  </header>
+  <main class="gear-main" style="--accent: #c9ced6">
+    <section class="gear-hero">
+      <div class="gear-hero-copy reveal">
+        <p class="breadcrumbs"><a href="../../#gear">Gear</a> / Gear Comp</p>
+        <p class="eyebrow">Compressor / Preview</p>
+        <h1 class="product-title">Gear Comp</h1>
+        <p class="product-tagline">Help the parts feel like they belong together.</p>
+      </div>
+      <figure class="gear-hero-stage reveal" style="--editor-ratio: 1200 / 388">
+        <div class="plugin-shot"><a class="screenshot-enlarge" href="../../assets/screenshots/gear-comp.png" target="_blank" rel="noopener" aria-label="Enlarge Gear Comp interface"><img src="../../assets/screenshots/gear-comp.png" width="1200" height="388" alt="Gear Comp plugin interface"></a></div>
+        <figcaption>Open the image to take a closer look at the controls.</figcaption>
+      </figure>
+    </section>
+    <section class="gear-detail" aria-label="About Gear Comp">
+      <div class="gear-detail-copy reveal">
+        <p class="product-description">Pull a drum bus together, settle a lively track or add a bit more punch. Shape how the compression catches and lets go, then blend it with the original until the movement feels right.</p>
+        <p class="gear-look">A familiar studio compressor layout, with a brushed-metal face, a needle meter and clear controls.</p>
+        <p class="manual-links"><a href="../../manuals/gear-comp/">Help and parameter manual</a> <span aria-hidden="true">/</span> <a href="../../assets/manuals/gear-comp.pdf" download>PDF manual</a></p>
+        <div class="product-actions"><a class="button" data-release="download" href="https://github.com/barak007/brk-audio/releases/download/gear-comp-v0.1.1/gear-comp-0.1.1-macos-universal.zip" data-goatcounter-click="download-gear-comp">Download for macOS</a>
+          <label class="version-picker" hidden><span>Version</span><select><option data-version="0.1.1" data-download="https://github.com/barak007/brk-audio/releases/download/gear-comp-v0.1.1/gear-comp-0.1.1-macos-universal.zip" data-install="https://github.com/barak007/brk-audio/releases/download/gear-comp-v0.1.1/install.sh" data-page="https://github.com/barak007/brk-audio/releases/tag/gear-comp-v0.1.1" selected>0.1.1 (latest)</option><option data-version="0.1.0" data-download="https://github.com/barak007/brk-audio/releases/download/gear-comp-v0.1.0/gear-comp-0.1.0-macos-universal.zip" data-install="https://github.com/barak007/brk-audio/releases/download/gear-comp-v0.1.0/install.sh" data-page="https://github.com/barak007/brk-audio/releases/tag/gear-comp-v0.1.0">0.1.0 (2026-11-10)</option></select></label></div>
+        <div class="install" data-install="https://github.com/barak007/brk-audio/releases/download/gear-comp-v0.1.1/install.sh">
+          <p class="install-label">Or install from Terminal</p>
+          <div class="install-formats" role="group" aria-label="Formats to install" hidden><label class="install-format"><input type="checkbox" value="au" checked><span>AU</span></label><label class="install-format"><input type="checkbox" value="vst3" checked><span>VST3</span></label><label class="install-format"><input type="checkbox" value="clap" checked><span>CLAP</span></label></div>
+          <div class="install-row">
+            <code class="install-command" data-command="run">curl -fsSL https://github.com/barak007/brk-audio/releases/download/gear-comp-v0.1.1/install.sh | bash</code><button class="install-copy" type="button" data-goatcounter-click="copy-install-gear-comp" hidden>Copy</button>
+          </div>
+          <details class="install-details">
+            <summary>What this does</summary>
+            <p>Downloads the release archive from GitHub, checks it against the checksum fixed at release time and copies the chosen formats into ~/Library/Audio/Plug-Ins. Installs in your own plugin folders without sudo, refreshes the Audio Unit list when AU is selected, and replaces each installed format only once its new bundle is fully copied.</p>
+            <p>To read the script first, download it and open it in TextEdit (this runs nothing):</p>
+            <div class="install-row">
+              <code class="install-command" data-command="read">curl -fsSL https://github.com/barak007/brk-audio/releases/download/gear-comp-v0.1.1/install.sh -o install.sh && open -e install.sh</code><button class="install-copy" type="button" data-goatcounter-click="copy-read-gear-comp" hidden>Copy</button>
+            </div>
+            <p><a data-release="install" href="https://github.com/barak007/brk-audio/releases/download/gear-comp-v0.1.1/install.sh" data-goatcounter-click="install-sh-gear-comp">Download install.sh</a> / <a data-release="page" href="https://github.com/barak007/brk-audio/releases/tag/gear-comp-v0.1.1">Release on GitHub</a></p>
+          </details>
+        </div>
+        <p class="gear-availability">Version <span data-release="version">0.1.1</span> / macOS universal / VST3, AU, CLAP / Free early access</p>
+      </div>
+      <ul class="gear-facts reveal"><li>Shape how firmly the compressor grabs and how quickly it lets go</li><li>A release that adapts to the music, from short hits to sustained phrases</li><li>Use the sidechain filter to make the compression less sensitive to deep kicks and bass</li><li>Choose a gentler squeeze or a firmer grip with the Knee switch</li><li>Blend in compression with Mix to keep some of the original feel</li><li>Arm Auto Gain before a change to help match the listening level</li><li>Start with a preset and watch the needle as you listen</li></ul>
+    </section>
+    <section id="changelog" class="changelog section-shell" aria-labelledby="changelog-title">
+      <h2 id="changelog-title" class="eyebrow reveal">Changelog</h2>
+      <div class="changelog-list reveal">
+        <details class="changelog-entry" open>
+          <summary><span class="changelog-version">0.1.1</span><span class="changelog-date">2026-11-11</span><span class="changelog-latest">Latest</span></summary>
+          <div class="changelog-notes"><ul><li>Remove the help panel’s X button; press HELP again to close it.</li><li>Seal AU, VST3 and CLAP bundles with complete ad-hoc signatures during packaging.</li><li>Shared numeric cells now apply typed values only with Enter; Escape, focus loss and outside clicks cancel entry.</li></ul></div>
+        </details>
+        <details class="changelog-entry">
+          <summary><span class="changelog-version">0.1.0</span><span class="changelog-date">2026-11-10</span></summary>
+          <div class="changelog-notes"><ul><li>Auto Gain now arms idle and learns only from direct user sound-knob edits, never automation, switches, presets or session recall. Presets exclude Auto Gain; offline rendering holds the saved Output.</li><li>Keep every header action visible at the minimum size and preserve width when toggling HELP.</li><li>Rendered controls and Auto Gain support named keyboard/VoiceOver interaction; HELP links to the website/PDF manual.</li><li>First version: a compressor in a rendered rack unit, in the look of Gear Tube's amplifier: Threshold, Ratio, Attack, Release, Mix and Output, a VU meter of gain reduction or output, four gain reduction lamps (1, 2, 4 and 8 dB), and switches for GR / OUT, the Sidechain (Off, 60 Hz, 120 Hz) and the Knee (Hard, Soft, Wide) on the meter's black field, and Power at the right end.</li><li>The detector is built as an analog compressor's is (a peak follower with an RMS floor behind a coupling high-pass, then the soft-knee gain computer), to reduce low-frequency gain modulation; the release follows the program (about three times faster after a short burst, the full time after sustained compression).</li><li>A help bar (HELP, closed to begin with) says what each control, lamp and the meter is.</li><li>Thirteen factory presets (Glue, Tracking, Drums, Parallel), level-matched by Auto Gain.</li><li>Power crossfades over 5 ms instead of clicking, and knobs no longer jump when Shift is pressed mid-drag.</li></ul></div>
+        </details>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><a class="wordmark wordmark-footer" href="../../"><span><span class="kamatz">B</span><span class="kamatz">R</span><span class="hirik">K</span></span><span>AUDIO</span></a><p class="footer-meta">VST3 / AU / CLAP<br>macOS universal<br>VoiceOver and keyboard</p><a class="footer-link" href="https://github.com/barak007/brk-audio" data-goatcounter-click="github-footer"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.37A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg>GitHub</a></footer>
+</body>
+</html>

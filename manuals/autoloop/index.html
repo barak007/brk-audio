@@ -1,0 +1,116 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="BRK - Autoloop user manual and parameter reference"><title>BRK - Autoloop manual — BRK Audio</title><link rel="stylesheet" href="../../assets/vendor/fonts/fonts.css"><link rel="stylesheet" href="../../manuals.css"></head><body>
+<header><a href="../../">BRK AUDIO</a><a href="../../plugins/autoloop/">BRK - Autoloop</a><a class="pdf-download" href="../../assets/manuals/autoloop.pdf" download>Download PDF</a></header>
+<main><h1>BRK - Autoloop</h1><p class="subtitle">User manual and parameter reference · 1.2.1</p><p>A sample-folder rhythm instrument with deterministic random selection and per-step control lanes.</p>
+<nav aria-label="Manual contents"><a href="#quick-start">Quick start</a><a href="#operation">Operation</a><a href="#parameters">Every parameter</a><a href="#files">Presets and files</a><a href="#installation">Installation and help</a></nav>
+<section id="quick-start"><h2>Quick start</h2><ol><li>Insert Autoloop on an instrument track, add a row and choose a folder containing your samples.</li><li>Enable steps in that row and start the host, or select its internal clock.</li><li>Add a lane, draw a small variation and try Evolve or a different seed. Save the host session to retain the pattern.</li></ol></section>
+<section id="window"><h2>Editor window</h2><p>1260 × 561 minimum; resizable, with scrolling for additional rows. Dimensions are logical editor pixels, before host window chrome. HELP adds 92 pixels of height (Gear adds a one-pixel divider too). Allow enough usable screen space at your display scale. Press HELP again to close the help area.</p></section>
+<section id="operation"><h2>Operation</h2><p>The host session recalls top-level parameters, rows, patterns, steps, lanes, locks, Evolve settings, seeds and sample references. Autoloop does not currently have a separate product preset manager.</p><p>HELP shows the explanation of the hovered or keyboard-focused control. The sequencer drawing and lanes still require a pointer. Folder/sample references are stored with relative paths and absolute fallbacks; copying the same sample folders to another user account helps projects travel.</p><h2>How it works</h2>
+<ul>
+<li><strong>Clock</strong>: <code>Host</code> follows the DAW’s song position (PPQ), so the pattern lands the same way on every playback and
+after every loop or jump; triggers fall on the exact sample of each step boundary. <code>Internal</code> runs its own clock
+from the BPM knob, so the plugin keeps playing with the transport stopped.</li>
+<li><strong>Rate</strong>: the step length, from 1/4 to 1/32 with dotted and triplet values between (1/8T is three steps per beat,
+1/16D is a step and a half), all still locked to the beat. A row has up to 32 steps; its <code>Steps</code> box in the
+Controls area (drag up or down, or double-click to type) sets how many it cycles through, 1 to 32 (16 by default), so a 3-step row against a 16-step row makes a
+polyrhythm. A row over 16 steps draws all its cells narrower. Cells
+past the length are drawn as empty outlines and are inert. Groove and Swing follow the 16-step grid of the song
+position; each row’s Evolve cycle is its own length.</li>
+<li><strong>Groove and Swing</strong>: <code>Groove</code> picks a timing template and <code>Swing</code> is its amount. <code>16th swing</code> delays every
+off-16th by up to half a step, <code>8th swing</code> every off-8th, <code>Laid back</code> everything but the downbeat by up to a fifth
+of a step, <code>Late snare</code> beats 2 and 4, and <code>Humanize</code> delays each step by a repeatable random amount (up to 0.15 of a
+step) that depends on the step and the cycle, so it replays identically from any position.</li>
+<li><strong>Rows</strong>: <code>+ Add Row</code> under the last row adds a row that starts on the downbeats. <code>Folder</code> opens a directory picker; eight random audio
+files from it (searched recursively; WAV, AIFF, FLAC, OGG, MP3 and whatever else JUCE reads) fill the row’s eight
+sample slots. The folder icon beside the folder’s name opens the picker and the reload icon beside it picks eight new
+files from the same folder; the cross at the row’s top-left removes the row. <code>Rnd</code> and <code>Hits</code> sit on the next line
+and <code>M</code>, <code>S</code>, the collapse toggle and the choke box on the last, so the cells take the
+whole width to the right. <code>M</code> mutes and <code>S</code> solos: while any row is soloed only soloed rows play, and a soloed row plays even if
+muted; a silenced row’s hit strip is veiled. <code>-</code>/<code>+</code> collapses the row to its controls and hit strip and opens it
+again. The left edge flashes when the row fires.</li>
+<li><strong>Hit strip</strong>: each cell is a step and draws the sound that step makes: its slot’s waveform from its start point, at
+its speed and pitch, under its attack and decay, over a two-step window, with the slot number in the corner. Click to
+toggle the step, drag sideways to paint, drag up or down to change its slot, double-click to put the slot back to the
+row’s base, Alt-click to hear the step as it is set, right-click to lock it (a padlock mark; <code>Rnd</code> and <code>Hits</code> leave a
+locked cell’s hit and slot alone). Right-click locks a lane’s bar the same way.</li>
+<li><strong>Row controls</strong>, above the hit strip, set the row’s base sound: <code>Sample</code> (1-8), <code>Attack</code>, <code>Decay</code>, <code>Tape</code>,
+<code>Pitch</code>, <code>Stretch</code>, <code>Start</code>, <code>Pan</code>, <code>Vol</code>, then the end of the row’s chain: <code>Drive</code> (a normalised soft clip, 0 dB =
+clean; a knob only, no lane), <code>SR</code> (a sample-and-hold rate reduction, 1-48 kHz, 48 kHz = off), <code>Bits</code> (2-16, 16 = off),
+a 12 dB <code>HP</code> and a 12 dB <code>LP</code>, and the two sends <code>Rev</code> and <code>Dly</code> (0-100 %). They are saved with the session but are not host parameters, since rows come
+and go.</li>
+<li><strong>Tape, Pitch and Stretch</strong> are three separate controls (and lanes), applied in that order. <code>Tape</code> (+/-24 st, a
+speed of 2^(st/12), so +12 is 2x) is a playback speed that changes pitch and time together, like a sampler or a tape
+machine. <code>Pitch</code> (+/-24 st) then shifts the pitch alone. Both snap to whole semitones, knob and lane alike. <code>Stretch</code> (0.25x-4x) then changes the time alone. The playhead moves at Tape x Stretch and
+the waveform is read at Tape x 2^(Pitch/12); when those agree the sample is simply resampled, otherwise two
+overlapping 25 ms Hann grains read the waveform at the read rate while the playhead advances, each new grain sliding
+a little to where its waveform lines up with the grain already playing (WSOLA) so the overlap stays in phase. The
+first grain starts at its window’s peak, so the attack of a hit is untouched. Expect the usual granular artifacts on
+strong slow-downs: a later transient can land early or repeat by up to a grain.</li>
+<li><strong>Decay</strong> is a length from -1 to 1, relative to the step at the current tempo and rate: the hit’s level follows an
+S-curve (a raised cosine) from full to silence over 2^(4v) steps, so it holds near full at first, falls fastest in
+the middle and lands softly. 0 is exactly one step, so the hit hands over cleanly to the next; 0.25 is two steps,
+0.5 four, 0.75 eight, and from 0.98 up it is <code>Full</code> (the sample plays out). Down shortens it: -0.25 is half a step,
+-0.5 a quarter, -1 a sixteenth. The knob reads in steps (“4.0 steps”, “1/4 step”); the Decay lane’s cells draw the
+step’s envelope over one step of time.</li>
+<li><strong>Retrig</strong>: how many times a step’s hit fires within the step, 1 to 8, spread evenly from the hit to the next step
+boundary (x4 is four hits a quarter of a step apart). A knob and a lane; the lane’s cells draw one tick per hit. Every
+retrigger plays the step’s full settings; the row’s four voices mean long decays get choked by the later hits.</li>
+<li><strong>Prob</strong>: the chance (0-100 %) that a step with a hit fires, knob and lane (a full bar is the knob’s value, an
+empty one never). The draw comes from the Prob lane’s seed, the step and the cycle, so a given song position always
+decides the same way, and the lane’s Repeat folds it like Evolve.</li>
+<li><strong>Rvs</strong>: forward or backwards per step, knob and lane. A reversed hit reads the sample from its end towards its
+start, so <code>Start</code> then measures from the end; Tape, Pitch and Stretch work as usual.</li>
+<li><strong>Lanes</strong>: automation-style lanes per row, shown when the row is open: Attack, Decay, Tape, Pitch, Stretch, Start, Pan,
+Rvs, Pan, Vol, SR, Bits, HP, LP, Rev, Dly, Retrig, Prob, Chk. A lane is a row of bars, one per step. Decay, Tape, Pitch, Stretch and Pan are bipolar: the centre
+line is the knob’s value and bars go both ways (a Decay bar is in Decay’s own units, so a bar of 0.5 from a knob at
+0 is two steps). Attack, Start, HP, Rev, Dly and Retrig are one-sided: a bar grows from the knob’s value up to the top of
+the range.
+LP, SR, Bits, Prob and Vol are one-sided the other way: a full bar (the default) is the knob’s value, open or at level, and an empty
+bar is 40 Hz, 1 kHz, 2 bits or silence, so Vol works like a velocity lane. Hover a bar for its value in a small readout. Drag to draw (sideways painting works), double-click a
+bar to clear it, hover for the resolved value. Drive, SR, Bits, HP, LP, Rev and Dly lanes change the row’s chain on every step, hit or
+not, through 5 ms ramps so the change does not click. Each row shows all its lanes or none: the <code>-</code>/<code>+</code> button next to M and S opens and closes them.</li>
+<li><strong>Rnd</strong>: the randomize controls are boxes that show an amount (0-100 %): drag one up or down to set the amount,
+click it to randomize with that amount. Every lane has an <code>R</code> box that moves each unlocked bar by a random amount
+within +/- the amount. The row has two: <code>Rnd</code> changes which sample slot each unlocked step plays (by up to the
+amount, wrapping), and <code>Hits</code> toggles each unlocked step with the amount as the probability.</li>
+<li><strong>Evolve</strong>: <code>E</code> on a lane opens its evolve sublane, a 0…1 amount per step. On every cycle the step’s bar moves by
+a random value within +/- that amount, drawn from a hash of the row’s seed, the lane, the step and the cycle number
+taken from the song position. It is not cumulative: each cycle deviates from the drawn bar, so the same cycle always
+plays the same way and jumping around the song is safe. The lane shows the evolved value as a red outline over the
+drawn bar. Each lane has its own seed and <code>Repeat</code>, shown in its evolve sublane; typing a seed replays a wander you liked. Repeat folds the cycle number so that lane’s deviations come round again every 1-256 cycles of the row (<code>off</code> draws a new
+one on every bar).</li>
+<li><strong>FX buses</strong> (in the header, after the clock controls): a reverb and a tempo-synced delay sit outside every row’s chain. Each row
+sends to them after its Drive, HP and LP with its <code>Rev</code> and <code>Dly</code> knobs and lanes; like the filters, the sends follow
+their lanes on every step. The buses return at unity, so the sends set how much is heard. The reverb has <code>Size</code> and <code>Damp</code>; the delay has a <code>Time</code> in note values
+(1/32 to 1/2, with triplets and dotted), a <code>Mode</code> (<code>Stereo</code>: each side repeats on its own side; <code>Ping-pong</code>: the
+input is centred and each repeat crosses over, starting left; <code>Spin</code>: the repeats are panned a sixth of a cycle
+further round each time, so a hit wanders left, centre, right and back), <code>Feedback</code>, a <code>Tone</code> low-pass in the
+feedback loop. Since their levels are set by the sends alone, a bus with no sends is silent.</li>
+<li><strong>Roll</strong> and <strong>Undo</strong> (header): Roll randomizes every row at once, its samples, hits and every lane, each with the
+amount set in that row’s own boxes; Undo puts every row’s pattern back as it was before the last Roll.</li>
+<li><strong>Patterns</strong>: every row holds four patterns, A to D, of hits, locks, lane bars and evolve amounts. The <code>Pattern</code>
+chooser in the header (a host parameter that hosts do not automate, like every choice) picks which one every
+row plays and shows; <code>Copy</code> under it copies each row’s current pattern into its other three. Row controls, seeds,
+Steps and the samples are shared by all four. Older sessions load their one pattern as A with B to D as copies.</li>
+<li><strong>Fill</strong>: a momentary button in the header (and a host parameter, so it can be mapped or automated). While it is
+held, every lane’s Evolve draws from an alternate seed and every hit retriggers twice as much (at least twice), so
+a bar becomes a fill and snaps back when released.</li>
+<li><strong>Choke groups</strong>: the <code>chk</code> box sets the row’s group, 1 to 4 (<code>-</code> = none), and the <code>Chk</code> toggle lane says which
+of its hits do the cutting (the knob is the default, on). When a hit with Chk on fires, every other row in that
+group is cut within 2 ms, so a closed hat chokes an open hat, while a hit with Chk off lets the group ring.</li>
+<li><strong>Toggle lanes</strong> (Rvs, Chk) show on or off per cell instead of a bar: click a cell to flip it, drag to paint. The
+knob is the base state and a cell that is on flips it, so with the Chk knob at <code>cut</code> an on cell means that hit does
+not cut. Rnd on a toggle lane flips each unlocked cell with the amount as the probability.</li>
+<li>Each row has four voices; a fifth hit while four are sounding steals the oldest.</li>
+<li>State recall saves the rows, their steps, slot shifts, lanes, evolve amounts, seed, repeat, controls, mute, the folder and
+the eight file paths; files that have moved are shown as missing and stay silent. Each file is also saved relative
+to its row’s folder and the folder relative to the home folder, and those are tried first, so the same folders under
+another user or machine are found. Choices are saved by a stable ID beside their position and lanes with the list of
+lane IDs, so a session keeps its settings when a list changes; sessions from 1.0.0 load by position as before.</li>
+<li>Host automation: the knobs and Fill can be automated; the choices (Clock, Rate, Groove, Pattern, delay Time and Mode)
+cannot, since a host stores a choice as its place in the list and that moves when the list grows.</li>
+</ul>
+</section>
+<section id="parameters"><h2>Every parameter</h2><p>Values and defaults are taken from the plugin. A control's effect can depend on the selected mode; see the operation notes above. Choices keep their saved identity between versions. Knobs and switches can be automated unless marked otherwise.</p><table><thead><tr><th>Parameter</th><th>What it does</th><th>Values and default</th></tr></thead><tbody><tr data-parameter="clockMode"><th scope="row">Clock</th><td>Host follows DAW song position. Internal runs from the BPM knob, including while the host transport is stopped.</td><td>Host, Internal<br><small>Default: Host</small><br><small>Not host automatable</small></td></tr><tr data-parameter="internalBpm"><th scope="row">BPM</th><td>Sets the internal clock tempo. Host clock uses the DAW tempo.</td><td>20.00 to 300.00<br><small>Default: 120.00</small></td></tr><tr data-parameter="rate"><th scope="row">Rate</th><td>Sets the musical duration of each step.</td><td>1/4, 1/4T, 1/8D, 1/8, 1/8T, 1/16D, 1/16, 1/16T, 1/32D, 1/32<br><small>Default: 1/16</small><br><small>Not host automatable</small></td></tr><tr data-parameter="groove"><th scope="row">Groove</th><td>Chooses the timing template applied to the song grid.</td><td>16th swing, 8th swing, Laid back, Late snare, Humanize<br><small>Default: 16th swing</small><br><small>Not host automatable</small></td></tr><tr data-parameter="swing"><th scope="row">Swing</th><td>Sets how strongly the chosen Groove shifts step timing.</td><td>0.00 to 100.00 %<br><small>Default: 0.00</small></td></tr><tr data-parameter="outputGain"><th scope="row">Output</th><td>Sets the signal level at this stage. Output is the final listening trim unless the signal-flow notes describe a wet-only output control.</td><td>-60.00 to 12.00 dB<br><small>Default: -0.00</small></td></tr><tr data-parameter="reverbSize"><th scope="row">Reverb Size</th><td>Changes the size of the shared reverb bus.</td><td>0.00 to 100.00 %<br><small>Default: 55.00</small></td></tr><tr data-parameter="reverbDamp"><th scope="row">Reverb Damp</th><td>Darkens the reverb decay by reducing high-frequency persistence.</td><td>0.00 to 100.00 %<br><small>Default: 50.00</small></td></tr><tr data-parameter="delayTime"><th scope="row">Delay Time</th><td>Sets the musical length of the shared delay repeats.</td><td>1/32, 1/16, 1/8T, 1/16D, 1/8, 1/4T, 1/8D, 1/4, 1/2<br><small>Default: 1/8D</small><br><small>Not host automatable</small></td></tr><tr data-parameter="delayMode"><th scope="row">Delay Mode</th><td>Chooses the shared delay routing: stereo, ping-pong or rotating stereo position.</td><td>Stereo, Ping-pong, Spin<br><small>Default: Stereo</small><br><small>Not host automatable</small></td></tr><tr data-parameter="fill"><th scope="row">Fill</th><td>Hold for a fill: alternate evolve deviations on every lane and doubled retriggers (also a host parameter)</td><td>Off to On<br><small>Default: Off</small></td></tr><tr data-parameter="pattern"><th scope="row">Pattern</th><td>Selects the saved pattern of hits and lanes. Row sounds and sample banks are shared across patterns.</td><td>A, B, C, D<br><small>Default: A</small><br><small>Not host automatable</small></td></tr><tr data-parameter="delayFeedback"><th scope="row">Delay Feedback</th><td>Returns part of a signal to its input. More feedback increases the strength or persistence of the selected effect.</td><td>0.00 to 95.00 %<br><small>Default: 40.00</small></td></tr><tr data-parameter="delayTone"><th scope="row">Delay Tone</th><td>Sets the frequency boundary of this filter or band. Its mode and slope determine which frequencies it changes.</td><td>500.0000000 to 20000.0000000 Hz<br><small>Default: 6000.0004883</small></td></tr></tbody></table></section>
+<section id="files"><h2>Presets and files</h2><p>Save the DAW project to save the complete instrument. There is no separate Autoloop preset file or preset manager.</p><p>Keep the referenced sample folders with your project backups. Relative folder/sample references are used where possible; an absolute reference is retained for older sessions. If a sample folder moves, choose the new location for that row.</p></section>
+<section id="installation"><h2>Installation and help</h2><p>Download the macOS archive from the product page and quit your audio host. Place the AU .component in ~/Library/Audio/Plug-Ins/Components, VST3 in ~/Library/Audio/Plug-Ins/VST3, or CLAP in ~/Library/Audio/Plug-Ins/CLAP. The product page also offers an installer with format selection. Restart or rescan the host. To uninstall, quit the host and remove that product's bundles from those folders; saved sessions and user presets are separate.</p><p>For questions or a problem report, use <a href="https://github.com/barak007/brk-audio/issues">BRK Audio support on GitHub</a>. Include the plugin version, macOS version, host and format, sample rate and a short description of how to reproduce it.</p></section>
+</main><footer>BRK AUDIO · BRK - Autoloop manual</footer></body></html>
