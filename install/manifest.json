@@ -1,0 +1,234 @@
+{
+  "gear": {
+    "title": "Gear plugins",
+    "file": "gear.sh",
+    "plugins": [
+      {
+        "slug": "gear-tube",
+        "name": "Gear Tube",
+        "installedName": "Gear Tube",
+        "version": "0.1.2",
+        "url": "https://github.com/barak007/brk-audio/releases/download/gear-tube-v0.1.2/install.sh",
+        "sha256": "45eb0b938cf3615571fa2c1e080771c265d8f687188a75954c141a140f2c0d82"
+      },
+      {
+        "slug": "gear-comp",
+        "name": "Gear Comp",
+        "installedName": "Gear Comp",
+        "version": "0.1.2",
+        "url": "https://github.com/barak007/brk-audio/releases/download/gear-comp-v0.1.2/install.sh",
+        "sha256": "56df95c5ec5fd07f651f309e81d585a51863caf018424e6ff136870e5e560a6a"
+      },
+      {
+        "slug": "gear-exciter",
+        "name": "Gear Exciter",
+        "installedName": "Gear Exciter",
+        "version": "0.1.2",
+        "url": "https://github.com/barak007/brk-audio/releases/download/gear-exciter-v0.1.2/install.sh",
+        "sha256": "e3c769f677ad1a8baa3104a81ac6d2a7e020c92616dbf8383504f9d7440984d7"
+      }
+    ]
+  },
+  "clones": {
+    "title": "Digital clones",
+    "file": "clones.sh",
+    "plugins": [
+      {
+        "slug": "tine73",
+        "name": "BRK - Tine 73",
+        "installedName": "BRK - Tine 73",
+        "version": "0.5.0",
+        "url": "https://github.com/barak007/brk-audio/releases/download/tine73-v0.5.0/install.sh",
+        "sha256": "dba89e67d92f3ad800ebbc0ad643e30425ab5bba0b442fed97ca18af0b3f077e"
+      },
+      {
+        "slug": "brk-303",
+        "name": "BRK 3-03",
+        "installedName": "BRK 3-03",
+        "version": "0.2.0",
+        "url": "https://github.com/barak007/brk-audio/releases/download/brk-303-v0.2.0/install.sh",
+        "sha256": "cecef253c18d5d55aafa8e4a27a8f685440b7e46ff78565d0c84284c8b790ad2"
+      }
+    ]
+  },
+  "brk": {
+    "title": "BRK plugins",
+    "file": "brk.sh",
+    "plugins": [
+      {
+        "slug": "sub-lattice",
+        "name": "BRK - Sub Lattice",
+        "installedName": "BRK - Sub Lattice",
+        "version": "1.5.0",
+        "url": "https://github.com/barak007/brk-audio/releases/download/sub-lattice-v1.5.0/install.sh",
+        "sha256": "516c8450d2219cdf34d7df7f62f0e59b795d79facbd325cf0344e315c2589793"
+      },
+      {
+        "slug": "autoloop",
+        "name": "BRK - Autoloop",
+        "installedName": "BRK - Autoloop",
+        "version": "1.3.0",
+        "url": "https://github.com/barak007/brk-audio/releases/download/autoloop-v1.3.0/install.sh",
+        "sha256": "0e864515939440beb19e077b3efdb859cbfcd17e88b414bb298b9a47f2edd32d"
+      },
+      {
+        "slug": "feedline",
+        "name": "BRK - Feedline",
+        "installedName": "BRK - Feedline",
+        "version": "1.4.0",
+        "url": "https://github.com/barak007/brk-audio/releases/download/feedline-v1.4.0/install.sh",
+        "sha256": "8c0acb99da2cec510efab10a57b3832237f6a32e215f273ae69847652bad7ea5"
+      },
+      {
+        "slug": "good-kick",
+        "name": "BRK - Good Kick",
+        "installedName": "BRK - Good Kick",
+        "version": "1.4.0",
+        "url": "https://github.com/barak007/brk-audio/releases/download/good-kick-v1.4.0/install.sh",
+        "sha256": "f436b9bd6468cfcd3c8956f8797c715f8ac531c9ead102c45dcca0b155674886"
+      },
+      {
+        "slug": "rampa",
+        "name": "BRK - Rampa",
+        "installedName": "BRK - Rampa",
+        "version": "1.3.0",
+        "url": "https://github.com/barak007/brk-audio/releases/download/rampa-v1.3.0/install.sh",
+        "sha256": "5f91fc9f7791cad78ffc4b19ecab06f060fec0b6e28c86979940cb147c2b1b33"
+      },
+      {
+        "slug": "zero-clip",
+        "name": "BRK - Zero Clip",
+        "installedName": "BRK - Zero Clip",
+        "version": "1.2.2",
+        "url": "https://github.com/barak007/brk-audio/releases/download/zero-clip-v1.2.2/install.sh",
+        "sha256": "8f33f30ce36660536e5ddf6d70b8703032fdc34898c1168162a35eaef88e63c2"
+      },
+      {
+        "slug": "sonoscopeia",
+        "name": "BRK - Sonoscopeia",
+        "installedName": "BRK - Sonoscopeia",
+        "version": "1.1.0",
+        "url": "https://github.com/barak007/brk-audio/releases/download/sonoscopeia-v1.1.0/install.sh",
+        "sha256": "aa81e238d3e35d6313b9ee50ddde76c9a4beb4b20f8950512a5d49b66c29a259"
+      },
+      {
+        "slug": "hatch",
+        "name": "BRK - Hatch",
+        "installedName": "BRK - Hatch",
+        "version": "1.0.1",
+        "url": "https://github.com/barak007/brk-audio/releases/download/hatch-v1.0.1/install.sh",
+        "sha256": "b3f09d790c8c434e7b02cc74175ad0438edc9fed78481dddab0fcf47ebf349bc"
+      }
+    ]
+  },
+  "all": {
+    "title": "Everything",
+    "file": "all.sh",
+    "plugins": [
+      {
+        "slug": "sub-lattice",
+        "name": "BRK - Sub Lattice",
+        "installedName": "BRK - Sub Lattice",
+        "version": "1.5.0",
+        "url": "https://github.com/barak007/brk-audio/releases/download/sub-lattice-v1.5.0/install.sh",
+        "sha256": "516c8450d2219cdf34d7df7f62f0e59b795d79facbd325cf0344e315c2589793"
+      },
+      {
+        "slug": "autoloop",
+        "name": "BRK - Autoloop",
+        "installedName": "BRK - Autoloop",
+        "version": "1.3.0",
+        "url": "https://github.com/barak007/brk-audio/releases/download/autoloop-v1.3.0/install.sh",
+        "sha256": "0e864515939440beb19e077b3efdb859cbfcd17e88b414bb298b9a47f2edd32d"
+      },
+      {
+        "slug": "feedline",
+        "name": "BRK - Feedline",
+        "installedName": "BRK - Feedline",
+        "version": "1.4.0",
+        "url": "https://github.com/barak007/brk-audio/releases/download/feedline-v1.4.0/install.sh",
+        "sha256": "8c0acb99da2cec510efab10a57b3832237f6a32e215f273ae69847652bad7ea5"
+      },
+      {
+        "slug": "good-kick",
+        "name": "BRK - Good Kick",
+        "installedName": "BRK - Good Kick",
+        "version": "1.4.0",
+        "url": "https://github.com/barak007/brk-audio/releases/download/good-kick-v1.4.0/install.sh",
+        "sha256": "f436b9bd6468cfcd3c8956f8797c715f8ac531c9ead102c45dcca0b155674886"
+      },
+      {
+        "slug": "rampa",
+        "name": "BRK - Rampa",
+        "installedName": "BRK - Rampa",
+        "version": "1.3.0",
+        "url": "https://github.com/barak007/brk-audio/releases/download/rampa-v1.3.0/install.sh",
+        "sha256": "5f91fc9f7791cad78ffc4b19ecab06f060fec0b6e28c86979940cb147c2b1b33"
+      },
+      {
+        "slug": "zero-clip",
+        "name": "BRK - Zero Clip",
+        "installedName": "BRK - Zero Clip",
+        "version": "1.2.2",
+        "url": "https://github.com/barak007/brk-audio/releases/download/zero-clip-v1.2.2/install.sh",
+        "sha256": "8f33f30ce36660536e5ddf6d70b8703032fdc34898c1168162a35eaef88e63c2"
+      },
+      {
+        "slug": "sonoscopeia",
+        "name": "BRK - Sonoscopeia",
+        "installedName": "BRK - Sonoscopeia",
+        "version": "1.1.0",
+        "url": "https://github.com/barak007/brk-audio/releases/download/sonoscopeia-v1.1.0/install.sh",
+        "sha256": "aa81e238d3e35d6313b9ee50ddde76c9a4beb4b20f8950512a5d49b66c29a259"
+      },
+      {
+        "slug": "hatch",
+        "name": "BRK - Hatch",
+        "installedName": "BRK - Hatch",
+        "version": "1.0.1",
+        "url": "https://github.com/barak007/brk-audio/releases/download/hatch-v1.0.1/install.sh",
+        "sha256": "b3f09d790c8c434e7b02cc74175ad0438edc9fed78481dddab0fcf47ebf349bc"
+      },
+      {
+        "slug": "gear-tube",
+        "name": "Gear Tube",
+        "installedName": "Gear Tube",
+        "version": "0.1.2",
+        "url": "https://github.com/barak007/brk-audio/releases/download/gear-tube-v0.1.2/install.sh",
+        "sha256": "45eb0b938cf3615571fa2c1e080771c265d8f687188a75954c141a140f2c0d82"
+      },
+      {
+        "slug": "gear-comp",
+        "name": "Gear Comp",
+        "installedName": "Gear Comp",
+        "version": "0.1.2",
+        "url": "https://github.com/barak007/brk-audio/releases/download/gear-comp-v0.1.2/install.sh",
+        "sha256": "56df95c5ec5fd07f651f309e81d585a51863caf018424e6ff136870e5e560a6a"
+      },
+      {
+        "slug": "gear-exciter",
+        "name": "Gear Exciter",
+        "installedName": "Gear Exciter",
+        "version": "0.1.2",
+        "url": "https://github.com/barak007/brk-audio/releases/download/gear-exciter-v0.1.2/install.sh",
+        "sha256": "e3c769f677ad1a8baa3104a81ac6d2a7e020c92616dbf8383504f9d7440984d7"
+      },
+      {
+        "slug": "tine73",
+        "name": "BRK - Tine 73",
+        "installedName": "BRK - Tine 73",
+        "version": "0.5.0",
+        "url": "https://github.com/barak007/brk-audio/releases/download/tine73-v0.5.0/install.sh",
+        "sha256": "dba89e67d92f3ad800ebbc0ad643e30425ab5bba0b442fed97ca18af0b3f077e"
+      },
+      {
+        "slug": "brk-303",
+        "name": "BRK 3-03",
+        "installedName": "BRK 3-03",
+        "version": "0.2.0",
+        "url": "https://github.com/barak007/brk-audio/releases/download/brk-303-v0.2.0/install.sh",
+        "sha256": "cecef253c18d5d55aafa8e4a27a8f685440b7e46ff78565d0c84284c8b790ad2"
+      }
+    ]
+  }
+}
