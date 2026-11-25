@@ -1,0 +1,63 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="BRK 3-03 user manual and parameter reference"><title>BRK 3-03 manual — BRK Audio</title><link rel="stylesheet" href="../../assets/vendor/fonts/fonts.css"><link rel="stylesheet" href="../../manuals.css"></head><body>
+<header><a href="../../">BRK AUDIO</a><a href="../../plugins/brk-303/">BRK 3-03</a><a class="pdf-download" href="../../assets/manuals/brk-303.pdf" download>Download PDF</a></header>
+<main><h1>BRK 3-03</h1><p class="subtitle">User manual and parameter reference · 0.2.1</p><p>A monophonic bass line synthesizer with a piano roll step sequencer, modelled on the circuit of the classic early-80s bass machine and tuned against recordings of an original unit.</p>
+<nav aria-label="Manual contents"><a href="#quick-start">Quick start</a><a href="#operation">Operation</a><a href="#parameters">Every parameter</a><a href="#files">Presets and files</a><a href="#installation">Installation and help</a></nav>
+<section id="quick-start"><h2>Quick start</h2><ol><li>Insert BRK 3-03 on an instrument track. With Clock on Host, start the DAW's transport: the pattern plays at the DAW's tempo.</li><li>Open the PRESET box in the display and load a factory pattern from Acid, Bass or Lead.</li><li>While it plays, turn Cutoff, Resonance, Envelope, Decay and Accent on the strip across the top. Draw your own notes in the piano roll, and add accents and slides in the two lanes below it.</li></ol></section>
+<section id="window"><h2>Editor window</h2><p>The editor is a fixed-size window: the hardware strip on top and the display below it. HELP shows a description of the control under the pointer.</p></section>
+<section id="operation"><h2>Operation</h2><p>Every hardware control sits in one strip across the top: seven knobs, the Waveform, Notes from and Clock slide switches, and the transport key. Drag a knob, hold Shift for fine movement, or double-click it to reset. Each switch underlines the position it is in.</p><p>The rest of the face is one display holding the presets, the piano roll and Tempo, Steps and Transpose. Its top-right corner says what is happening: stopped, the step playing, MIDI input, no host clock, or bypassed.</p><h2>Playing</h2>
+<p>Load BRK 3-03 on an instrument track. <strong>Notes from: Pattern</strong> plays the piano roll. <strong>Clock: Host</strong> follows the DAW’s
+reported BPM and transport; its tempo readout is locked. Changing BPM in the DAW updates both playback and that
+readout. Play can also audition at the host BPM while transport is stopped. If no host clock is supplied, the
+readout says <strong>No host clock</strong> instead of silently falling back to a different tempo.</p>
+<p><strong>Clock: Internal</strong> ignores DAW tempo and transport. Enter your own <strong>Tempo</strong> and use <strong>Play</strong> to start or stop.
+Plugin instances default to Host; the standalone app defaults to Internal. <strong>Steps</strong> sets a 1–64-step cycle;
+<strong>Transpose</strong> changes played pitches without rewriting notes.</p>
+<p>Set <strong>Notes from</strong> to <strong>MIDI</strong> to play the instrument from your controller. Overlapping held
+notes slide without a new gate edge. Velocity 100 or higher selects accent; velocity otherwise does not scale the
+sound as a conventional velocity-sensitive synth would. MIDI uses last-note priority.</p>
+<h2>Presets</h2>
+<p>The PRESET box in the display holds twelve factory presets in three groups (Acid, Bass, Lead). Each is a whole
+pattern: its notes, accents and slides, the sound controls, Tempo and Steps. Loading one leaves Clock and Notes from
+alone. Each preset’s Volume is set so its pattern peaks at -3 dBFS. Save your own from the same box.</p>
+<h2>Sound controls</h2>
+<ul>
+<li><strong>Waveform</strong>: sawtooth or pulse output; the oscillator runs continuously across notes.</li>
+<li><strong>Tuning</strong>: -12 to +12 semitones, so automation can move it a whole octave either way (the original has about ±7).</li>
+<li><strong>Cutoff</strong>: base filter control, before envelope and accent modulation.</li>
+<li><strong>Resonance</strong>: feedback amount and the second gang of the accent sweep network.</li>
+<li><strong>Envelope</strong> (the Env Mod parameter): filter envelope amount, retaining some modulation at minimum.</li>
+<li><strong>Decay</strong>: ordinary filter envelope decay. Accented notes use the short decay independently of this knob.</li>
+<li><strong>Accent</strong>: the accented envelope’s contribution to filter sweep and VCA control.</li>
+<li><strong>Volume</strong>: output trim, -60 to +12 dB, default -4 dB. Positive trim can boost quiet resonant patches. It is after the modeled voice and does not change the filter drive.</li>
+<li><strong>Bypass</strong> (host parameter only): fades an instrument output to silence while preserving event processing.</li>
+</ul>
+<h2>Editing the pattern</h2>
+<p>The page buttons select steps 1–16, 17–32, 33–48 or 49–64. A dot marks a page that holds notes; a page past the
+cycle’s end is pale, and its steps are greyed out in the roll behind a heavy end line. <strong>Click empty space</strong> to draw
+a note, <strong>drag its body</strong> to move pitch/time, <strong>drag its right edge</strong> to resize (snapped to quarter-step lengths),
+and <strong>right-click a note</strong> to remove it. Scroll vertically to change the visible pitch range. A long note sustains
+through empty slots; a newer note head interrupts it.</p>
+<p>The roll shows sixteen pitches against a keyboard, with every C named in bold on a heavy octave line, and groups
+the steps in beats. The selected step has a frame down its whole column and its number inverted; the playing step
+is a filled column under a heavy bar. With keyboard focus on the roll, Left/Right pick a step, Up/Down change the
+note’s pitch (Shift for an octave), Return adds or removes the note and Delete removes it.</p>
+<p>Everything about a note is edited in the roll itself. Its length counts the sixteenth-note steps it holds; its gate
+is how much of the last step sounds. The bar shows both: solid while the note sounds, outlined over the rest of its
+length, and dragging its right edge sets both in quarter steps. The two lanes below the roll toggle accent and
+slide. An accent is a solid block with an accent mark, and the note carries
+the same mark; a slide is a ramp running on into the next step, and the roll draws the glide from the note into the
+one it lands on. Slide belongs to the source note and keeps its gate open until the destination, which changes pitch
+without restarting the envelopes. A rest at the end of the source note breaks the slide chain.</p>
+<p>A newly drawn note has the classic gate: the documented historical 7/12 of a step. The historical timing source
+carries an author’s correction warning, so this exact timing is pending independent verification. Resizing a note
+replaces it with a quarter-step gate. Slide overrides the source step’s gate length.</p>
+<p><strong>Copy Page</strong>, <strong>Paste Page</strong>, <strong>Oct Down / Oct Up</strong> and <strong>Clear Page</strong> operate on all 16 steps of the visible page,
+including its inactive steps. Clear Page stands apart at the far right; Undo brings the page back. <strong>Undo/Redo</strong>
+covers pattern edits. A button that can be used has a box; one that cannot has none. Shortening the cycle retains
+the hidden steps.
+Parameters, notes, rests, accents, slides and gates are saved in DAW sessions; the preset bar also saves patterns.</p>
+</section>
+<section id="parameters"><h2>Every parameter</h2><p>Values and defaults are taken from the plugin. A control's effect can depend on the selected mode; see the operation notes above. Choices keep their saved identity between versions. Knobs and switches can be automated unless marked otherwise.</p><table><thead><tr><th>Parameter</th><th>What it does</th><th>Values and default</th></tr></thead><tbody><tr data-parameter="waveform"><th scope="row">Waveform</th><td>Select the sawtooth or transistor-shaped pulse output</td><td>Saw, Pulse<br><small>Default: Saw</small><br><small>Not host automatable</small></td></tr><tr data-parameter="tuning"><th scope="row">Tuning</th><td>Tune the oscillator, up to an octave either way</td><td>-12.0 st to +12.0 st<br><small>Default: 0.0 st</small></td></tr><tr data-parameter="cutoff"><th scope="row">Cutoff</th><td>Set the base filter frequency</td><td>0% to 100%<br><small>Default: 40%</small></td></tr><tr data-parameter="resonance"><th scope="row">Resonance</th><td>Turn up resonance and change the accent sweep shape</td><td>0% to 100%<br><small>Default: 55%</small></td></tr><tr data-parameter="envMod"><th scope="row">Env Mod</th><td>Set the filter envelope amount; the original circuit retains some at minimum</td><td>0% to 100%<br><small>Default: 45%</small></td></tr><tr data-parameter="decay"><th scope="row">Decay</th><td>Length of normal filter sweeps; accented notes use the short decay</td><td>0% to 100%<br><small>Default: 40%</small></td></tr><tr data-parameter="accent"><th scope="row">Accent</th><td>Amount of the accented filter sweep and volume boost</td><td>0% to 100%<br><small>Default: 65%</small></td></tr><tr data-parameter="output"><th scope="row">Volume</th><td>Output trim; positive values can boost quiet resonant patches. Lower it if the DAW clips.</td><td>-60.0 dB to +12.0 dB<br><small>Default: -4.0 dB</small></td></tr><tr data-parameter="mode"><th scope="row">Input</th><td>Pattern plays the piano roll; MIDI plays incoming notes</td><td>Pattern, MIDI<br><small>Default: Pattern</small><br><small>Not host automatable</small></td></tr><tr data-parameter="play"><th scope="row">Play</th><td>Internal: start or stop the pattern. Host: audition at host tempo while the DAW is stopped.</td><td>Off to On<br><small>Default: Off</small></td></tr><tr data-parameter="clock"><th scope="row">Clock</th><td>Host follows DAW tempo and transport. Internal uses your own tempo and the Play button.</td><td>Host, Internal<br><small>Default: Host</small><br><small>Not host automatable</small></td></tr><tr data-parameter="tempo"><th scope="row">Tempo</th><td>Internal tempo in BPM: drag, scroll or double-click to type. With the Clock switch on Host this shows the DAW's tempo instead and cannot be edited.</td><td>40.0 BPM to 300.0 BPM<br><small>Default: 125.0 BPM</small></td></tr><tr data-parameter="length"><th scope="row">Steps</th><td>Cycle length: 1 to 64 steps. Steps past it are greyed out and kept, not deleted.</td><td>1 to 64<br><small>Default: 16</small></td></tr><tr data-parameter="transpose"><th scope="row">Transpose</th><td>Transpose the entire pattern by up to two octaves.</td><td>-24 st to 24 st<br><small>Default: 0 st</small></td></tr><tr data-parameter="bypass"><th scope="row">Bypass</th><td>Host bypass: fades the output to silence while notes and the pattern keep being tracked.</td><td>Off to On<br><small>Default: Off</small></td></tr></tbody></table></section>
+<section id="files"><h2>Presets and files</h2><p>The PRESET box holds twelve factory patterns in Acid, Bass and Lead, and saves user presets with the .brk303 extension under ~/Library/Audio/Presets/Barakigal Audio/BRK 3-03. A preset holds the pattern, the sound controls, Tempo and Steps; loading one leaves Clock and Notes from alone.</p><p>The host session recalls every parameter and the whole pattern: notes, rests, accents, slides and gates. No samples need relinking.</p></section>
+<section id="installation"><h2>Installation and help</h2><p>Download the macOS archive from the product page and quit your audio host. Place the AU .component in ~/Library/Audio/Plug-Ins/Components, VST3 in ~/Library/Audio/Plug-Ins/VST3, or CLAP in ~/Library/Audio/Plug-Ins/CLAP. The product page also offers an installer with format selection. Restart or rescan the host. To uninstall, quit the host and remove that product's bundles from those folders; saved sessions and user presets are separate.</p><p>For questions or a problem report, use <a href="https://github.com/barak007/brk-audio/issues">BRK Audio support on GitHub</a>. Include the plugin version, macOS version, host and format, sample rate and a short description of how to reproduce it.</p></section>
+</main><footer>BRK AUDIO · BRK 3-03 manual</footer></body></html>
